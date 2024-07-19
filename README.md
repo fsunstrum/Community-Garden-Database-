@@ -8,7 +8,20 @@ This database management system will be used by a municipality to store informat
 - Milestone 5 (Due Aug 9, 2024)
 
 ## Frontend
-
+- Table to display the list of community gardens
+    - Community gardens link to the relevant community garden page
+- Community garden page for each community garden
+    - Shows a list of available tools
+        - Button and text field to add new tool to list
+        - Button to toggle a tool's availability
+    - Shows a table of garden plots and the plants stored in each plot and their assigned gardener
+        - Button and form to add/modify new plot
+        - Dropdown and button to assign a gardener to a plot
+        - Button to remove plot
+    - Shows a table of information for gardeners
+        - Button and form to add new gardeners
+        - Button to remove gardener
+    - Table to show the list of plants available for planting or that have already been planted
 
 ## Backend
 
