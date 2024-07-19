@@ -10,6 +10,6 @@ Milestone 5 (Due Aug 9, 2024)
 # Description of Challenges
 
 # To-do List
-[ ] Task #1
-[ ] Task #2
-[ ] Task #3
+- [ ] Task #1
+- [ ] Task #2
+- [ ] Task #3
