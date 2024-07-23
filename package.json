@@ -1,0 +1,16 @@
+{
+  "name": "project_g1k2b_j1r2b_k0l3e",
+  "version": "1.0.0",
+  "description": "Community Garden DBMS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Project Group 3",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "oracledb": "^6.5.1"
+  }
+}
