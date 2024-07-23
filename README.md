@@ -10,6 +10,7 @@ This database management system will be used by a municipality to store informat
 ## Frontend
 - Table to display the list of community gardens
     - Community gardens link to the relevant community garden page
+    - Filter by number of plots (e.g. find all community gardens that have > 30 plots)
 - Community garden page for each community garden
     - Shows a list of available tools
         - Button and text field to add new tool to list
@@ -24,6 +25,17 @@ This database management system will be used by a municipality to store informat
     - Table to show the list of plants available for planting or that have already been planted
 
 ## Backend
+- SQL script with DROP tables, DDL statements and INSERT statements
+- REST endpoint for INSERT operation
+- REST endpoint for DELETE operation
+- REST endpoint for UPDATE operation
+- REST endpoint for Selection based on user's desired filter
+- REST endpoint for Projection based on user's desired columns
+- REST endpoint for Join
+- REST endpoint for Aggregation with Group By
+- REST endpoint for Aggregation with Having
+- REST endpoint for Nested Aggregation with Group By
+- REST endpoint for division
 
 
 # Description of Challenges
