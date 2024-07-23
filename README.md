@@ -11,6 +11,7 @@ This database management system will be used by a municipality to store informat
 - Table to display the list of community gardens
     - Community gardens link to the relevant community garden page
     - Filter by number of plots (e.g. find all community gardens that have > 30 plots)
+- Table for list of donations and the community garden recipients
 - Community garden page for each community garden
     - Shows a list of available tools
         - Button and text field to add new tool to list
