@@ -3,7 +3,7 @@ const path = require('path');
 const { initializeConnectionPool, getConnection } = require('./config/db');
 
 // Path to the SQL file
-const sqlFilePath = path.join(__dirname, 'sql', 'initializeTables.sql');
+const sqlFilePath = path.join(__dirname, 'sql', 'comgarden.sql');
 
 async function initializeDatabase() {
     // Initialize the connection pool
