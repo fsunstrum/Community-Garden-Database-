@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const donationRoutes = require('./routes/donationRoutes');
 const appController = require('./routes/appController');
+const idata = require('./dbInit');
 require('dotenv').config();
 
 const app = express();
@@ -24,4 +25,5 @@ app.use('/', appController);
 // Starting the server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}/`);
+    idata.initializeDatabase();
 });

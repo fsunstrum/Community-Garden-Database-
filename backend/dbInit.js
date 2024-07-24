@@ -40,4 +40,4 @@ async function initializeDatabase() {
     });
 }
 
-initializeDatabase();
+module.exports = { initializeDatabase }
