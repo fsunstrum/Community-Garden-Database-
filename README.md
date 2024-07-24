@@ -3,6 +3,7 @@ This database management system will be used by a municipality to store informat
 
 # Milestone Documents
 [Milestone 1](https://github.students.cs.ubc.ca/CPSC304-2024S-T2/project_g1k2b_j1r2b_k0l3e/blob/main/milestone_docs/CPSC%20304%20Milestone%201.pdf)
+
 [Milestone 2](https://github.students.cs.ubc.ca/CPSC304-2024S-T2/project_g1k2b_j1r2b_k0l3e/blob/main/milestone_docs/CPSC%20304%20Milestone%202.pdf)
 
 # Timeline
