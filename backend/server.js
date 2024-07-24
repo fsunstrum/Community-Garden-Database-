@@ -1,8 +1,16 @@
 const express = require('express');
-const appController = require('./appController');
+const bodyParser = require('body-parser');
+const donationRoutes = require('./routes/donationRoutes');
+const appController = require('./routes/appController');
 require('dotenv').config();
 
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/api', donationRoutes);
+
 const PORT = process.env.PORT || 65534;  // Adjust the PORT if needed (e.g., if you encounter a "port already occupied" error)
 
 // Middleware setup
