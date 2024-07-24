@@ -22,12 +22,13 @@ async function initializeDatabase() {
             connection = await getConnection();
             // Split and execute the SQL script
             const sqlStatements = sql.split(';').map(query => query.trim()).filter(query => query);
-            try {
-                for (const statement of sqlStatements) {
+
+            for (const statement of sqlStatements) {
+                try {
                     await connection.execute(statement, [], { autoCommit: true });
+                } catch (err) {
+                    console.error('Error executing the SQL script:', err.message);
                 }
-            } catch (err) {
-                console.error('Error executing the SQL script:', err.message);
             }
             
             console.log('Database initialized successfully.');
