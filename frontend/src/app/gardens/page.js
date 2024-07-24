@@ -1,29 +1,22 @@
 import Head from 'next/head';
-import Image from 'next/legacy/image';
-import styles from '../styles/page.module.css';
+import Image from 'next/image';
+import styles from '@/styles/page.module.css';
+import { Metadata } from 'next'
 
-export default function Home() {
+export const metadata = {
+  title: "Community Gardens",
+  description: "Manage your community gardens effectively",
+
+}
+
+export default function Gardens() {
   return (
     <div className={styles.container}>
-      <Head>
+      {/* <Head>
         <title>Community Gardens</title>
         <meta name="description" content="Manage your community gardens effectively" />
         <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <header className={styles.header}>
-        <Image
-          src="/garden.jpg"
-          alt="Community Gardens"
-          layout="fill"
-          objectFit="cover"
-          className={styles.headerImage}
-        />
-        <div className={styles.headerContent}>
-          <h1 className={styles.headerTitle}>COMMUNITY GARDENS</h1>
-          <a href="/gardens" className={styles.headerButton}>SEE GARDENS</a>
-        </div>
-      </header>
+      </Head> */}
 
       <main className={styles.main}>
         <section className={styles.infoSection}>
