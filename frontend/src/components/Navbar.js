@@ -5,7 +5,9 @@ const Navbar = () => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.logo}>
-        <h1>Community Gardens</h1>
+      <Link href="/" legacyBehavior>
+          <a className={styles.logoLink}><h1>Community Gardens</h1></a>
+        </Link>
       </div>
       <ul className={styles.navLinks}>
         <li>

@@ -3,20 +3,27 @@
     justify-content: space-between;
     align-items: center;
     background-color: #548060;
-    padding: 1rem 2rem;
+    padding: 1rem 5rem;
   }
   
-  .logo h1 {
+  .logo {
     color: white;
   }
+
+  .logoLink {
+    text-decoration: none;
+    color: white;
+  }
+  
   
   .navLinks {
     list-style: none;
     display: flex;
+    text-decoration: none;
   }
   
   .navLinks li {
-    margin-left: 2rem;
+    margin-left: 6rem;
   }
   
   .navLinks li a {
@@ -26,6 +33,6 @@
   }
   
   .navLinks li a:hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
   
