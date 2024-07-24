@@ -11,7 +11,7 @@ const GardenInfo = {
         try {
             connection = await getConnection();
             const result = await connection.execute(
-                `SELECT * 
+                `SELECT gi.address, gi.garden_name, gi.num_of_plots, gm.manager_email  
                  FROM GardenInfo gi 
                  JOIN GardenManages gm ON gi.garden_name = gm.garden_name`
             );
