@@ -1,23 +1,10 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '@/styles/page.module.css';
-import { Metadata } from 'next'
-
-export const metadata = {
-  title: "Community Gardens",
-  description: "Manage your community gardens effectively",
-
-}
 
 export default function Gardens() {
   return (
     <div className={styles.container}>
-      {/* <Head>
-        <title>Community Gardens</title>
-        <meta name="description" content="Manage your community gardens effectively" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head> */}
-
       <main className={styles.main}>
         <section className={styles.infoSection}>
           <h2>What are community gardens?</h2>
