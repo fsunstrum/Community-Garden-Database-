@@ -1,5 +1,6 @@
 const express = require('express');
 const donationController = require('../controllers/donationController');
+const gardensController = require('../controllers/gardensController');
 
 const router = express.Router();
 
@@ -8,5 +9,11 @@ router.post('/donations', donationController.createDonation);
 
 // Get all donations
 router.get('/donations', donationController.getAllDonations);
+
+// Create a new garden
+router.post('/gardens', gardensController.createGarden);
+
+// Get all gardens
+router.get('/gardens', gardensController.getAllGardens);
 
 module.exports = router;

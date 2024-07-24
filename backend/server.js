@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const donationRoutes = require('./routes/donationRoutes');
+const apiRoutes = require('./routes/apiRoutes');
 const appController = require('./routes/appController');
 const idata = require('./dbInit');
 require('dotenv').config();
@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
     res.send('Community Gardens API');
 });
 
-app.use('/api', donationRoutes);
+app.use('/api', apiRoutes);
 
 // mount the router
 app.use('/', appController);
