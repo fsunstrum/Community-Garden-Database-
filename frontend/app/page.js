@@ -1,95 +1,48 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from '../styles/page.module.css';
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <div className={styles.container}>
+      <Head>
+        <title>Community Gardens</title>
+        <meta name="description" content="Manage your community gardens effectively" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
-      <div className={styles.center}>
+      <header className={styles.header}>
         <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+          src="/garden.jpg"
+          alt="Community Gardens"
+          layout="fill"
+          objectFit="cover"
+          className={styles.headerImage}
         />
-      </div>
+        <div className={styles.headerContent}>
+          <h1 className={styles.headerTitle}>COMMUNITY GARDENS</h1>
+          <a href="/gardens" className={styles.headerButton}>SEE GARDENS</a>
+        </div>
+      </header>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
+      <main className={styles.main}>
+        <section className={styles.infoSection}>
+          <h2>What are community gardens?</h2>
           <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque lobortis tortor eu lorem dapibus mattis. 
+            Mauris vel aliquam lorem. Vestibulum vehicula facilisis felis, vel varius eros posuere et. Suspendisse volutpat nisl 
+            nec dictum congue. Maecenas risus massa, consequat et fermentum eget, finibus a ante. Phasellus in rhoncus urna. 
+            Duis id tellus vel orci mollis convallis. Aliquam a nisi quam. Morbi eu nibh ipsum. Donec luctus ipsum a lorem auctor 
+            rhoncus. Vestibulum a malesuada nulla, et laoreet arcu. Aenean arcu ex, posuere vel iaculis vitae, varius quis est.
           </p>
-        </a>
-      </div>
-    </main>
+          <p>
+            Nullam elementum lectus id ultricies placerat. Vestibulum et ornare ante, id pharetra justo. Duis ornare erat a malesuada 
+            vulputate. Pellentesque sollicitudin sodales nulla, a volutpat neque bibendum at. Donec at risus blandit, sagittis mauris 
+            et, venenatis tellus. Mauris at suscipit lacus. Etiam eleifend est ligula. Suspendisse imperdiet luctus elit, id faucibus 
+            lectus faucibus eu. Aliquam semper condimentum egestas.
+          </p>
+        </section>
+      </main>
+    </div>
   );
 }
