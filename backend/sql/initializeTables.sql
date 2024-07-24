@@ -9,9 +9,9 @@ DROP TABLE GardenerPlot;
 DROP TABLE Gardener;
 DROP TABLE HasCompost;
 DROP TABLE Compost;
+DROP TABLE PlantInfo;
 DROP TABLE PlantColour;
 DROP TABLE PlantHarvest;
-DROP TABLE PlantInfo;
 DROP TABLE Donation;
 DROP TABLE GardenNumPlots;
 
@@ -129,7 +129,7 @@ CREATE TABLE PlantInfo(
 );
 
 CREATE TABLE Grows(
-   species VARCHAR(20),
+   species VARCHAR(30),
    genus VARCHAR(20),
    variety VARCHAR(20),
    plot_num INTEGER,
@@ -137,11 +137,8 @@ CREATE TABLE Grows(
    qty INTEGER,
    plant_date DATE,
    PRIMARY KEY (species, genus, variety, plot_num, garden_address),
-   FOREIGN KEY (species, genus, variety) REFERENCES 
-      PlantInfo(species, genus, variety),
-   FOREIGN KEY (plot_num) REFERENCES GardenerPlot(plot_num),
-   FOREIGN KEY (garden_address) REFERENCES 
-      GardenNumPlots(address)
+   FOREIGN KEY (species, genus, variety) REFERENCES PlantInfo(species, genus, variety),
+   FOREIGN KEY (plot_num, garden_address) REFERENCES GardenerPlot(plot_num, garden_address)
 );
 
 INSERT INTO Donation (donation_id, donor_name, don_date, item) VALUES (1, 'Alice', TO_DATE('2024-07-01', 'YYYY-MM-DD'), 'Orange Seeds');
@@ -193,10 +190,10 @@ INSERT INTO Gardener (email, phone, name) VALUES ('maria_rodriguez@yahoo.com', '
 INSERT INTO Gardener (email, phone, name) VALUES ('jamesj@gmail.com', '604-444-4444', 'James Johnson');
 
 INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) VALUES ('123 Elm St', 'johndoe@gmail.com', 1, 'full sun', 5);
-INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) VALUES ('123 Elm St', 'janedoe@gmail.com', 2, 'part sun', 5);
-INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) VALUES ('456 Oak St', 'marysmith@outlook.com', 12, 'part shade', 3);
-INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) VALUES ('456 Oak St', 'marysmith@outlook.com', 13, 'part sun', 3);
-INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) VALUES ('789 Pine St', 'jamesj@gmail.com', 41, 'full shade', 4);
+INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) VALUES ('123 Elm St', 'janedoe@gmail.com', 4, 'part sun', 5);
+INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) VALUES ('456 Oak St', 'marysmith@outlook.com', 3, 'part shade', 3);
+INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) VALUES ('456 Oak St', 'marysmith@outlook.com', 2, 'part sun', 3);
+INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) VALUES ('789 Pine St', 'jamesj@gmail.com', 5, 'full shade', 4);
 
 INSERT INTO Compost (bin_id, capacity) VALUES (123, 7);
 INSERT INTO Compost (bin_id, capacity) VALUES (001, NULL);
