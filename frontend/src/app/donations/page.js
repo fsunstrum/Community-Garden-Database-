@@ -1,26 +1,28 @@
 import styles from './page.module.css';
 import DonationsTable from '@/components/DonationsTable';
+import DonationForm from '@/components/DonationForm';
 
 export default async function Donations() {
-  const donations = await fetch('http://localhost:65535/api/donations')
-    .then(resp => resp.json())
-    .catch(err => {
-      console.error(err);
-      return [];
-    });
+    const donations = await fetch('http://localhost:65535/api/donations')
+        .then(resp => resp.json())
+        .catch(err => {
+            console.error(err);
+            return [];
+        });
 
-  return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <div className={styles.headerContent}>
-          <h1 className={styles.headerTitle}>Donations History</h1>
+    return (
+        <div className={styles.container}>
+            <header className={styles.header}>
+                <div className={styles.headerContent}>
+                    <h1 className={styles.headerTitle}>Donations</h1>
+                </div>
+            </header>
+            <main className={styles.main}>
+                <section className={styles.infoSection}>
+                    <DonationForm />
+                    <DonationsTable donations={donations}></DonationsTable>
+                </section>
+            </main>
         </div>
-      </header>
-      <main className={styles.main}>
-        <section className={styles.infoSection}>
-          <DonationsTable doantions={donations}></DonationsTable>
-        </section>
-      </main>
-    </div>
-  );
+    );
 }

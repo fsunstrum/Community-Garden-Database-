@@ -10,20 +10,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: #505050;
     overflow: hidden; 
+    margin-top: 2rem;
   }
   
-  .header::before {
+  /* .header::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); 
     z-index: 1;
-  }
+  } */
   
   .headerImage {
     position: absolute;
@@ -42,8 +42,9 @@
   }
   
   .headerTitle {
-    font-size: 4rem;
+    font-size: 3rem;
     margin-bottom: 1rem;
+    font-family: Roboto;
   }
   
   .headerButton {
