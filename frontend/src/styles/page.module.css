@@ -43,7 +43,7 @@
 
 .headerTitle {
   font-size: 4rem;
-  margin-bottom: 1rem;
+  margin-bottom: 4rem;
 }
 
 .headerButton {
@@ -65,17 +65,22 @@
 
 .infoSection {
   max-width: 800px;
-  margin: 0 auto;
+  margin-top: 4rem;
+  margin-left: 5rem;
+  margin-bottom: 6rem;
   text-align: left;
 }
 
 .infoSection h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
+  font-family: Roboto;
+  color: #505050;
 }
 
 .infoSection p {
   font-size: 1.2rem;
   line-height: 1.6;
   margin-bottom: 1rem;
+  color: #505050;
 }
