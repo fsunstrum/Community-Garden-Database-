@@ -4,7 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const apiRoutes = require('./routes/apiRoutes');
 const appController = require('./routes/appController');
-const idata = require('./dbInit');
+// const idata = require('./dbInit');
 require('dotenv').config();
 
 const app = express();
@@ -39,5 +39,5 @@ app.use(express.json());             // Parse incoming JSON payloads
 // Starting the server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}/`);
-    idata.initializeDatabase();
+    // idata.initializeDatabase();
 });

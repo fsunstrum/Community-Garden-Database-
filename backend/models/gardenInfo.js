@@ -1,11 +1,32 @@
 const { getConnection } = require('../config/db');
 
-const GardenInfo = {
-    insert: (data, callback) => {
-        const sql = 'INSERT INTO GardenInfo SET ?';
-        connection.query(sql, data, callback);
-    },
+async function insertGarden(data) {
+    let connection;
 
+    try {
+        connection = await getConnection();
+        const sql = `INSERT INTO GardenInfo (address, garden_name, num_of_plots) 
+    VALUES (:address, :garden_name, :num_of_plots)`;
+        const result = await connection.execute(sql, 
+            [data.address, data.garden_name, data.num_of_plots], 
+            {autoCommit: true});
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    } catch (err) {
+        console.error("Error executing query:", err.message);
+        return false;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error closing connection:', err.message);
+            }
+        }
+    }
+}
+
+const gi = {
     getAll: async () => {
         let connection;
         try {
@@ -13,7 +34,7 @@ const GardenInfo = {
             const result = await connection.execute(
                 `SELECT gi.address, gi.garden_name, gi.num_of_plots, gm.manager_email  
                  FROM GardenInfo gi 
-                 JOIN GardenManages gm ON gi.garden_name = gm.garden_name`
+                 LEFT JOIN GardenManages gm ON gi.garden_name = gm.garden_name`
             );
             return result.rows;
         } catch (err) {
@@ -31,4 +52,4 @@ const GardenInfo = {
     }
 };
 
-module.exports = GardenInfo;
+module.exports = {insertGarden, gi};

@@ -1,5 +1,6 @@
 import styles from './page.module.css';
 import GardenTable from '@/components/GardenTable';
+import GardenForm from '@/components/GardenForm';
 
 export default async function Gardens() {
   const gardens = await fetch('http://localhost:65535/api/gardens')
@@ -19,6 +20,7 @@ export default async function Gardens() {
       <main className={styles.main}>
         <section className={styles.infoSection}>
           <GardenTable gardens={gardens}></GardenTable>
+          <GardenForm></GardenForm>
         </section>
       </main>
     </div>
