@@ -4,20 +4,10 @@ import styles from '@/styles/DonationForm.module.css';
 import { useState } from 'react';
 import Alert from '@mui/material/Alert';
 
-export default function GardenForm() {
+export default function GardenForm({callback}) {
     const [alertMsg, setAlertMsg] = useState("");
     const [hasError, setHasError] = useState(false);
     const [submitted, setSubmitted] = useState(false);
-    // const handleChange = (e) => {
-    //     const et = e.target;
-    //     console.log(e.target);
-    //     setFormData({
-    //         "address": et.address.value,
-    //         "garden_name": et.gardenName.value,
-    //         "num_of_plots": et.num_plots.value,
-    //         "manager_email": et.email.value
-    //     })
-    // };
 
     const handleSubmit = async (e) => {
         setSubmitted(true);
@@ -46,6 +36,7 @@ export default function GardenForm() {
                 if (resp.ok) {
                     setHasError(false);
                     setAlertMsg("Garden was added sucessfully!");
+                    callback();
                 } else return resp.json();
             });
 
