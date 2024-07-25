@@ -2,14 +2,14 @@ const gi = require('../models/gardenInfo');
 const GardenManages = require('../models/gardenManages');
 
 exports.createGarden = async (req, res) => {
-    const { address, garden_name, num_of_plots, manager_email } = req.body;
+    const { address, garden_name, num_of_plots } = req.body;
 
-    if (!garden_name || !manager_email || !address || !num_of_plots) {
+    if (!garden_name || !address || !num_of_plots) {
         return res.status(400).send({ message: 'All fields are required!' });
     }
 
     try {
-        const result = await gi.insertGarden({ address, garden_name, num_of_plots, manager_email });
+        const result = await gi.insertGarden({ address, garden_name, num_of_plots });
 
         if (result) res.status(201).send({ message: 'Garden added successfully!' });
         else res.status(400).send({ message: 'A garden with the same address already exists!' });
