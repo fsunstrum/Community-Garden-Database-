@@ -5,11 +5,11 @@ import styles from '../styles/DonationForm.module.css';
 
 const DonationForm = () => {
     const [formData, setFormData] = useState({
-        name: '',
-        donationId: '',
+        donor_name: '',
+        donation_id: '',
         item: '',
-        // gardenAddress: '',
-        date: '',
+        garden_address: '',
+        don_date: '',
     });
 
     const handleChange = (e) => {
@@ -49,8 +49,8 @@ const DonationForm = () => {
                 <input
                     className={styles.formInput}
                     type="text"
-                    name="name"
-                    value={formData.name}
+                    name="donor_name"
+                    value={formData.donor_name}
                     onChange={handleChange}
                 />
             </label>
@@ -59,8 +59,8 @@ const DonationForm = () => {
                 <input
                     className={styles.formInput}
                     type="text"
-                    name="donationId"
-                    value={formData.donationId}
+                    name="donation_id"
+                    value={formData.donation_id}
                     onChange={handleChange}
                 />
             </label>
@@ -74,23 +74,23 @@ const DonationForm = () => {
                     onChange={handleChange}
                 />
             </label>
-            {/* <label className={styles.formLabel}>
+            <label className={styles.formLabel}>
                 Garden Address
                 <input
                     className={styles.formInput}
                     type="text"
-                    name="gardenAddress"
-                    value={formData.gardenAddress}
+                    name="garden_address"
+                    value={formData.garden_address}
                     onChange={handleChange}
                 />
-            </label> */}
+            </label>
             <label className={styles.formLabel}>
                 Date
                 <input
                     className={styles.formInput}
                     type="date"
-                    name="date"
-                    value={formData.date}
+                    name="don_date"
+                    value={formData.don_date}
                     onChange={handleChange}
                 />
             </label>
