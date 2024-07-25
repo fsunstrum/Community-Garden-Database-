@@ -18,9 +18,12 @@ export default async function Donations() {
                 </div>
             </header>
             <main className={styles.main}>
-                <section className={styles.infoSection}>
+                <section className={styles.form}>
                     <DonationForm />
-                    <DonationsTable donations={donations}></DonationsTable>
+                    
+                </section>
+                <section className={styles.table}>
+                <DonationsTable donations={donations}></DonationsTable>
                 </section>
             </main>
         </div>

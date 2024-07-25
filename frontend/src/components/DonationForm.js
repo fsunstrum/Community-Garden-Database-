@@ -8,7 +8,7 @@ const DonationForm = () => {
         name: '',
         donationId: '',
         item: '',
-        gardenAddress: '',
+        // gardenAddress: '',
         date: '',
     });
 
@@ -20,23 +20,25 @@ const DonationForm = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Submit form data to the backend API
-        fetch('http://localhost:65535/api/donations', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
+        try {
+            const response = await fetch('http://localhost:65535/api/donations', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
             });
+
+            if (response.ok) {
+                console.log('Donation added successfully');
+            } else {
+                console.error('Failed to add donation');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (
