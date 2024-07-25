@@ -1,7 +1,7 @@
 const { getConnection } = require('../config/db');
 
 async function insertDonation(data) {
-    let connect;
+    let connection;
 
     try {
         connection = await getConnection();
@@ -34,7 +34,7 @@ const donation = {
             const result = await connection.execute(
                 `SELECT d.donation_id, d.donor_name, d.don_date, d.item, r.garden_address 
                  FROM Donation d 
-                 JOIN Receives r ON d.donation_id = r.donation_id`
+                 LEFT JOIN Receives r ON d.donation_id = r.donation_id`
             );
             return result.rows;
         } catch (err) {

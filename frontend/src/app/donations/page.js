@@ -6,7 +6,7 @@ import DonationsTable from '@/components/DonationsTable';
 import DonationForm from '@/components/DonationForm';
 import { useState, useEffect } from 'react'
 
-export default async function Donations() {
+export default function Donations() {
     const [donations, setDonations] = useState([]);
 
     const fetchDonations = async () => {
