@@ -1,17 +1,24 @@
-const Donation = require('../models/donation');
+// const Donation = require('../models/donation');
+const donation = require('../models/donation');
 const Receives = require('../models/receives');
 
 exports.createDonation = async (req, res) => {
-    const { donation_id, donor_name, date, item, garden_address } = req.body;
+    // const { donation_id, donor_name, don_date, item, garden_address } = req.body;
+    const { donation_id, donor_name, don_date, item } = req.body;
 
-    if (!donation_id || !donor_name || !date || !item || !garden_address) {
+    // if (!donation_id || !donor_name || !don_date || !item || !garden_address) {
+    if (!donation_id || !donor_name || !don_date || !item) {
         return res.status(400).send({ message: 'All fields are required!' });
     }
 
     try {
-        await Donation.insert({ donation_id, donor_name, date, item });
-        await Receives.insert({ donation_id, garden_address });
-        res.status(201).send({ message: 'Donation created successfully!' });
+        console.log("Inserting Donation:", { donation_id, donor_name, don_date, item });
+        const result = await donation.insertDonation({ donation_id, donor_name, don_date, item });
+
+        if (result) res.status(201).send({ message: 'Donation added successfully!' })
+        else res.status(400).send({ message: 'A donation with the same id already exists!' });
+        // console.log("Inserting Receives:", { donation_id, garden_address });
+        // await Receives.insert({ donation_id, garden_address });
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
@@ -19,7 +26,7 @@ exports.createDonation = async (req, res) => {
 
 exports.getAllDonations = async (req, res) => {
     try {
-        const donations = await Donation.getAll();
+        const donations = await donation.donation.getAll();
         res.status(200).send(donations);
     } catch (err) {
         res.status(500).send({ message: err.message });

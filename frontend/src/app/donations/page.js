@@ -1,15 +1,29 @@
+'use client'
+
 import styles from './page.module.css';
 import Image from 'next/legacy/image';
 import DonationsTable from '@/components/DonationsTable';
 import DonationForm from '@/components/DonationForm';
+import { useState, useEffect } from 'react'
 
 export default async function Donations() {
-    const donations = await fetch('http://localhost:65535/api/donations')
-        .then(resp => resp.json())
-        .catch(err => {
-            console.error(err);
-            return [];
-        });
+    const [donations, setDonations] = useState([]);
+
+    const fetchDonations = async () => {
+        const res = await fetch('http://localhost:65535/api/donations', { cache: "no-store" })
+            .then(resp => resp.json())
+            .catch(err => {
+                console.error(err);
+                return [];
+            });
+
+        setDonations(res);
+    }
+
+    useEffect(() => {
+        fetchDonations();
+    }, []);
+
 
     return (
         <div className={styles.container}>
@@ -30,7 +44,7 @@ export default async function Donations() {
                     <DonationsTable donations={donations}></DonationsTable>
                 </section>
                 <section className={styles.form}>
-                    <DonationForm />
+                    <DonationForm callback={fetchDonations}></DonationForm>
                 </section>
             </main>
         </div>
