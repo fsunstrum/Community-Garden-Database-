@@ -72,7 +72,7 @@ const DonationForm = () => {
                     onChange={handleChange}
                 />
             </label>
-            <label className={styles.formLabel}>
+            {/* <label className={styles.formLabel}>
                 Garden Address
                 <input
                     className={styles.formInput}
@@ -81,7 +81,7 @@ const DonationForm = () => {
                     value={formData.gardenAddress}
                     onChange={handleChange}
                 />
-            </label>
+            </label> */}
             <label className={styles.formLabel}>
                 Date
                 <input
