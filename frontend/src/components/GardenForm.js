@@ -20,7 +20,7 @@ export default function GardenForm({callback}) {
             "address": et.address.value,
             "garden_name": et.gardenName.value,
             "num_of_plots": et.num_plots.value,
-            "manager_email": et.email.value
+            // "manager_email": et.email.value
         }
 
         console.log(formData);
@@ -86,7 +86,7 @@ export default function GardenForm({callback}) {
                         // onChange={handleChange}
                     />
                 </label>
-                <label className={styles.formLabel}>
+                {/* <label className={styles.formLabel}>
                     Manager Email
                     <input
                         className={styles.formInput}
@@ -95,7 +95,7 @@ export default function GardenForm({callback}) {
                         defaultValue=""
                         // onChange={handleChange}
                     />
-                </label>
+                </label> */}
                 <button className={styles.formButton} type="submit">ADD</button>
             </form>
         </div>
