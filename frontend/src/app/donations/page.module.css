@@ -46,7 +46,15 @@
   }
   
   .main {
-    padding: 2rem;
+    /* padding: 2rem; */
+    margin-top: 4rem;
+  }
+
+  .mainHeader {
+    font-size: 2rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #505050;
+    margin-left: 10rem;
   }
   
   .form {

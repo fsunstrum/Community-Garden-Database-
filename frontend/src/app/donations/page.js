@@ -40,6 +40,7 @@ export default function Donations() {
                 </div>
             </header>
             <main className={styles.main}>
+                <h2 className={styles.mainHeader}>Donation History</h2>
                 <section className={styles.table}>
                     <DonationsTable donations={donations}></DonationsTable>
                 </section>
