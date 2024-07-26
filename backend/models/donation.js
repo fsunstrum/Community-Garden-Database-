@@ -23,7 +23,7 @@ async function insertDonation(data) {
         const gardenCheckResult = await connection.execute(gardenCheckSql, [data.garden_address]);
         console.log("Garden Check Result:", gardenCheckResult);
 
-        if (gardenCheckResult.rows[0][0].count === 0) {
+        if (gardenCheckResult.rows[0][0] === 0) {
             throw new Error('Garden address does not exist in GardenInfo');
         }
 
@@ -69,7 +69,7 @@ async function insertDonation(data) {
             }
         }
 
-        return false;
+        throw err;
     } finally {
         if (connection) {
             try {

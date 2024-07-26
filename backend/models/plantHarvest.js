@@ -1,10 +1,21 @@
-const connection = require('../config/db');
+const { getConnection } = require('../config/db');
 
-const PlantHarvest = {
-    insert: (data, callback) => {
-        const sql = 'INSERT INTO PlantHarvest SET ?';
-        connection.query(sql, data, callback);
+async function insertPlantHarvest(data, connection) {
+    try {
+        const sql = `INSERT INTO PlantHarvest (common_name, harvest_time)
+        VALUES (:common_name, :harvest_time)`;
+
+        const result = await connection.execute(sql,
+            [data.common_name, data.harvest_time],
+            { autoCommit: false }
+        );
+
+        console.log("Receives Insert Result:", result);
+        return result;
+    } catch (err) {
+        console.error("Error executing query:", err.message);
+        throw err;
     }
-};
+}
 
-module.exports = PlantHarvest;
+module.exports = (insertPlantHarvest);

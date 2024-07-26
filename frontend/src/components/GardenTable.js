@@ -5,13 +5,19 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Link from '@mui/material/Link';
 
 export default function GardenTable({ gardens }) {
-    const tableRows = gardens.map((row, idx) => (
-    <TableRow key={idx}>
-        {row.map((v, i) => <TableCell key={i}>{v}</TableCell>)}
-    </TableRow>
-    ))
+    const tableRows = gardens.map((row, idx) => {
+        const gardenName = row[1];
+        const link = "../garden?name=" + gardenName;
+        return (<TableRow key={idx}>
+            {row.map((v, i) => 
+            <TableCell key={i}>
+                {i == 1 ? <Link href={link}>{v}</Link> : v}
+                </TableCell>)}
+        </TableRow>)
+    })
 
     return (
         <TableContainer component={Paper}>
