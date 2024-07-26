@@ -1,4 +1,5 @@
 const { getConnection } = require('../config/db');
+const receives = require('./receives');
 
 function formatDate(dateString) {
     const date = new Date(dateString);
@@ -10,19 +11,64 @@ function formatDate(dateString) {
 
 
 async function insertDonation(data) {
+    console.log("Received Data:", data);
+
     let connection;
 
     try {
         connection = await getConnection();
-        const sql = `INSERT INTO Donation (donation_id, donor_name, don_date, item) VALUES (:donation_id, :donor_name, TO_DATE(:don_date , 'YYYY-MM-DD'), :item)`;
-        const result = await connection.execute(sql,
-            [data.donation_id, data.donor_name, data.don_date, data.item],
-            { autoCommit: true }
-        );
 
-        return result.rowsAffected && result.rowsAffected > 0;
+        // Check if garden_address exists in GardenInfo
+        const gardenCheckSql = `SELECT COUNT(*) AS count FROM GardenInfo WHERE address = :garden_address`;
+        const gardenCheckResult = await connection.execute(gardenCheckSql, [data.garden_address]);
+        console.log("Garden Check Result:", gardenCheckResult);
+
+        if (gardenCheckResult.rows[0][0].count === 0) {
+            throw new Error('Garden address does not exist in GardenInfo');
+        }
+
+        // Insert into Donation table
+        const donationSql = `INSERT INTO Donation (donation_id, donor_name, don_date, item) 
+        VALUES (:donation_id, :donor_name, TO_DATE(:don_date , 'YYYY-MM-DD'), :item)`;
+        const donationResult = await connection.execute(donationSql,
+            [data.donation_id, data.donor_name, data.don_date, data.item],
+            { autoCommit: false }
+        );
+        console.log("Donation Insert Result:", donationResult);
+
+        if (donationResult.rowsAffected > 0) {
+            console.log("Before inserting into Receives:", data);
+
+            // Insert into Receives table
+            const receivesResult = await receives.insertReceives({ donation_id: data.donation_id, garden_address: data.garden_address }, connection);
+            console.log("Receives Insert Result:", receivesResult);
+
+            if (receivesResult.rowsAffected > 0) {
+                await connection.commit(); 
+                console.log("Transaction committed successfully");
+                return true;
+            } else {
+                await connection.rollback();
+                console.log("Transaction rolled back due to receives insert failure");
+                return false;
+            }
+        } else {
+            await connection.rollback();
+            console.log("Transaction rolled back due to donation insert failure");
+            return false;
+        }
     } catch (err) {
         console.error("Error executing query:", err.message);
+
+        if (connection) {
+            try {
+                await connection.rollback();
+                console.log("Transaction rolled back due to error");
+            } catch (rollbackErr) {
+                console.error('Error rolling back transaction:', rollbackErr.message);
+            }
+        }
+
         return false;
     } finally {
         if (connection) {
@@ -45,7 +91,6 @@ const donation = {
                  FROM Donation d 
                  LEFT JOIN Receives r ON d.donation_id = r.donation_id`
             );
-            // return result.rows;
 
             // Format the dates before returning
             const formattedRows = result.rows.map(row => {
@@ -69,15 +114,4 @@ const donation = {
     }
 };
 
-module.exports = {insertDonation, donation};
-
-// const Donation = {
-//     insert: (data, callback) => {
-//         const sql = 'INSERT INTO Donation SET ?';
-//         connection.query(sql, data, callback);
-//     },
-
-
-// };
-
-// module.exports = Donation;
+module.exports = { insertDonation, donation };

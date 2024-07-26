@@ -22,8 +22,10 @@ export default function DonationForm({ callback }) {
             "donor_name": et.donor_name.value,
             "don_date": et.don_date.value,
             "item": et.item.value,
-            // "garden_address": et.garden_address.value
+            "garden_address": et.garden_address.value
         }
+
+        console.log("Form Data:", formData);
 
         try {
             const response = await fetch('http://localhost:65535/api/donations', {
@@ -116,7 +118,7 @@ export default function DonationForm({ callback }) {
                     // onChange={handleChange}
                 />
             </label>
-            {/* <label className={styles.formLabel}>
+            <label className={styles.formLabel}>
                 Garden Address
                 <input
                     className={styles.formInput}
@@ -126,7 +128,7 @@ export default function DonationForm({ callback }) {
                     // value={formData.garden_address}
                     // onChange={handleChange}
                 />
-            </label> */}
+            </label>
             <button className={styles.formButton} type="submit">ADD</button>
         </form>
     );
