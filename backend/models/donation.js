@@ -87,9 +87,10 @@ const donation = {
         try {
             connection = await getConnection();
             const result = await connection.execute(
-                `SELECT d.donation_id, d.donor_name, d.don_date, d.item, r.garden_address 
+                `SELECT d.donation_id, d.donor_name, TO_CHAR(d.don_date, 'YYYY-MM-DD') as don_date, d.item, r.garden_address, g.garden_name
                  FROM Donation d 
-                 LEFT JOIN Receives r ON d.donation_id = r.donation_id`
+                 LEFT JOIN Receives r ON d.donation_id = r.donation_id
+                 LEFT JOIN GardenInfo g ON r.garden_address = g.address`
             );
 
             // Format the dates before returning

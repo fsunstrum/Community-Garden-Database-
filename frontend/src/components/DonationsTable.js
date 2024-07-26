@@ -2,11 +2,12 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 
 const columns = [
-    { field: 'donation_id', headerName: 'Donation ID', width: 150 },
+    { field: 'donation_id', headerName: 'Donation ID', width: 100 },
     { field: 'donor_name', headerName: 'Donor Name', width: 150 },
     { field: 'don_date', headerName: 'Donation Date', width: 150 },
-    { field: 'item', headerName: 'Item', width: 150 },
-    { field: 'garden_address', headerName: 'Garden Address', width: 200 },
+    { field: 'item', headerName: 'Item', width: 200 },
+    { field: 'garden_address', headerName: 'Garden Address', width: 150 },
+    { field: 'garden_name', headerName: 'Garden Name', width: 150 },
 ];
 
 export default function DonationsTable({ donations }) {
@@ -17,6 +18,7 @@ export default function DonationsTable({ donations }) {
         don_date: donation[2],
         item: donation[3],
         garden_address: donation[4],
+        garden_name: donation[5],
     }));
 
     return (
