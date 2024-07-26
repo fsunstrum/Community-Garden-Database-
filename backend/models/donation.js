@@ -1,5 +1,14 @@
 const { getConnection } = require('../config/db');
 
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+
 async function insertDonation(data) {
     let connection;
 
@@ -36,7 +45,15 @@ const donation = {
                  FROM Donation d 
                  LEFT JOIN Receives r ON d.donation_id = r.donation_id`
             );
-            return result.rows;
+            // return result.rows;
+
+            // Format the dates before returning
+            const formattedRows = result.rows.map(row => {
+                row[2] = formatDate(row[2]); // don_date is the third element in the row array
+                return row;
+            });
+
+            return formattedRows;
         } catch (err) {
             console.error('Error executing query:', err.message);
             throw err;
