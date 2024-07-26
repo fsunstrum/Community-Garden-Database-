@@ -2,6 +2,7 @@ const express = require('express');
 const donationController = require('../controllers/donationController');
 const gardensController = require('../controllers/gardensController');
 const managersController = require('../controllers/managersController');
+const plantController = require('../controllers/plantController');
 const growsController = require('../controllers/growsController');
 
 const router = express.Router();
@@ -21,5 +22,11 @@ router.get('/gardens', gardensController.getAllGardens);
 router.get('/gardens/underachievers', growsController.getUnderachievingGardens);
 
 router.get('/managers', managersController.getAllManagers);
+
+// Create a new plant
+router.post('/plants', plantController.createPlant); 
+
+// Get all plants
+router.get('/plants', plantController.getAllPlants); 
 
 module.exports = router;
