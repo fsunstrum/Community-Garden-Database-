@@ -28,3 +28,18 @@ exports.getAllGardens = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 };
+
+exports.getGarden = async (req, res) => {
+    const garden_name =  req.query.name;
+
+    if (!garden_name) return res.status(400).send({ message: "No garden was specified in the request."});
+
+    try {
+        const gardens = await gi.getGarden(garden_name);
+        if (gardens.length > 1) return res.status(400).send({ message : "Multiple gardens were found." });
+        else if (gardens.length < 1) return res.status(400).send({ message: "The specified garden was not found." });
+        else return res.status(200).send(gardens[0]);
+    } catch (err) {
+        res.status(400).send({ message: err.message });
+    }
+};

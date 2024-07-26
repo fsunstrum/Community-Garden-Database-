@@ -19,6 +19,9 @@ router.post('/gardens', gardensController.createGarden);
 // Get all gardens
 router.get('/gardens', gardensController.getAllGardens);
 
+// Get a single garden
+router.get('/garden', gardensController.getGarden);
+
 router.get('/gardens/underachievers', growsController.getUnderachievingGardens);
 
 router.get('/managers', managersController.getAllManagers);
