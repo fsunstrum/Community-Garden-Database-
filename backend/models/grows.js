@@ -1,4 +1,4 @@
-const connection = require('../config/db');
+const { getConnection } = require('../config/db');
 
 // Returns the gardens wtih total plants less than the average total for all gardens
 async function underAchievingGardens() {
@@ -33,11 +33,4 @@ async function underAchievingGardens() {
     }
 }
 
-const Grows = {
-    insert: (data, callback) => {
-        const sql = 'INSERT INTO Grows SET ?';
-        connection.query(sql, data, callback);
-    }
-};
-
-module.exports = Grows;
+module.exports = { underAchievingGardens }
