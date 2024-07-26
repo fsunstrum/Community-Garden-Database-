@@ -4,6 +4,7 @@ import styles from './page.module.css';
 import GardenTable from '@/components/GardenTable';
 import GardenForm from '@/components/GardenForm';
 import { useState, useEffect } from 'react'
+import Divider from '@mui/material/Divider';
 
 export default function Gardens() {
   const [gardens, setGardens] = useState([]);
@@ -33,6 +34,9 @@ export default function Gardens() {
       <main className={styles.main}>
         <section className={styles.infoSection}>
           <GardenTable gardens={gardens}></GardenTable>
+          <br></br>
+          <Divider></Divider>
+          <br></br>
           <GardenForm callback={fetchGardens}></GardenForm>
         </section>
       </main>
