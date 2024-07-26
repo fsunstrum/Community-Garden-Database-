@@ -17,11 +17,11 @@ const Navbar = () => {
           <Link href="/gardens">Gardens</Link>
         </li>
         <li>
+          <Link href="/gardeners">Gardeners</Link>
+        </li>
+        <li>
           <Link href="/donations">Donations</Link>
         </li>
-        {/* <li>
-          <Link href="/gardeners">Gardeners</Link>
-        </li> */}
       </ul>
     </nav>
   );
