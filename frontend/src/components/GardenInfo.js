@@ -1,16 +1,17 @@
 'use client'
 
-import styles from '@/styles/DonationForm.module.css';
-import { useState } from 'react';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
-export default function GardenForm({ data, hasError, errorMsg }) {
+export default function GardenInfo({ data, hasError, errorMsg }) {
     return (
         <Stack>
-            <Item>{hasError ? <Alert severity={"error"}>{errorMsg}</Alert> : null}</Item>
-            <Item>Garden Address: {data[0]}</Item>
-            <Item>Garden Name: {data[1]}</Item>
+            <div>{hasError ? <Alert severity={"error"}>{errorMsg}</Alert> : null}</div>
+            <Typography variant="h1" align="center">{data[1]}</Typography>
+            <Typography>Garden Address: {data[0]}</Typography>
+            <Typography>Number of Plots: {data[2]}</Typography>
+            <Typography>Manager Email: {data[3]}</Typography>
         </Stack>
     );
 };
