@@ -4,6 +4,7 @@ const gardensController = require('../controllers/gardensController');
 const managersController = require('../controllers/managersController');
 const plantController = require('../controllers/plantController');
 const growsController = require('../controllers/growsController');
+const gardenerController = require('../controllers/gardenerController');
 
 const router = express.Router();
 
@@ -31,5 +32,9 @@ router.post('/plants', plantController.createPlant);
 
 // Get all plants
 router.get('/plants', plantController.getAllPlants); 
+
+router.post('/gardeners', gardenerController.createGardener);
+
+router.get('/gardeners', gardenerController.getAllGardeners);
 
 module.exports = router;
