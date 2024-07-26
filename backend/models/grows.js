@@ -1,6 +1,6 @@
 const { getConnection } = require('../config/db');
 
-// Returns the gardens wtih total plants less than the average total for all gardens
+// Returns the gardens with total plants less than the average total for all gardens
 async function underAchievingGardens() {
     let connection;
     try {
