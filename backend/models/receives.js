@@ -18,4 +18,30 @@ async function insertReceives(data, connection) {
     }
 }
 
-module.exports = {insertReceives};
+async function getAll() {
+    let connection;
+
+    try {
+        connection = await getConnection();
+        const result = await connection.execute(
+            `SELECT r.donation_id, r.garden_address
+                FROM Receives r`
+        );
+
+        return result;
+    } catch (err) {
+        console.error('Error executing query:', err.message);
+        throw err;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error closing connection:', err.message);
+            }
+        }
+    }
+
+}
+
+module.exports = { insertReceives, getAll };

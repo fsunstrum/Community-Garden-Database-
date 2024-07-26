@@ -14,6 +14,8 @@ router.post('/donations', donationController.createDonation);
 // Get all donations
 router.get('/donations', donationController.getAllDonations);
 
+router.get('/receives', donationController.getAllReceives);
+
 // Create a new garden
 router.post('/gardens', gardensController.createGarden);
 

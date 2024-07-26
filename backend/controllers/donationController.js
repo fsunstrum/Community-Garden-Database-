@@ -4,10 +4,8 @@ const receives = require('../models/receives');
 
 exports.createDonation = async (req, res) => {
     const { donation_id, donor_name, don_date, item, garden_address } = req.body;
-    // const { donation_id, donor_name, don_date, item } = req.body;
 
     if (!donation_id || !donor_name || !don_date || !item || !garden_address) {
-    // if (!donation_id || !donor_name || !don_date || !item) {
         return res.status(400).send({ message: 'All fields are required!' });
     }
 
@@ -29,6 +27,15 @@ exports.getAllDonations = async (req, res) => {
     try {
         const donations = await donation.donation.getAll();
         res.status(200).send(donations);
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+};
+
+exports.getAllReceives = async (req, res) => {
+    try {
+        const receivesData = await receives.getAll(); 
+        res.status(200).send(receivesData);
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
