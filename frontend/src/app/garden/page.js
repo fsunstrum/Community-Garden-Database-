@@ -6,8 +6,9 @@ import { useState, useEffect } from 'react'
 import Divider from '@mui/material/Divider';
 
 import { useSearchParams } from 'next/navigation'
-import GardenPlotsTable from '@/components/GardenPlotsTable';
+import PlantedPlotsTable from '@/components/PlantedPlotsTable';
 import Typography from '@mui/material/Typography';
+import GardenPlotsTable from '@/components/GardenPlotsTable';
 
 export default function Garden() {
     const searchParams = useSearchParams();
@@ -71,7 +72,12 @@ export default function Garden() {
                 <Divider></Divider>
                 <br></br>
                 <Typography variant="h3" align="center">Currently Planted</Typography>
-                <GardenPlotsTable plots={plots}></GardenPlotsTable>
+                <PlantedPlotsTable plots={plots}></PlantedPlotsTable>
+                <br></br>
+                <Divider></Divider>
+                <br></br>
+                <Typography variant="h3" align="center">Plot Assignment Table</Typography>
+                <GardenPlotsTable plantedPlots={plots} numPlots={garden[2]}></GardenPlotsTable>
             </section>
         </main>
         </div>

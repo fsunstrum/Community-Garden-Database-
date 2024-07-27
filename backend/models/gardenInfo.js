@@ -76,6 +76,35 @@ async function getGardenPlotsPlanted(name) {
     }
 }
 
+async function assignGardenerToPlot(data) {
+    let connection;
+    const sun_exposures = ["full sun", "part sun", "full shade", "part shade"]
+    const randPlotSize = Math.floor(Math.random() * 10 + 5);
+    const randIdx = Math.floor(Math.random() * 3)
+
+    try {
+        connection = await getConnection();
+        const sql = `INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) 
+    VALUES (:address, :email, :plot_num, :sun, :size)`;
+        const result = await connection.execute(sql, 
+            [data.addr, data.email, data.pnum, sun_exposures[randIdx], randPlotSize], 
+            {autoCommit: true});
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    } catch (err) {
+        console.error("Error executing query:", err.message);
+        return false;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error closing connection:', err.message);
+            }
+        }
+    }
+}
+
 const gi = {
     getAll: async () => {
         let connection;
@@ -102,4 +131,4 @@ const gi = {
     }
 };
 
-module.exports = {insertGarden, getGarden, getGardenPlotsPlanted, gi};
+module.exports = {insertGarden, getGarden, getGardenPlotsPlanted, assignGardenerToPlot, gi};

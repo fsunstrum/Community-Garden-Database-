@@ -1,43 +1,26 @@
 import * as React from 'react';
 
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import Typography from '@mui/material/Typography';
+import Stack from "@mui/material/Stack";
 
-export default function GardenPlotsTable({ plots }) {
-    const tableRows = plots.map((row, idx) => (
-        <TableRow key={idx}>
-            {row.map((v, i) => 
-                (i == 8) ? <TableCell key={i}>{v.slice(0, 10)}</TableCell> :
-                <TableCell key={i}>{v}</TableCell>
-            )}
-        </TableRow>
-    ));
+export default function GardenPlotsTable({ plantedPlots, numPlots }) {
+    const length = numPlots;
+    let plotOwners = Array.from({ length }).map(() => "");
+    console.log(plotOwners);
+    plantedPlots.forEach((plot) => {plotOwners[plot[0] - 1] = plot[1]})
+    console.log(plantedPlots);
+    const imageListItems = plotOwners.map(
+        (owner, idx) => 
+        <ImageListItem component={Stack} direction="column" justifyContent="center" sx={{ border: 1 }}>
+            <Typography align="center">{owner == "" ? idx + 1 : `${idx + 1}: ${owner}`}</Typography>
+        </ImageListItem>
+    )
 
     return (
-        <TableContainer component={Paper}>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Plot #</TableCell>
-                        <TableCell>Gardener</TableCell>
-                        <TableCell>Sun Exposure</TableCell>
-                        <TableCell>Plot Size (m²)</TableCell>
-                        <TableCell>Species</TableCell>
-                        <TableCell>Genus</TableCell>
-                        <TableCell>Variety</TableCell>
-                        <TableCell>Quantity</TableCell>
-                        <TableCell>Plant Date</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {tableRows}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <ImageList cols={6} rowHeight={164}>
+            {imageListItems}
+        </ImageList>
     );
 }
