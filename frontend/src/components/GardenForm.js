@@ -11,6 +11,8 @@ export default function GardenForm({callback}) {
 
     const handleSubmit = async (e) => {
         setSubmitted(true);
+        setHasError(false);
+        setAlertMsg("");
 
         e.preventDefault();
 
@@ -22,8 +24,6 @@ export default function GardenForm({callback}) {
             "num_of_plots": et.num_plots.value,
             // "manager_email": et.email.value
         }
-
-        console.log(formData);
 
         try {
             const response = await fetch('http://localhost:65535/api/gardens', {
@@ -52,7 +52,7 @@ export default function GardenForm({callback}) {
     return (
         <div>
             <form className={styles.form} onSubmit={handleSubmit}>
-                {submitted? <Alert severity={hasError? "error": "success"}>
+                {hasError? <Alert severity={hasError? "error": "success"}>
                     {alertMsg}
                 </Alert> : null}
                 <h2 className={styles.formTitle}>Add a New Garden</h2>
@@ -83,7 +83,7 @@ export default function GardenForm({callback}) {
                         type="number"
                         name="num_plots"
                         defaultValue={0}
-                        // onChange={handleChange}
+                        min="0"
                     />
                 </label>
                 {/* <label className={styles.formLabel}>
