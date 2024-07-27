@@ -82,16 +82,22 @@ async function insertDonation(data) {
 }
 
 const donation = {
-    getAll: async () => {
+    getAll: async (search = '') => {
         let connection;
         try {
             connection = await getConnection();
-            const result = await connection.execute(
-                `SELECT d.donation_id, d.donor_name, TO_CHAR(d.don_date, 'YYYY-MM-DD') as don_date, d.item, r.garden_address, g.garden_name
-                 FROM Donation d 
-                 LEFT JOIN Receives r ON d.donation_id = r.donation_id
-                 LEFT JOIN GardenInfo g ON r.garden_address = g.address`
-            );
+            let sql = `
+                SELECT d.donation_id, d.donor_name, TO_CHAR(d.don_date, 'YYYY-MM-DD') as don_date, d.item, r.garden_address, g.garden_name
+                FROM Donation d
+                LEFT JOIN Receives r ON d.donation_id = r.donation_id
+                LEFT JOIN GardenInfo g ON r.garden_address = g.address
+            `;
+            const params = [];
+            if (search) {
+                sql += ` WHERE d.donor_name LIKE :search OR r.garden_address LIKE :search`;
+                params.push(`%${search}%`, `%${search}%`);
+            }
+            const result = await connection.execute(sql, params);
 
             // Format the dates before returning
             const formattedRows = result.rows.map(row => {

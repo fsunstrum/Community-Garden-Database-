@@ -8,9 +8,11 @@ import { useState, useEffect } from 'react'
 
 export default function Donations() {
     const [donations, setDonations] = useState([]);
+    const [search, setSearch] = useState('');
 
-    const fetchDonations = async () => {
-        const res = await fetch('http://localhost:65535/api/donations', { cache: "no-store" })
+    const fetchDonations = async (query = '') => {
+        const url = query ? `http://localhost:65535/api/donations?search=${encodeURIComponent(query)}` : 'http://localhost:65535/api/donations';
+        const res = await fetch(url, { cache: "no-store" })
             .then(resp => resp.json())
             .catch(err => {
                 console.error(err);
@@ -24,6 +26,10 @@ export default function Donations() {
         fetchDonations();
     }, []);
 
+    const handleSearch = (e) => {
+        e.preventDefault();
+        fetchDonations(search);
+    }
 
     return (
         <div className={styles.container}>
@@ -41,11 +47,21 @@ export default function Donations() {
             </header>
             <main className={styles.main}>
                 <h2 className={styles.mainHeader}>Donation History</h2>
+                <form onSubmit={handleSearch} className={styles.searchForm}>
+                    <input
+                        type="text"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        placeholder="Search by donor name or garden address"
+                        className={styles.searchInput}
+                    />
+                    <button type="submit" className={styles.searchButton}>Search</button>
+                </form>
                 <section className={styles.table}>
                     <DonationsTable donations={donations}></DonationsTable>
                 </section>
                 <section className={styles.form}>
-                    <DonationForm callback={fetchDonations}></DonationForm>
+                    <DonationForm callback={() => fetchDonations()}></DonationForm>
                 </section>
             </main>
         </div>

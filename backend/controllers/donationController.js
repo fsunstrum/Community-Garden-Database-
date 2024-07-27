@@ -24,8 +24,9 @@ exports.createDonation = async (req, res) => {
 };
 
 exports.getAllDonations = async (req, res) => {
+    const { search } = req.query;
     try {
-        const donations = await donation.donation.getAll();
+        const donations = await donation.donation.getAll(search);
         res.status(200).send(donations);
     } catch (err) {
         res.status(500).send({ message: err.message });

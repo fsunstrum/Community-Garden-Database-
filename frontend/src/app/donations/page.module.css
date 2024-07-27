@@ -81,4 +81,20 @@
     margin-bottom: 5rem;
     margin-top: 2rem;
   }
+
+  .searchForm {
+    font-size: 1.2rem;
+    margin-top: 3rem;
+    margin-left: 10rem;
+  }
+
+  .searchInput {
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    width: 300px;
+  }
+
+  .searchButton {
+    padding: 0.5rem;
+  }
   
