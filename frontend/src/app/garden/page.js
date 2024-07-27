@@ -19,7 +19,13 @@ export default function Garden() {
     const [hasError, setHasError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
 
+    const [gardeners, setGardeners] = useState([]);
+
     if (!gardenName || !garden) return (<div>Garden was not found, please check the spelling.</div>);
+
+    const fetchGardeners = async () => {
+        // TODO: fetch gardeners here
+    }
 
     const fetchGarden = async () => {
         const res = await fetch(`http://localhost:65535/api/garden?name=${gardenName.replace(" ", "%20")}`)
@@ -77,7 +83,7 @@ export default function Garden() {
                 <Divider></Divider>
                 <br></br>
                 <Typography variant="h3" align="center">Plot Assignment Table</Typography>
-                <GardenPlotsTable plantedPlots={plots} numPlots={garden[2]}></GardenPlotsTable>
+                <GardenPlotsTable addr={garden[0]} gardeners={gardeners} plantedPlots={plots} numPlots={garden[2]}></GardenPlotsTable>
             </section>
         </main>
         </div>
