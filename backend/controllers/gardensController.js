@@ -44,6 +44,20 @@ exports.getGarden = async (req, res) => {
     }
 };
 
+exports.getGardenPlots = async (req, res) => {
+    const address = req.query.address;
+    console.log(address);
+
+    if (!address) return res.status(400).send({ message: "No garden address was specified in the request."});
+
+    try {
+        const gardenPlots = await gi.getGardenPlots(address);
+        return res.status(200).send(gardenPlots);
+    } catch (err) {
+        res.status(400).send({ message: err.message });
+    }
+};
+
 exports.getGardenPlotsPlanted = async (req, res) => {
     const garden_name = req.query.name;
 
@@ -60,11 +74,13 @@ exports.getGardenPlotsPlanted = async (req, res) => {
 exports.assignGardenerToPlot = async (req, res) => {
     const { garden_address, gardener_email, plot_num } = req.body;
 
-    if (!garden_address || !gardener_email || !plot_num) return res.status(400).send({ message: "All fields are required!" })
+    if (!garden_address || !gardener_email || !plot_num) return res.status(400).send({ message: "All fields are required!" });
+
+    console.log({garden_address, gardener_email, plot_num});
 
     try {
-        const res = await gi.assignGardenerToPlot({ addr, email, pnum });
-        res ? res.status(200).send({ message: `The gardener was assigned to plot #${plot_num} successfully.` }) : 
+        const result = await gi.assignGardenerToPlot(garden_address, gardener_email, plot_num);
+        result ? res.status(200).send({ message: `The gardener was assigned to plot #${plot_num} successfully.` }) : 
         res.status(400).send({ message: `The gardener was unable to be assigned.` })
     } catch (err) {
         res.status(400).send({ message: err.message });

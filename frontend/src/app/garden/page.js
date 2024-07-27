@@ -14,6 +14,7 @@ export default function Garden() {
     const searchParams = useSearchParams();
     const gardenName = searchParams.get('name');
 
+    const [plantedPlots, setPlantedPlots] = useState([]);
     const [plots, setPlots] = useState([]);
     const [garden, setGarden] = useState({});
     const [hasError, setHasError] = useState(false);
@@ -24,7 +25,14 @@ export default function Garden() {
     if (!gardenName || !garden) return (<div>Garden was not found, please check the spelling.</div>);
 
     const fetchGardeners = async () => {
-        // TODO: fetch gardeners here
+        const res = await fetch('http://localhost:65535/api/gardeners')
+        .then(resp => resp.json())
+        .catch(err => {
+            console.error(err);
+            return [];
+        });
+
+        setGardeners(res);
     }
 
     const fetchGarden = async () => {
@@ -43,8 +51,24 @@ export default function Garden() {
         setGarden(res);
     };
 
-    const fetchPlots = async (garden) => {
+    const fetchPlantedPlots = async (garden) => {
         const res = await fetch(`http://localhost:65535/api/garden/plots/planted?name=${gardenName.replace(" ", "%20")}`)
+        .then(resp => {
+            if (resp.ok) setHasError(false);
+            else setHasError(true);
+
+            return resp.json();
+        })
+        .catch(err => {
+        console.error(err);
+        return [];
+        });
+
+        setPlantedPlots(res);
+    };
+    
+    const fetchPlots = async (garden) => {
+        const res = await fetch(`http://localhost:65535/api/garden/plots?address=${garden[0]}`)
         .then(resp => {
             if (resp.ok) setHasError(false);
             else setHasError(true);
@@ -61,8 +85,13 @@ export default function Garden() {
 
     useEffect(() => {
         fetchGarden();
-        fetchPlots();
+        fetchGardeners();
     }, []);
+
+    useEffect(() => {
+        fetchPlantedPlots(garden);
+        fetchPlots(garden);
+    }, [garden])
 
     return (
         <div className={styles.container}>
@@ -78,12 +107,18 @@ export default function Garden() {
                 <Divider></Divider>
                 <br></br>
                 <Typography variant="h3" align="center">Currently Planted</Typography>
-                <PlantedPlotsTable plots={plots}></PlantedPlotsTable>
+                <PlantedPlotsTable plots={plantedPlots}></PlantedPlotsTable>
                 <br></br>
                 <Divider></Divider>
                 <br></br>
                 <Typography variant="h3" align="center">Plot Assignment Table</Typography>
-                <GardenPlotsTable addr={garden[0]} gardeners={gardeners} plantedPlots={plots} numPlots={garden[2]}></GardenPlotsTable>
+                <GardenPlotsTable 
+                    garden={garden} 
+                    gardeners={gardeners} 
+                    plots={plots} 
+                    numPlots={garden[2]}
+                    callback={fetchPlots}>
+                </GardenPlotsTable>
             </section>
         </main>
         </div>

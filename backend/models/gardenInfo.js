@@ -59,7 +59,7 @@ async function getGardenPlotsPlanted(name) {
             `SELECT gp.plot_num, g.name, gp.sun_exposure, gp.plot_size, gr.species, gr.genus, gr.variety, gr.qty, gr.plant_date
                 FROM GardenInfo gi, GardenerPlot gp, Grows gr, Gardener g
                 WHERE gi.garden_name = :name AND gp.garden_address = gi.address AND 
-                gp.plot_num = gr.plot_num AND gp.gardener_email = g.email`
+                gp.plot_num = gr.plot_num AND gr.garden_address = gi.address AND gp.gardener_email = g.email`
         , [name]);
         return result.rows;
     } catch (err) {
@@ -76,18 +76,44 @@ async function getGardenPlotsPlanted(name) {
     }
 }
 
-async function assignGardenerToPlot(data) {
+async function getGardenPlots(addr) {
+    let connection;
+    try {
+        connection = await getConnection();
+        const result = await connection.execute(
+            `SELECT g.name, gardener_email, plot_num, sun_exposure, plot_size
+                FROM GardenerPlot gp, Gardener g
+                WHERE garden_address = :addr AND gp.gardener_email = g.email`
+        , [addr]);
+        return result.rows;
+    } catch (err) {
+        console.error('Error executing query:', err.message);
+        throw err;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error closing connection:', err.message);
+            }
+        }
+    }
+}
+
+async function assignGardenerToPlot(addr, email, pnum) {
     let connection;
     const sun_exposures = ["full sun", "part sun", "full shade", "part shade"]
     const randPlotSize = Math.floor(Math.random() * 10 + 5);
     const randIdx = Math.floor(Math.random() * 3)
 
+    console.log(addr, email, pnum, randPlotSize, sun_exposures[randIdx])
+
     try {
         connection = await getConnection();
         const sql = `INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) 
-    VALUES (:address, :email, :plot_num, :sun, :size)`;
+    VALUES (:addr, :email, :pnum, :sun_exposure, :plot_size)`;
         const result = await connection.execute(sql, 
-            [data.addr, data.email, data.pnum, sun_exposures[randIdx], randPlotSize], 
+            [addr, email, pnum, sun_exposures[randIdx], randPlotSize], 
             {autoCommit: true});
 
         return result.rowsAffected && result.rowsAffected > 0;
@@ -131,4 +157,4 @@ const gi = {
     }
 };
 
-module.exports = {insertGarden, getGarden, getGardenPlotsPlanted, assignGardenerToPlot, gi};
+module.exports = {insertGarden, getGarden, getGardenPlotsPlanted, assignGardenerToPlot, getGardenPlots, gi};
