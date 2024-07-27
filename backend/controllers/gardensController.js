@@ -43,3 +43,16 @@ exports.getGarden = async (req, res) => {
         res.status(400).send({ message: err.message });
     }
 };
+
+exports.getGardenPlots = async (req, res) => {
+    const garden_name =  req.query.name;
+
+    if (!garden_name) return res.status(400).send({ message: "No garden was specified in the request."});
+
+    try {
+        const gardenPlots = await gi.getGardenPlots(garden_name);
+        return res.status(200).send(gardenPlots);
+    } catch (err) {
+        res.status(400).send({ message: err.message });
+    }
+};

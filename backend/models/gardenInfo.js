@@ -51,6 +51,31 @@ async function getGarden(name) {
     }
 }
 
+async function getGardenPlots(name) {
+    let connection;
+    try {
+        connection = await getConnection();
+        const result = await connection.execute(
+            `SELECT gp.plot_num, g.name, gp.sun_exposure, gp.plot_size, gr.species, gr.genus, gr.variety, gr.qty, gr.plant_date
+                FROM GardenInfo gi, GardenerPlot gp, Grows gr, Gardener g
+                WHERE gi.garden_name = :name AND gp.garden_address = gi.address AND 
+                gp.plot_num = gr.plot_num AND gp.gardener_email = g.email`
+        , [name]);
+        return result.rows;
+    } catch (err) {
+        console.error('Error executing query:', err.message);
+        throw err;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error closing connection:', err.message);
+            }
+        }
+    }
+}
+
 const gi = {
     getAll: async () => {
         let connection;
@@ -77,4 +102,4 @@ const gi = {
     }
 };
 
-module.exports = {insertGarden, getGarden, gi};
+module.exports = {insertGarden, getGarden, getGardenPlots, gi};

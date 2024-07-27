@@ -6,6 +6,8 @@ import { useState, useEffect } from 'react'
 import Divider from '@mui/material/Divider';
 
 import { useSearchParams } from 'next/navigation'
+import GardenPlotsTable from '@/components/GardenPlotsTable';
+import Typography from '@mui/material/Typography';
 
 export default function Garden() {
     const searchParams = useSearchParams();
@@ -32,23 +34,27 @@ export default function Garden() {
         });
 
         setGarden(res);
-        console.log(garden);
     };
 
-    // const fetchPlots = async (garden) => {
-    //     const res = await fetch(`http://localhost:65535/api/plots?garden=${garden.name}`)
-    //     .then(resp => resp.json())
-    //     .catch(err => {
-    //     console.error(err);
-    //     return [];
-    //     });
+    const fetchPlots = async (garden) => {
+        const res = await fetch(`http://localhost:65535/api/garden/plots?name=${gardenName.replace(" ", "%20")}`)
+        .then(resp => {
+            if (resp.ok) setHasError(false);
+            else setHasError(true);
 
-    //     setPlots(res);
-    // };
+            return resp.json();
+        })
+        .catch(err => {
+        console.error(err);
+        return [];
+        });
+
+        setPlots(res);
+    };
 
     useEffect(() => {
         fetchGarden();
-        // fetchPlots();
+        fetchPlots();
     }, []);
 
     return (
@@ -61,6 +67,11 @@ export default function Garden() {
         <main className={styles.main}>
             <section className={styles.infoSection}>
                 <GardenInfo data={garden} hasError={hasError} errorMsg={errorMsg}></GardenInfo>
+                <br></br>
+                <Divider></Divider>
+                <br></br>
+                <Typography variant="h3" align="center">Currently Planted</Typography>
+                <GardenPlotsTable plots={plots}></GardenPlotsTable>
             </section>
         </main>
         </div>

@@ -24,6 +24,7 @@ router.get('/gardens', gardensController.getAllGardens);
 
 // Get a single garden
 router.get('/garden', gardensController.getGarden);
+router.get('/garden/plots', gardensController.getGardenPlots);
 
 router.get('/gardens/underachievers', growsController.getUnderachievingGardens);
 
