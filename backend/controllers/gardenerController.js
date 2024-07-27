@@ -22,6 +22,30 @@ exports.createGardener = async (req, res) => {
 
 };
 
+exports.deleteGardeners = async (req, res) => {
+    const { emails } = req.body;
+
+    console.log('Type of emails:', typeof emails);
+
+
+    if (!emails || !Array.isArray(emails) || emails.length == 0) {
+        return res.status(400).send({ message: 'Emails array is required!' }); 
+    }
+
+    try {
+
+        const result = await g.deleteGardenersByEmail({ emails });
+
+        if (result) res.status(201).send({ message: 'Gardeners removed successfully' });
+        else res(400).send({message: 'Something went wrong'});   //??
+
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send({ message: err.message });
+    }  
+};
+
 exports.getAllGardeners = async (req, res) => {
     try {
         const gardens = await g.getAll();

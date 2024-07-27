@@ -44,4 +44,8 @@ router.post('/gardeners', gardenerController.createGardener);
 
 router.get('/gardeners', gardenerController.getAllGardeners);
 
+router.delete('/gardeners', gardenerController.deleteGardeners);
+
+
+
 module.exports = router;

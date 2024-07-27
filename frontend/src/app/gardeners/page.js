@@ -33,7 +33,7 @@ export default function Gardeners() {
       </header>
       <main className={styles.main}>
         <section className={styles.infoSection}>
-          <GardenerTable gardeners={gardeners}></GardenerTable>
+          <GardenerTable gardeners={gardeners} callback={fetchGardeners}></GardenerTable>
           <br></br>
           <Divider></Divider>
           <br></br>

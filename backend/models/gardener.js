@@ -1,4 +1,5 @@
 const { getConnection } = require('../config/db');
+const oracledb = require('oracledb');
 // const { getAll,  insertGardener} = require('../controllers/gardenerController');
 
 async function insertGardener(data) {
@@ -13,6 +14,48 @@ async function insertGardener(data) {
             {autoCommit: true});
 
         return result.rowsAffected && result.rowsAffected > 0;
+    } catch (err) {
+        console.error("Error executing query:", err.message);
+        return false;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error closing connection:', err.message);
+            }
+        }
+    }
+}
+
+
+function constructBindings(emails) {
+
+    const placeholders = emails.map((_, index) => `:email${index + 1}`).join(', ');
+
+    const bindings = emails.reduce((acc, email, index) => {
+        acc[`email${index + 1}`] = { val: email, type: oracledb.STRING };
+        return acc;
+    }, {});
+
+    return { placeholders, bindings };
+}
+
+async function deleteGardenersByEmail(emails) {
+    let connection;
+
+    try {
+        connection = await getConnection();
+
+        const { placeholders, bindings } = constructBindings(emails.emails);
+        const sql = `DELETE FROM Gardener WHERE email IN (${placeholders})`;
+
+        const result = await connection.execute(sql, bindings, {autoCommit: true});
+        console.log(result);
+            
+
+        
+        return result;
     } catch (err) {
         console.error("Error executing query:", err.message);
         return false;
@@ -56,4 +99,4 @@ async function  getAll() {
 //     }
 // };
 
-module.exports = {insertGardener, getAll};
+module.exports = {insertGardener, getAll, deleteGardenersByEmail};
