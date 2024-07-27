@@ -37,7 +37,7 @@ export default function Garden() {
     };
 
     const fetchPlots = async (garden) => {
-        const res = await fetch(`http://localhost:65535/api/garden/plots?name=${gardenName.replace(" ", "%20")}`)
+        const res = await fetch(`http://localhost:65535/api/garden/plots/planted?name=${gardenName.replace(" ", "%20")}`)
         .then(resp => {
             if (resp.ok) setHasError(false);
             else setHasError(true);

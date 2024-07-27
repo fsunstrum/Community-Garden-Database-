@@ -51,7 +51,7 @@ async function getGarden(name) {
     }
 }
 
-async function getGardenPlots(name) {
+async function getGardenPlotsPlanted(name) {
     let connection;
     try {
         connection = await getConnection();
@@ -102,4 +102,4 @@ const gi = {
     }
 };
 
-module.exports = {insertGarden, getGarden, getGardenPlots, gi};
+module.exports = {insertGarden, getGarden, getGardenPlotsPlanted, gi};
