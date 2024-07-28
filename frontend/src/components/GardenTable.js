@@ -7,13 +7,13 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 
-export default function GardenTable({ gardens }) {
+export default function GardenTable({ gardens, columns }) {
     const tableRows = gardens.map((row, idx) => {
         const gardenName = row[1];
         const link = "../garden?name=" + gardenName;
         return (<TableRow key={idx}>
             {row.map((v, i) => 
-            <TableCell key={i}>
+            <TableCell key={"cell-" + i}>
                 {i == 1 ? <Link href={link}>{v}</Link> : v}
                 </TableCell>)}
         </TableRow>)
@@ -24,10 +24,7 @@ export default function GardenTable({ gardens }) {
             <Table>
                 <TableHead>
                 <TableRow>
-                    <TableCell>Address</TableCell>
-                    <TableCell>Garden Name</TableCell>
-                    <TableCell># of Plots</TableCell>
-                    <TableCell>Manager Email</TableCell>
+                    {columns.map((col, idx) => <TableCell key={idx}>{col}</TableCell>)}
                 </TableRow>
                 </TableHead>
                 <TableBody>
