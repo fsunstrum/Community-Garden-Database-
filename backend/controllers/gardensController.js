@@ -22,7 +22,7 @@ exports.createGarden = async (req, res) => {
 
 exports.getAllGardens = async (req, res) => {
     try {
-        const gardens = await gi.gi.getAll();
+        const gardens = await gi.getAllGardens();
         res.status(200).send(gardens);
     } catch (err) {
         res.status(500).send({ message: err.message });
@@ -76,12 +76,24 @@ exports.assignGardenerToPlot = async (req, res) => {
 
     if (!garden_address || !gardener_email || !plot_num) return res.status(400).send({ message: "All fields are required!" });
 
-    console.log({garden_address, gardener_email, plot_num});
-
     try {
         const result = await gi.assignGardenerToPlot(garden_address, gardener_email, plot_num);
         result ? res.status(200).send({ message: `The gardener was assigned to plot #${plot_num} successfully.` }) : 
         res.status(400).send({ message: `The gardener was unable to be assigned.` })
+    } catch (err) {
+        res.status(400).send({ message: err.message });
+    }
+};
+
+exports.unassignGardenerFromPlot = async (req, res) => {
+    const { garden_address, plot_num } = req.body;
+
+    if (!garden_address || !plot_num) return res.status(400).send({ message: "All fields are required!" });
+
+    try {
+        const result = await gi.unassignGardenerFromPlot(garden_address, plot_num);
+        result ? res.status(200).send({ message: `The gardener was unassigned from plot #${plot_num} successfully.` }) : 
+        res.status(400).send({ message: `The gardener was unable to be unassigned.` })
     } catch (err) {
         res.status(400).send({ message: err.message });
     }

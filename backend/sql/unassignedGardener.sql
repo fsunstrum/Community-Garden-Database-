@@ -1,0 +1,1 @@
+DELETE FROM GardenerPlot WHERE gardener_email = :email AND plot_num = :pnum;

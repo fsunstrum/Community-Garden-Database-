@@ -1,4 +1,5 @@
 const { getConnection } = require('../config/db');
+const { getAll } = require('./receives');
 
 async function insertGarden(data) {
     let connection;
@@ -106,8 +107,6 @@ async function assignGardenerToPlot(addr, email, pnum) {
     const randPlotSize = Math.floor(Math.random() * 10 + 5);
     const randIdx = Math.floor(Math.random() * 3)
 
-    console.log(addr, email, pnum, randPlotSize, sun_exposures[randIdx])
-
     try {
         connection = await getConnection();
         const sql = `INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) 
@@ -131,30 +130,57 @@ async function assignGardenerToPlot(addr, email, pnum) {
     }
 }
 
-const gi = {
-    getAll: async () => {
-        let connection;
-        try {
-            connection = await getConnection();
-            const result = await connection.execute(
-                `SELECT gi.address, gi.garden_name, gi.num_of_plots, gm.manager_email  
-                 FROM GardenInfo gi 
-                 LEFT JOIN GardenManages gm ON gi.garden_name = gm.garden_name`
-            );
-            return result.rows;
-        } catch (err) {
-            console.error('Error executing query:', err.message);
-            throw err;
-        } finally {
-            if (connection) {
-                try {
-                    await connection.close();
-                } catch (err) {
-                    console.error('Error closing connection:', err.message);
-                }
+async function unassignGardenerFromPlot(addr, pnum) {
+    let connection;
+
+    try {
+        connection = await getConnection();
+        const sql = `DELETE FROM GardenerPlot WHERE garden_address = :addr AND plot_num = :pnum`;
+        const result = await connection.execute(sql, [addr, pnum]);
+
+        if (result.rowsAffected && result.rowsAffected == 1) {
+            connection.commit();
+            return true;
+        } else {
+            connection.rollback();
+            return false;
+        }
+    } catch (err) {
+        console.error("Error executing query:", err.message);
+        return false;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error closing connection:', err.message);
             }
         }
     }
-};
+}
 
-module.exports = {insertGarden, getGarden, getGardenPlotsPlanted, assignGardenerToPlot, getGardenPlots, gi};
+async function getAllGardens() {
+    let connection;
+    try {
+        connection = await getConnection();
+        const result = await connection.execute(
+            `SELECT gi.address, gi.garden_name, gi.num_of_plots, gm.manager_email  
+             FROM GardenInfo gi 
+             LEFT JOIN GardenManages gm ON gi.garden_name = gm.garden_name`
+        );
+        return result.rows;
+    } catch (err) {
+        console.error('Error executing query:', err.message);
+        throw err;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error closing connection:', err.message);
+            }
+        }
+    }
+}
+
+module.exports = {insertGarden, getGarden, getGardenPlotsPlanted, assignGardenerToPlot, getGardenPlots, unassignGardenerFromPlot, getAllGardens};
