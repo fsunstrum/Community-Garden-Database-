@@ -4,6 +4,7 @@ import styles from './page.module.css';
 import GardenInfo from '@/components/GardenInfo';
 import { useState, useEffect } from 'react'
 import Divider from '@mui/material/Divider';
+import Image from 'next/legacy/image'
 
 import { useSearchParams } from 'next/navigation'
 import PlantedPlotsTable from '@/components/PlantedPlotsTable';
@@ -96,8 +97,15 @@ export default function Garden() {
     return (
         <div className={styles.container}>
         <header className={styles.header}>
+            <Image
+                src="/donation.jpg"
+                alt="Donation"
+                layout="fill"
+                objectFit="cover"
+                className={styles.headerImage}
+            />
             <div className={styles.headerContent}>
-            <h1 className={styles.headerTitle}>Current Gardens</h1>
+                <Typography align="center" variant="h1">{garden[1]}</Typography>
             </div>
         </header>
         <main className={styles.main}>
