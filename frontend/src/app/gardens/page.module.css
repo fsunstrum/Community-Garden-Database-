@@ -79,3 +79,27 @@
   line-height: 1.6;
   margin-bottom: 1rem;
 }
+
+.searchForm {
+  font-size: 1.2rem;
+  margin-top: 3rem;
+  margin-left: 10rem;
+}
+
+.searchInput {
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  width: 300px;
+}
+
+.searchButton {
+  padding: 0.5rem;
+  max-height: 36px;
+}
+  
+.formLabel {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  font-size: 16px;
+}

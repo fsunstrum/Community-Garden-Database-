@@ -21,8 +21,13 @@ exports.createGarden = async (req, res) => {
 };
 
 exports.getAllGardens = async (req, res) => {
+    const minPlots = parseInt(req.query.minPlots);
+    
     try {
-        const gardens = await gi.getAllGardens();
+        let gardens;
+        if (!minPlots || isNaN(minPlots)) gardens = await gi.getAllGardens();
+        else gardens = await gi.getAllGardens(minPlots);
+        
         res.status(200).send(gardens);
     } catch (err) {
         res.status(500).send({ message: err.message });
