@@ -4,6 +4,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 import Typography from '@mui/material/Typography';
 import Stack from "@mui/material/Stack";
 import GardenerSelect from './GardenerSelect';
+import UnassignPlotButton from './UnassignPlotButton';
 
 export default function GardenPlotsTable({ plots, gardeners, garden, numPlots, callback }) {
     const length = numPlots;
@@ -20,7 +21,13 @@ export default function GardenPlotsTable({ plots, gardeners, garden, numPlots, c
                 garden={garden} 
                 plotNum={idx + 1}
                 callback={callback}>
-            </GardenerSelect> : null}
+            </GardenerSelect> : 
+            <UnassignPlotButton
+                gardener={owner}
+                garden={garden}
+                plotNum={idx + 1}
+                callback={callback}>
+            </UnassignPlotButton>}
         </ImageListItem>
     )
 

@@ -29,6 +29,7 @@ router.get('/garden/plots/planted', gardensController.getGardenPlotsPlanted);
 // Assign a gardener to a new plot
 router.get('/garden/plots', gardensController.getGardenPlots);
 router.post('/garden/plots', gardensController.assignGardenerToPlot);
+router.delete('/garden/plots', gardensController.unassignGardenerFromPlot);
 
 router.get('/gardens/underachievers', growsController.getUnderachievingGardens);
 
