@@ -46,7 +46,6 @@ exports.getGarden = async (req, res) => {
 
 exports.getGardenPlots = async (req, res) => {
     const address = req.query.address;
-    console.log(address);
 
     if (!address) return res.status(400).send({ message: "No garden address was specified in the request."});
 

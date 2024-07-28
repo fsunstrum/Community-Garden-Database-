@@ -8,6 +8,7 @@ export default function UnassignPlotButton({gardener, garden, plotNum, callback}
         if (!conf) return;
 
         const data = {"garden_address": garden[0], "plot_num": plotNum}
+        let hasError = false;
 
         const res = await fetch("http://localhost:65535/api/garden/plots", {
                 method: "DELETE",
@@ -16,12 +17,14 @@ export default function UnassignPlotButton({gardener, garden, plotNum, callback}
             }
         ).then(res => {
             if (!res.ok) {
-                alert("There was an error while unassigning the gardener. Please try again later.")
+                hasError = true;
             } else {
                 callback(garden);
             }
             return res.json();
-        }).then(res => console.log(res))
+        }).then(res => {
+            if (hasError) alert("ERROR: " + res.message);
+        })
         .catch(err => console.error(err));
     }
 

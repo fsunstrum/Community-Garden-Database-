@@ -147,6 +147,8 @@ async function unassignGardenerFromPlot(addr, pnum) {
         }
     } catch (err) {
         console.error("Error executing query:", err.message);
+        if (err.message.includes("ORA-02292")) throw Error("The plot must have its plants removed before it can be unassigned from the owner.");
+        connection.rollback();
         return false;
     } finally {
         if (connection) {
