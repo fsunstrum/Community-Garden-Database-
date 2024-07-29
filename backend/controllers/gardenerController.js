@@ -54,3 +54,23 @@ exports.getAllGardeners = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 };
+
+exports.updateGardener = async (req, res) => {
+    const { email, phone, name } = req.body;
+
+    if (!email || !phone || !name) {
+        return res.status(400).send({ message: 'Email, phone, and name are required!' });
+    }
+
+    try {
+        const result = await Gardener.updateGardener({ email, phone, name });
+        if (result) {
+            res.status(200).send({ message: 'Gardener updated successfully!' });
+        } else {
+            res.status(400).send({ message: 'Failed to update gardener!' });
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send({ message: err.message });
+    }
+};

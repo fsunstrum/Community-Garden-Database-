@@ -92,6 +92,36 @@ async function  getAll() {
     }
 }
 
+async function updateGardener(data) {
+    let connection;
+
+    try {
+        connection = await getConnection();
+        const sql = `
+            UPDATE Gardener
+            SET phone = :phone, name = :name
+            WHERE email = :email
+        `;
+        const result = await connection.execute(sql,
+            [data.phone, data.name, data.email],
+            { autoCommit: true });
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    } catch (err) {
+        console.error("Error executing query:", err.message);
+        return false;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error closing connection:', err.message);
+            }
+        }
+    }
+}
+
+
 // const Gardener = {
 //     insert: (data, callback) => {
 //         const sql = 'INSERT INTO Gardener SET ?';
@@ -99,4 +129,4 @@ async function  getAll() {
 //     }
 // };
 
-module.exports = {insertGardener, getAll, deleteGardenersByEmail};
+module.exports = { insertGardener, getAll, deleteGardenersByEmail, updateGardener };

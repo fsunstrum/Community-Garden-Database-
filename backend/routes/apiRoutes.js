@@ -54,6 +54,9 @@ router.get('/gardeners', gardenerController.getAllGardeners);
 
 router.delete('/gardeners', gardenerController.deleteGardeners);
 
+// Update a gardener
+router.put('/gardeners', gardenerController.updateGardener);
+
 
 
 module.exports = router;
