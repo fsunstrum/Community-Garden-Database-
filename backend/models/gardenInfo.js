@@ -186,4 +186,24 @@ async function getAllGardens(minPlots=0) {
     }
 }
 
-module.exports = {insertGarden, getGarden, getGardenPlotsPlanted, assignGardenerToPlot, getGardenPlots, unassignGardenerFromPlot, getAllGardens};
+async function getAllGardenAddresses() {
+    let connection;
+    try {
+        connection = await getConnection();
+        const result = await connection.execute(`SELECT address FROM GardenInfo`);
+        return result.rows;
+    } catch (err) {
+        console.error('Error executing query:', err.message);
+        throw err;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error closing connection:', err.message);
+            }
+        }
+    }
+}
+
+module.exports = {insertGarden, getGarden, getGardenPlotsPlanted, assignGardenerToPlot, getGardenPlots, unassignGardenerFromPlot, getAllGardens, getAllGardenAddresses};

@@ -35,21 +35,11 @@ exports.getAllGardens = async (req, res) => {
 };
 
 exports.getAllGardenAddresses = async (req, res) => {
-    let connection;
     try {
-        connection = await getConnection();
-        const result = await connection.execute('SELECT address FROM GardenInfo');
-        res.status(200).send(result.rows);
+        const gardenAddresses = await gi.getAllGardenAddresses();
+        res.status(200).send(gardenAddresses);
     } catch (err) {
         res.status(500).send({ message: err.message });
-    } finally {
-        if (connection) {
-            try {
-                await connection.close();
-            } catch (err) {
-                console.error('Error closing connection:', err.message);
-            }
-        }
     }
 };
 

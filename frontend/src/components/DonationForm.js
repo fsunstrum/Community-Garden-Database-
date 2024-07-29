@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../styles/DonationForm.module.css';
 import Alert from '@mui/material/Alert';
 
@@ -9,6 +9,21 @@ export default function DonationForm({ callback }) {
     const [alertMsg, setAlertMsg] = useState("");
     const [hasError, setHasError] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [gardenAddresses, setGardenAddresses] = useState([]);
+
+    useEffect(() => {
+        const fetchGardenAddresses = async () => {
+            try {
+                const res = await fetch('http://localhost:65535/api/gardens/addresses');
+                const data = await res.json();
+                setGardenAddresses(data);
+            } catch (err) {
+                console.error('Error fetching garden addresses:', err);
+            }
+        };
+
+        fetchGardenAddresses();
+    }, []);
 
     const handleSubmit = async (e) => {
         setSubmitted(true);
@@ -64,8 +79,8 @@ export default function DonationForm({ callback }) {
                     type="text"
                     name="donation_id"
                     defaultValue=""
-                    // value={formData.donation_id}
-                    // onChange={handleChange}
+                // value={formData.donation_id}
+                // onChange={handleChange}
                 />
             </label>
             <label className={styles.formLabel}>
@@ -75,8 +90,8 @@ export default function DonationForm({ callback }) {
                     type="text"
                     name="donor_name"
                     defaultValue=""
-                    // value={formData.donor_name}
-                    // onChange={handleChange}
+                // value={formData.donor_name}
+                // onChange={handleChange}
                 />
             </label>
             <label className={styles.formLabel}>
@@ -86,8 +101,8 @@ export default function DonationForm({ callback }) {
                     type="date"
                     name="don_date"
                     defaultValue=""
-                    // value={formData.don_date}
-                    // onChange={handleChange}
+                // value={formData.don_date}
+                // onChange={handleChange}
                 />
             </label>
             <label className={styles.formLabel}>
@@ -97,20 +112,23 @@ export default function DonationForm({ callback }) {
                     type="text"
                     name="item"
                     defaultValue=""
-                    // value={formData.item}
-                    // onChange={handleChange}
+                // value={formData.item}
+                // onChange={handleChange}
                 />
             </label>
             <label className={styles.formLabel}>
                 Garden Address
-                <input
+                <select
                     className={styles.formInput}
                     type="text"
                     name="garden_address"
                     defaultValue=""
-                    // value={formData.garden_address}
-                    // onChange={handleChange}
-                />
+                >
+                    <option value="" disabled>Select a garden address</option>
+                    {gardenAddresses.map((address, index) => (
+                        <option key={index} value={address[0]}>{address[0]}</option>
+                    ))}
+                </select>
             </label>
             <button className={styles.formButton} type="submit">ADD</button>
         </form>
