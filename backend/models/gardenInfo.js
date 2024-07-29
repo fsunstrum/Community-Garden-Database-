@@ -194,6 +194,32 @@ async function getGardenPlots(addr) {
     }
 }
 
+async function getAllToolsForGarden(addr) {
+    let connection;
+    try {
+        connection = await getConnection();
+        const result = await connection.execute(
+            `SELECT Tool.tool_type, Stores.availability
+                FROM Tool
+                JOIN Stores ON Tool.tool_type = Stores.tool_type
+                JOIN GardenInfo ON Stores.garden_address = GardenInfo.address
+                WHERE GardenInfo.address = :address;`
+            , [addr]);
+        return result.rows;
+    } catch (err) {
+        console.error('Error executing query:', err.message);
+        throw err;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error closing connection:', err.message);
+            }
+        }
+    }
+}
+
 async function assignGardenerToPlot(addr, email, pnum) {
     let connection;
     const sun_exposures = ["full sun", "part sun", "full shade", "part shade"]

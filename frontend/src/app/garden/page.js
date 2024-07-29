@@ -10,6 +10,7 @@ import { useSearchParams } from 'next/navigation'
 import PlantedPlotsTable from '@/components/PlantedPlotsTable';
 import Typography from '@mui/material/Typography';
 import GardenPlotsTable from '@/components/GardenPlotsTable';
+import ToolTable from '@/components/ToolTable';
 
 export default function Garden() {
     const searchParams = useSearchParams();
@@ -18,6 +19,9 @@ export default function Garden() {
     const [plantedPlots, setPlantedPlots] = useState([]);
     const [plots, setPlots] = useState([]);
     const [garden, setGarden] = useState({});
+
+    const [tools, setTools] = useState([]);
+
     const [hasError, setHasError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
 
@@ -84,14 +88,32 @@ export default function Garden() {
         setPlots(res);
     };
 
+    const fetchTools = async (garden) => {
+        const res = await fetch(`http://localhost:65535/api/garden/tools?address=${garden[0]}`)
+        .then(resp => {
+            if (resp.ok) setHasError(false);
+            else setHasError(true);
+
+            return resp.json();
+        })
+        .catch(err => {
+        console.error(err);
+        return [];
+        });
+
+        setTools(res);
+    }
+
     useEffect(() => {
         fetchGarden();
         fetchGardeners();
+        
     }, []);
 
     useEffect(() => {
         fetchPlantedPlots(garden);
         fetchPlots(garden);
+        // fetchTools();
     }, [garden])
 
     return (
@@ -127,6 +149,14 @@ export default function Garden() {
                     numPlots={garden[2]}
                     callback={fetchPlots}>
                 </GardenPlotsTable>
+                <Typography variant="h3" align="center">Tool Availability</Typography>
+
+                <ToolTable tools={tools}>
+                    garden = {garden}
+                    callback={fetchTools}
+                </ToolTable>
+
+
             </section>
         </main>
         </div>

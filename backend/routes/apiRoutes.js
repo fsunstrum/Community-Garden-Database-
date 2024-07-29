@@ -5,6 +5,7 @@ const managersController = require('../controllers/managersController');
 const plantController = require('../controllers/plantController');
 const growsController = require('../controllers/growsController');
 const gardenerController = require('../controllers/gardenerController');
+const toolsController = require('../controllers/toolsController');
 
 const router = express.Router();
 
@@ -43,6 +44,8 @@ router.get('/garden/plots/planted', gardensController.getGardenPlotsPlanted);
 router.get('/garden/plots', gardensController.getGardenPlots);
 router.post('/garden/plots', gardensController.assignGardenerToPlot);
 router.delete('/garden/plots', gardensController.unassignGardenerFromPlot);
+
+router.get('/garden/tools', gardensController.getAllToolsForGarden);
 
 router.get('/gardens/underachievers', growsController.getUnderachievingGardens);
 

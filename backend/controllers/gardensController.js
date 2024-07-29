@@ -92,6 +92,19 @@ exports.getGardenPlots = async (req, res) => {
     }
 };
 
+exports.getAllToolsForGarden = async (req, res) => {
+    const address = req.query.address;
+
+    if (!address) return res.status(400).send({ message: "No garden address was specified in the request."});
+
+    try {
+        const tools = await gi.getAllToolsForGarden(address);
+        res.status(200).send(tools);
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+};
+
 exports.getGardenPlotsPlanted = async (req, res) => {
     const garden_name = req.query.name;
 
