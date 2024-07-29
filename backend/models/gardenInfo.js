@@ -1,20 +1,44 @@
 const { getConnection } = require('../config/db');
 const { getAll } = require('./receives');
 const { assignGardenerToPlot, unassignGardenerFromPlot } = require('./gardenerPlot');
+const { insertGardenNumPlots } = require('./gardenNumPlots');
 
 async function insertGarden(data) {
     let connection;
 
     try {
         connection = await getConnection();
-        const sql = `INSERT INTO GardenInfo (address, garden_name, num_of_plots) 
-    VALUES (:address, :garden_name, :num_of_plots)`;
-        const result = await connection.execute(sql, 
-            [data.address, data.garden_name, data.num_of_plots], 
-            {autoCommit: true});
+        await connection.beginTransaction();
 
-        return result.rowsAffected && result.rowsAffected > 0;
+        // Insert into GardenInfo table
+        const gardenInfoSql = `INSERT INTO GardenInfo (address, garden_name, num_of_plots) 
+    VALUES (:address, :garden_name, :num_of_plots)`;
+        const result = await connection.execute(gardenInfoSql,
+            [data.address, data.garden_name, data.num_of_plots]);
+        // {autoCommit: true});
+
+        if (gardenInfoResult.rowsAffected === 0) {
+            throw new Error('Failed to insert into GardenInfo table');
+        }
+
+        // Insert into GardenNumPlots table
+        const gardenNumPlotsSql = `INSERT INTO GardenNumPlots (address, num_of_plots) 
+                                   VALUES (:address, :num_of_plots)`;
+        const gardenNumPlotsResult = await connection.execute(gardenNumPlotsSql, 
+            [data.address, data.num_of_plots]);
+
+        if (gardenNumPlotsResult.rowsAffected === 0) {
+            throw new Error('Failed to insert into GardenNumPlots table');
+        }
+
+        await connection.commit();
+        return true;
+
+        // return result.rowsAffected && result.rowsAffected > 0;
     } catch (err) {
+        if (connection) {
+            await connection.rollback();
+        }
         console.error("Error executing query:", err.message);
         return false;
     } finally {
@@ -33,7 +57,8 @@ async function deleteGarden(address) {
 
     try {
         connection = await getConnection();
-        const sql = `DELETE FROM GardenInfo WHERE address = :address`;
+        // const sql = `DELETE FROM GardenInfo WHERE address = :address`;
+        const sql = `DELETE FROM GardenNumPlots WHERE address = :address`;
         const result = await connection.execute(sql, [address], { autoCommit: true });
 
         return result.rowsAffected > 0;
@@ -60,7 +85,7 @@ async function getGarden(name) {
                 FROM GardenInfo gi 
                 LEFT JOIN GardenManages gm ON gi.garden_name = gm.garden_name
                 WHERE gi.garden_name = :name`
-        , [name]);
+            , [name]);
         return result.rows;
     } catch (err) {
         console.error('Error executing query:', err.message);
@@ -85,7 +110,7 @@ async function getGardenPlotsPlanted(name) {
                 FROM GardenInfo gi, GardenerPlot gp, Grows gr, Gardener g
                 WHERE gi.garden_name = :name AND gp.garden_address = gi.address AND 
                 gp.plot_num = gr.plot_num AND gr.garden_address = gi.address AND gp.gardener_email = g.email`
-        , [name]);
+            , [name]);
         return result.rows;
     } catch (err) {
         console.error('Error executing query:', err.message);
@@ -109,7 +134,7 @@ async function getGardenPlots(addr) {
             `SELECT g.name, gardener_email, plot_num, sun_exposure, plot_size
                 FROM GardenerPlot gp, Gardener g
                 WHERE garden_address = :addr AND gp.gardener_email = g.email`
-        , [addr]);
+            , [addr]);
         return result.rows;
     } catch (err) {
         console.error('Error executing query:', err.message);
@@ -185,7 +210,7 @@ async function getGardenPlots(addr) {
 //     }
 // }
 
-async function getAllGardens(minPlots=0) {
+async function getAllGardens(minPlots = 0) {
     let connection;
     try {
         connection = await getConnection();
@@ -233,4 +258,4 @@ async function getAllGardenAddresses() {
     }
 }
 
-module.exports = {insertGarden, getGarden, getGardenPlotsPlanted, assignGardenerToPlot, getGardenPlots, unassignGardenerFromPlot, getAllGardens, getAllGardenAddresses, deleteGarden};
+module.exports = { insertGarden, getGarden, getGardenPlotsPlanted, assignGardenerToPlot, getGardenPlots, unassignGardenerFromPlot, getAllGardens, getAllGardenAddresses, deleteGarden };
