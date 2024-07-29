@@ -190,7 +190,10 @@ async function getAllGardenAddresses() {
     let connection;
     try {
         connection = await getConnection();
-        const result = await connection.execute(`SELECT address FROM GardenInfo`);
+        const result = await connection.execute(
+            `SELECT gi.address 
+            FROM GardenInfo gi`
+        );
         return result.rows;
     } catch (err) {
         console.error('Error executing query:', err.message);

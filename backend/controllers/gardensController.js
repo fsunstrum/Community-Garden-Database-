@@ -39,6 +39,7 @@ exports.getAllGardenAddresses = async (req, res) => {
         const gardenAddresses = await gi.getAllGardenAddresses();
         res.status(200).send(gardenAddresses);
     } catch (err) {
+        console.error(err.message);
         res.status(500).send({ message: err.message });
     }
 };
