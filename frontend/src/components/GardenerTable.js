@@ -40,7 +40,7 @@ export default function GardenTable({ gardeners, callback }) {
             }).then(resp => {
                 if (resp.ok) {
                     setHasError(false);
-                    setAlertMsg("Gardener was added sucessfully!");
+                    setAlertMsg("Gardener was added successfully!");
                     callback();
                 } else return resp.json();
             });

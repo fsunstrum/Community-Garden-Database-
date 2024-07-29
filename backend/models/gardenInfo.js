@@ -1,5 +1,6 @@
 const { getConnection } = require('../config/db');
 const { getAll } = require('./receives');
+const { assignGardenerToPlot, unassignGardenerFromPlot } = require('./gardenerPlot');
 
 async function insertGarden(data) {
     let connection;
@@ -101,65 +102,65 @@ async function getGardenPlots(addr) {
     }
 }
 
-async function assignGardenerToPlot(addr, email, pnum) {
-    let connection;
-    const sun_exposures = ["full sun", "part sun", "full shade", "part shade"]
-    const randPlotSize = Math.floor(Math.random() * 10 + 5);
-    const randIdx = Math.floor(Math.random() * 3)
+// async function assignGardenerToPlot(addr, email, pnum) {
+//     let connection;
+//     const sun_exposures = ["full sun", "part sun", "full shade", "part shade"]
+//     const randPlotSize = Math.floor(Math.random() * 10 + 5);
+//     const randIdx = Math.floor(Math.random() * 3)
 
-    try {
-        connection = await getConnection();
-        const sql = `INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) 
-    VALUES (:addr, :email, :pnum, :sun_exposure, :plot_size)`;
-        const result = await connection.execute(sql, 
-            [addr, email, pnum, sun_exposures[randIdx], randPlotSize], 
-            {autoCommit: true});
+//     try {
+//         connection = await getConnection();
+//         const sql = `INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) 
+//     VALUES (:addr, :email, :pnum, :sun_exposure, :plot_size)`;
+//         const result = await connection.execute(sql, 
+//             [addr, email, pnum, sun_exposures[randIdx], randPlotSize], 
+//             {autoCommit: true});
 
-        return result.rowsAffected && result.rowsAffected > 0;
-    } catch (err) {
-        console.error("Error executing query:", err.message);
-        return false;
-    } finally {
-        if (connection) {
-            try {
-                await connection.close();
-            } catch (err) {
-                console.error('Error closing connection:', err.message);
-            }
-        }
-    }
-}
+//         return result.rowsAffected && result.rowsAffected > 0;
+//     } catch (err) {
+//         console.error("Error executing query:", err.message);
+//         return false;
+//     } finally {
+//         if (connection) {
+//             try {
+//                 await connection.close();
+//             } catch (err) {
+//                 console.error('Error closing connection:', err.message);
+//             }
+//         }
+//     }
+// }
 
-async function unassignGardenerFromPlot(addr, pnum) {
-    let connection;
+// async function unassignGardenerFromPlot(addr, pnum) {
+//     let connection;
 
-    try {
-        connection = await getConnection();
-        const sql = `DELETE FROM GardenerPlot WHERE garden_address = :addr AND plot_num = :pnum`;
-        const result = await connection.execute(sql, [addr, pnum]);
+//     try {
+//         connection = await getConnection();
+//         const sql = `DELETE FROM GardenerPlot WHERE garden_address = :addr AND plot_num = :pnum`;
+//         const result = await connection.execute(sql, [addr, pnum]);
 
-        if (result.rowsAffected && result.rowsAffected == 1) {
-            connection.commit();
-            return true;
-        } else {
-            connection.rollback();
-            return false;
-        }
-    } catch (err) {
-        console.error("Error executing query:", err.message);
-        if (err.message.includes("ORA-02292")) throw Error("The plot must have its plants removed before it can be unassigned from the owner.");
-        connection.rollback();
-        return false;
-    } finally {
-        if (connection) {
-            try {
-                await connection.close();
-            } catch (err) {
-                console.error('Error closing connection:', err.message);
-            }
-        }
-    }
-}
+//         if (result.rowsAffected && result.rowsAffected == 1) {
+//             connection.commit();
+//             return true;
+//         } else {
+//             connection.rollback();
+//             return false;
+//         }
+//     } catch (err) {
+//         console.error("Error executing query:", err.message);
+//         if (err.message.includes("ORA-02292")) throw Error("The plot must have its plants removed before it can be unassigned from the owner.");
+//         connection.rollback();
+//         return false;
+//     } finally {
+//         if (connection) {
+//             try {
+//                 await connection.close();
+//             } catch (err) {
+//                 console.error('Error closing connection:', err.message);
+//             }
+//         }
+//     }
+// }
 
 async function getAllGardens(minPlots=0) {
     let connection;
