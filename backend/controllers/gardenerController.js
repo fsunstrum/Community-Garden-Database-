@@ -63,7 +63,7 @@ exports.updateGardener = async (req, res) => {
     }
 
     try {
-        const result = await Gardener.updateGardener({ email, phone, name });
+        const result = await g.updateGardener({ email, phone, name });
         if (result) {
             res.status(200).send({ message: 'Gardener updated successfully!' });
         } else {

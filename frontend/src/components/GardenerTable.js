@@ -1,15 +1,16 @@
 import React, { useRef, useState } from 'react';
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Button , Grid , Alert } from '@mui/material';
+import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Button, Grid, Alert } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
-export default function GardenTable({ gardeners, callback }) {
+export default function GardenTable({ gardeners, onEdit, callback }) {
 
     const checkboxesRef = useRef([]);
 
     const [alertMsg, setAlertMsg] = useState("");
     const [hasError, setHasError] = useState(false);
     const [submitted, setSubmitted] = useState(false);
-    
+
     const handleRemoveSelected = async (e) => {
         // console.log('Checkboxes Ref:', checkboxesRef.current);
 
@@ -21,7 +22,7 @@ export default function GardenTable({ gardeners, callback }) {
 
         const selectedIndices = checkboxesRef.current.map((checkbox, idx) => checkbox.checked ? idx : null).filter(idx => idx !== null);
         const selectedEmails = selectedIndices.map(idx => {
-            const email = gardeners[idx] && gardeners[idx][1]; 
+            const email = gardeners[idx] && gardeners[idx][1];
             // console.log(`Index ${idx} email: ${email}`);
             return email;
         });
@@ -36,7 +37,7 @@ export default function GardenTable({ gardeners, callback }) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ emails: selectedEmails}),
+                body: JSON.stringify({ emails: selectedEmails }),
             }).then(resp => {
                 if (resp.ok) {
                     setHasError(false);
@@ -55,48 +56,57 @@ export default function GardenTable({ gardeners, callback }) {
         } catch (err) {
             console.error('Error:', err);
         }
-        
+
     }
 
-    
+
 
     const tableRows = gardeners.map((row, idx) => (
-    <TableRow key={idx}>
-        {row.map((v, i) => <TableCell key={i}>{v}</TableCell>)}
-        <TableCell>
-            <Checkbox 
-                // ref={el => checkboxesRef.current[idx] = el}
-                inputRef={el => checkboxesRef.current[idx] = el}
+        <TableRow key={idx}>
+            {row.map((v, i) => <TableCell key={i}>{v}</TableCell>)}
+            <TableCell>
+                <Checkbox
+                    // ref={el => checkboxesRef.current[idx] = el}
+                    inputRef={el => checkboxesRef.current[idx] = el}
                 // checked = {selectedRows.includes(idx)}
-            />
-        </TableCell>
-    </TableRow>
+                />
+            </TableCell>
+            <TableCell>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<EditIcon />}
+                    onClick={() => onEdit(gardeners[idx])}>
+                    Edit
+                </Button>
+            </TableCell>
+        </TableRow>
     ))
 
     return (
-        
+
         <TableContainer component={Paper}>
             <Table>
                 <TableHead>
-                <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>E-mail address</TableCell>
-                    <TableCell>Phone number</TableCell>
-                    {/* <TableCell>Manager Email</TableCell> */}
-                </TableRow>
+                    <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell>E-mail address</TableCell>
+                        <TableCell>Phone number</TableCell>
+                        {/* <TableCell>Manager Email</TableCell> */}
+                    </TableRow>
                 </TableHead>
                 <TableBody>
-                {tableRows}
+                    {tableRows}
                 </TableBody>
             </Table>
-            <Grid container justifyContent="flex-end">                
+            <Grid container justifyContent="flex-end">
                 <Button variant="default" startIcon={<DeleteIcon />} onClick={handleRemoveSelected} >
                     Remove Selected Gardeners
                 </Button>
-            </Grid>           
+            </Grid>
         </TableContainer>
 
-        
+
 
     )
 }
