@@ -1,6 +1,6 @@
 const gi = require('../models/gardenInfo');
 const GardenManages = require('../models/gardenManages');
-const { assignGardenerToPlot, unassignGardenerFromPlot } = require('../models/gardenerPlot');
+// const { assignGardenerToPlot, unassignGardenerFromPlot } = require('../models/gardenerPlot');
 
 
 exports.createGarden = async (req, res) => {
@@ -111,8 +111,8 @@ exports.assignGardenerToPlot = async (req, res) => {
     if (!garden_address || !gardener_email || !plot_num) return res.status(400).send({ message: "All fields are required!" });
 
     try {
-        // const result = await gi.assignGardenerToPlot(garden_address, gardener_email, plot_num);
-        const result = await assignGardenerToPlot(garden_address, gardener_email, plot_num);
+        const result = await gi.assignGardenerToPlot(garden_address, gardener_email, plot_num);
+        // const result = await assignGardenerToPlot(garden_address, gardener_email, plot_num);
         result ? res.status(200).send({ message: `The gardener was assigned to plot #${plot_num} successfully.` }) : 
         res.status(400).send({ message: `The gardener was unable to be assigned.` })
     } catch (err) {
@@ -126,8 +126,8 @@ exports.unassignGardenerFromPlot = async (req, res) => {
     if (!garden_address || !plot_num) return res.status(400).send({ message: "All fields are required!" });
 
     try {
-        // const result = await gi.unassignGardenerFromPlot(garden_address, plot_num);
-        const result = await unassignGardenerFromPlot(garden_address, plot_num);
+        const result = await gi.unassignGardenerFromPlot(garden_address, plot_num);
+        // const result = await unassignGardenerFromPlot(garden_address, plot_num);
         result ? res.status(200).send({ message: `The gardener was unassigned from plot #${plot_num} successfully.` }) : 
         res.status(400).send({ message: `The gardener was unable to be unassigned.` })
     } catch (err) {
