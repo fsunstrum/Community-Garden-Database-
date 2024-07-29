@@ -27,6 +27,10 @@ router.get('/gardens/addresses', gardensController.getAllGardenAddresses);
 
 // Get a single garden
 router.get('/garden', gardensController.getGarden);
+
+// Delete a garden
+router.delete('/gardens', gardensController.deleteGarden);
+
 // Get all the planted plots in a garden
 router.get('/garden/plots/planted', gardensController.getGardenPlotsPlanted);
 // Assign a gardener to a new plot

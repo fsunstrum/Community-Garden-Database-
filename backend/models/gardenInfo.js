@@ -28,6 +28,29 @@ async function insertGarden(data) {
     }
 }
 
+async function deleteGarden(address) {
+    let connection;
+
+    try {
+        connection = await getConnection();
+        const sql = `DELETE FROM GardenInfo WHERE address = :address`;
+        const result = await connection.execute(sql, [address], { autoCommit: true });
+
+        return result.rowsAffected > 0;
+    } catch (err) {
+        console.error("Error executing query:", err.message);
+        throw err;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error closing connection:', err.message);
+            }
+        }
+    }
+}
+
 async function getGarden(name) {
     let connection;
     try {
@@ -210,4 +233,4 @@ async function getAllGardenAddresses() {
     }
 }
 
-module.exports = {insertGarden, getGarden, getGardenPlotsPlanted, assignGardenerToPlot, getGardenPlots, unassignGardenerFromPlot, getAllGardens, getAllGardenAddresses};
+module.exports = {insertGarden, getGarden, getGardenPlotsPlanted, assignGardenerToPlot, getGardenPlots, unassignGardenerFromPlot, getAllGardens, getAllGardenAddresses, deleteGarden};
