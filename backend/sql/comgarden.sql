@@ -31,8 +31,7 @@ CREATE TABLE Donation(
 );
 
 CREATE TABLE Tool(
-   tool_type VARCHAR(20) PRIMARY KEY,
-   availability CHAR(1)
+   tool_type VARCHAR(20) PRIMARY KEY
 );
 
 CREATE TABLE GardenManager(
@@ -60,6 +59,7 @@ CREATE TABLE Receives(
 CREATE TABLE Stores(
    garden_address VARCHAR(20),
    tool_type VARCHAR(20),
+   availability CHAR(1),
    PRIMARY KEY (garden_address, tool_type),
    FOREIGN KEY (garden_address) REFERENCES 
       GardenNumPlots(address),
