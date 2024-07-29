@@ -51,23 +51,6 @@ export default function DonationForm({ callback }) {
         }
     };
 
-
-    // const [formData, setFormData] = useState({
-    //     donation_id: '',
-    //     donor_name: '',
-    //     don_date: '',
-    //     item: '',
-    //     garden_address: '',
-    // });
-
-    // const handleChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setFormData({
-    //         ...formData,
-    //         [name]: value,
-    //     });
-    // };
-
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
             {submitted ? <Alert severity={hasError ? "error" : "success"}>

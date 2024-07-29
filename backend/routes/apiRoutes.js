@@ -22,6 +22,9 @@ router.post('/gardens', gardensController.createGarden);
 // Get all gardens
 router.get('/gardens', gardensController.getAllGardens);
 
+// Get all garden addresses
+router.get('/gardens/addresses', gardensController.getAllGardenAddresses);
+
 // Get a single garden
 router.get('/garden', gardensController.getGarden);
 // Get all the planted plots in a garden
