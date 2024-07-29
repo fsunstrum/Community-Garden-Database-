@@ -1,6 +1,7 @@
 const { getConnection } = require('../config/db');
 const oracledb = require('oracledb');
 // const { getAll,  insertGardener} = require('../controllers/gardenerController');
+const gp = require('./gardenerPlot');
 
 async function insertGardener(data) {
     let connection;
@@ -46,18 +47,25 @@ async function deleteGardenersByEmail(emails) {
 
     try {
         connection = await getConnection();
-
-        const { placeholders, bindings } = constructBindings(emails.emails);
-        const sql = `DELETE FROM Gardener WHERE email IN (${placeholders})`;
-
-        const result = await connection.execute(sql, bindings, {autoCommit: true});
-        console.log(result);
-            
-
+        await connection.execute('SAVEPOINT deleteGardenersStart');
         
+        const { placeholders, bindings } = constructBindings(emails.emails);
+
+        // First, delete associated GardenerPlot entries
+        await gp.deleteGardenerPlotsByEmail(emails.emails);
+
+        const deleteGardenerSql = `DELETE FROM Gardener WHERE email IN (${placeholders})`;
+
+        const result = await connection.execute(deleteGardenerSql, bindings);
+        console.log(result);
+        
+        await connection.commit();
         return result;
     } catch (err) {
         console.error("Error executing query:", err.message);
+        if (connection) {
+            await connection.rollback();
+        }
         return false;
     } finally {
         if (connection) {

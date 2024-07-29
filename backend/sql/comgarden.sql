@@ -88,10 +88,11 @@ CREATE TABLE GardenerPlot(
    sun_exposure VARCHAR(20),
    plot_size INTEGER,
    PRIMARY KEY (garden_address, plot_num),
-   FOREIGN KEY (garden_address) REFERENCES GardenNumPlots(address)
-      ON DELETE CASCADE,
+   FOREIGN KEY (garden_address) REFERENCES GardenNumPlots(address),
+      -- ON DELETE CASCADE,
    FOREIGN KEY (gardener_email) REFERENCES Gardener(email)
-      ON DELETE SET NULL
+      -- ON DELETE SET NULL
+      ON DELETE CASCADE
 );
 
 CREATE TABLE Compost(
