@@ -16,6 +16,12 @@ router.get('/donations', donationController.getAllDonations);
 
 router.get('/receives', donationController.getAllReceives);
 
+// Get donation attributes
+router.get('/donations/attributes', donationController.getDonationsAttributes);
+
+// Get donation data based on selected attributes
+router.get('/donations/data', donationController.getDonationsData);
+
 // Create a new garden
 router.post('/gardens', gardensController.createGarden);
 

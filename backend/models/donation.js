@@ -118,6 +118,54 @@ const donation = {
                 }
             }
         }
+    },
+    getAttributes: async () => {
+        let connection;
+        try {
+            connection = await getConnection();
+            const sql = `SELECT column_name FROM user_tab_columns WHERE table_name = 'DONATION'`;
+            const result = await connection.execute(sql);
+            return result.rows.map(row => row[0]);
+        } catch (err) {
+            console.error('Error executing query:', err.message);
+            throw err;
+        } finally {
+            if (connection) {
+                try {
+                    await connection.close();
+                } catch (err) {
+                    console.error('Error closing connection:', err.message);
+                }
+            }
+        }
+    },
+    getData: async (attributes, search) => {
+        let connection;
+        try {
+            connection = await getConnection();
+            const attributesArray = attributes.split(',');
+            let sql = `SELECT ${attributesArray.join(', ')} FROM Donation d`;
+            const params = [];
+
+            if (search) {
+                sql += ` WHERE d.donor_name LIKE :search OR d.garden_address LIKE :search`;
+                params.push(`%${search}%`);
+            }
+
+            const result = await connection.execute(sql, params);
+            return result.rows;
+        } catch (err) {
+            console.error('Error executing query:', err.message);
+            throw err;
+        } finally {
+            if (connection) {
+                try {
+                    await connection.close();
+                } catch (err) {
+                    console.error('Error closing connection:', err.message);
+                }
+            }
+        }
     }
 };
 
