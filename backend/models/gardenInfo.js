@@ -203,7 +203,7 @@ async function getAllToolsForGarden(addr) {
                 FROM Tool
                 JOIN Stores ON Tool.tool_type = Stores.tool_type
                 JOIN GardenInfo ON Stores.garden_address = GardenInfo.address
-                WHERE GardenInfo.address = :address;`
+                WHERE GardenInfo.address = :address`
             , [addr]);
         return result.rows;
     } catch (err) {
@@ -328,4 +328,4 @@ async function getAllGardenAddresses() {
     }
 }
 
-module.exports = { insertGarden, getGarden, getGardenPlotsPlanted, assignGardenerToPlot, getGardenPlots, unassignGardenerFromPlot, getAllGardens, getAllGardenAddresses };
+module.exports = { insertGarden, getGarden, getGardenPlotsPlanted, assignGardenerToPlot, getGardenPlots, unassignGardenerFromPlot, getAllGardens, getAllGardenAddresses, getAllToolsForGarden };

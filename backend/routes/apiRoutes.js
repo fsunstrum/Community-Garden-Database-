@@ -5,7 +5,6 @@ const managersController = require('../controllers/managersController');
 const plantController = require('../controllers/plantController');
 const growsController = require('../controllers/growsController');
 const gardenerController = require('../controllers/gardenerController');
-const toolsController = require('../controllers/toolsController');
 
 const router = express.Router();
 
@@ -35,7 +34,7 @@ router.get('/gardens/addresses', gardensController.getAllGardenAddresses);
 // Get a single garden
 router.get('/garden', gardensController.getGarden);
 
-// // Delete a garden
+// Delete a garden
 // router.delete('/gardens', gardensController.deleteGarden);
 
 // Get all the planted plots in a garden

@@ -100,8 +100,8 @@ export default function Garden() {
         console.error(err);
         return [];
         });
-
         setTools(res);
+        
     }
 
     useEffect(() => {
@@ -113,7 +113,7 @@ export default function Garden() {
     useEffect(() => {
         fetchPlantedPlots(garden);
         fetchPlots(garden);
-        // fetchTools();
+        fetchTools(garden);
     }, [garden])
 
     return (
@@ -152,8 +152,6 @@ export default function Garden() {
                 <Typography variant="h3" align="center">Tool Availability</Typography>
 
                 <ToolTable tools={tools}>
-                    garden = {garden}
-                    callback={fetchTools}
                 </ToolTable>
 
 

@@ -154,11 +154,11 @@ INSERT INTO GardenInfo (address, garden_name, num_of_plots) VALUES ('789 Pine St
 INSERT INTO GardenInfo (address, garden_name, num_of_plots) VALUES ('101 Maple St', 'Maple Garden', 25);
 INSERT INTO GardenInfo (address, garden_name, num_of_plots) VALUES ('202 Birch St', 'Birch Garden', 30);
 
-INSERT INTO Tool (tool_type, availability) VALUES ('Shovel');
-INSERT INTO Tool (tool_type, availability) VALUES ('Rake');
-INSERT INTO Tool (tool_type, availability) VALUES ('Hoe');
-INSERT INTO Tool (tool_type, availability) VALUES ('Pruner');
-INSERT INTO Tool (tool_type, availability) VALUES ('Trowel');
+INSERT INTO Tool (tool_type) VALUES ('Shovel');
+INSERT INTO Tool (tool_type) VALUES ('Rake');
+INSERT INTO Tool (tool_type) VALUES ('Hoe');
+INSERT INTO Tool (tool_type) VALUES ('Pruner');
+INSERT INTO Tool (tool_type) VALUES ('Trowel');
 
 INSERT INTO GardenManager (name, phone, email) VALUES ('John Doe', '123-456-7890', 'john@vancouver.com');
 INSERT INTO GardenManager (name, phone, email) VALUES ('Jane Smith', '234-567-8901', 'jane@burnaby.com');
@@ -172,11 +172,11 @@ INSERT INTO GardenNumPlots (address, num_of_plots) VALUES ('789 Pine St', 20);
 INSERT INTO GardenNumPlots (address, num_of_plots) VALUES ('101 Maple St', 25);
 INSERT INTO GardenNumPlots (address, num_of_plots) VALUES ('202 Birch St', 30);
 
-INSERT INTO Stores (garden_address, tool_type) VALUES ('123 Elm St', 'Shovel', 'Y');
-INSERT INTO Stores (garden_address, tool_type) VALUES ('123 Elm St', 'Hoe', 'N');
-INSERT INTO Stores (garden_address, tool_type) VALUES ('202 Birch St', 'Shovel', 'Y');
-INSERT INTO Stores (garden_address, tool_type) VALUES ('789 Pine St', 'Trowel', 'N');
-INSERT INTO Stores (garden_address, tool_type) VALUES ('101 Maple St', 'Rake', 'Y');
+INSERT INTO Stores (garden_address, tool_type, availability) VALUES ('123 Elm St', 'Shovel', 'Y');
+INSERT INTO Stores (garden_address, tool_type, availability) VALUES ('123 Elm St', 'Hoe', 'N');
+INSERT INTO Stores (garden_address, tool_type, availability) VALUES ('202 Birch St', 'Shovel', 'Y');
+INSERT INTO Stores (garden_address, tool_type, availability) VALUES ('789 Pine St', 'Trowel', 'N');
+INSERT INTO Stores (garden_address, tool_type, availability) VALUES ('101 Maple St', 'Rake', 'Y');
 
 INSERT INTO GardenManages (garden_name, manager_email) VALUES ('Elm Garden', 'john@vancouver.com');
 INSERT INTO GardenManages (garden_name, manager_email) VALUES ('Oak Garden', 'jane@burnaby.com');

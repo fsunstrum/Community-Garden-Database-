@@ -7,7 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 
-export default function ToolTable({ tools, garden, callback, idx }) { //???
+export default function ToolTable({ tools }) { //???
 
 
 
