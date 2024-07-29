@@ -12,16 +12,9 @@ import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 export default function ToolTable({ tools }) { 
 
     const [newToolType, setNewToolType] = useState('');
-    const [newAvailability, setNewAvailability] = useState('');
 
     const handleAddRow = () => {
-        if (newToolType && newAvailability) {
-            const newRow = [newToolType, newAvailability];
-            setTools([...tools, newRow]);
 
-            setNewToolType('');
-            setNewAvailability('');
-        }
     };
 
 
@@ -58,7 +51,7 @@ export default function ToolTable({ tools }) {
                         </TableCell>
                         <TableCell>
                             <TextField 
-                                value={newAvailability} 
+                                value={'Y'} 
                                 disabled
                             />
                         </TableCell>
