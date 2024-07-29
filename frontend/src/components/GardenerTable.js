@@ -41,7 +41,7 @@ export default function GardenTable({ gardeners, onEdit, callback }) {
             }).then(resp => {
                 if (resp.ok) {
                     setHasError(false);
-                    setAlertMsg("Gardener was added successfully!");
+                    setAlertMsg("Gardener was deleted successfully!");
                     callback();
                 } else return resp.json();
             });
@@ -55,6 +55,8 @@ export default function GardenTable({ gardeners, onEdit, callback }) {
 
         } catch (err) {
             console.error('Error:', err);
+            setHasError(true);
+            setAlertMsg('Failed to delete gardeners. Please try again.');
         }
 
     }
@@ -104,6 +106,11 @@ export default function GardenTable({ gardeners, onEdit, callback }) {
                     Remove Selected Gardeners
                 </Button>
             </Grid>
+            {alertMsg && (
+                <Alert severity={hasError ? "error" : "success"}>
+                    {alertMsg}
+                </Alert>
+            )}
         </TableContainer>
 
 

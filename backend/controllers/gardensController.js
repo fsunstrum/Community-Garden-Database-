@@ -22,23 +22,23 @@ exports.createGarden = async (req, res) => {
     }
 };
 
-exports.deleteGarden = async (req, res) => {
-    const { address } = req.body;
+// exports.deleteGarden = async (req, res) => {
+//     const { address } = req.body;
 
-    if (!address) {
-        return res.status(400).send({ message: 'Garden address is required!' });
-    }
+//     if (!address) {
+//         return res.status(400).send({ message: 'Garden address is required!' });
+//     }
 
-    try {
-        const result = await gi.deleteGarden(address);
+//     try {
+//         const result = await gi.deleteGarden(address);
 
-        if (result) res.status(200).send({ message: 'Garden deleted successfully!' });
-        else res.status(400).send({ message: 'Failed to delete garden!' });
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send({ message: err.message });
-    }
-};
+//         if (result) res.status(200).send({ message: 'Garden deleted successfully!' });
+//         else res.status(400).send({ message: 'Failed to delete garden!' });
+//     } catch (err) {
+//         console.error(err.message);
+//         res.status(500).send({ message: err.message });
+//     }
+// };
 
 exports.getAllGardens = async (req, res) => {
     const minPlots = parseInt(req.query.minPlots);

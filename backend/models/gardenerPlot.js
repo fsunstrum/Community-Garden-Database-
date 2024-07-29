@@ -100,4 +100,32 @@ async function unassignGardenerFromPlot(addr, pnum) {
     }
 }
 
-module.exports = { insertGardenerPlot, getAll, assignGardenerToPlot, unassignGardenerFromPlot };
+async function deleteGardenerPlotsByEmail(emails) {
+    let connection;
+    try {
+        connection = await getConnection();
+        const placeholders = emails.map((_, index) => `:email${index + 1}`).join(', ');
+        const bindings = emails.reduce((acc, email, index) => {
+            acc[`email${index + 1}`] = { val: email };
+            return acc;
+        }, {});
+
+        const sql = `DELETE FROM GardenerPlot WHERE gardener_email IN (${placeholders})`;
+        const result = await connection.execute(sql, bindings);
+
+        return result;
+    } catch (err) {
+        console.error("Error executing query:", err.message);
+        throw err;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error closing connection:', err.message);
+            }
+        }
+    }
+}
+
+module.exports = { insertGardenerPlot, getAll, assignGardenerToPlot, unassignGardenerFromPlot, deleteGardenerPlotsByEmail };
