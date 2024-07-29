@@ -1,4 +1,5 @@
 const plantInfo = require('../models/plantInfo');
+const grows = require('../models/grows');
 
 exports.createPlant = async (req, res) => {
     const { species, genus, variety, common_name, colour, harvest_time } = req.body;
@@ -29,3 +30,12 @@ exports.getAllPlants = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 };
+
+exports.getAllGrows = async (req, res) => {
+    try {
+        const growsData = await grows.getAll();
+        res.status(200).send(growsData);
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+}

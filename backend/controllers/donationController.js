@@ -60,3 +60,22 @@ exports.getDonationsData = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 };
+
+// exports.getDonationsAttributes = async (req, res) => {
+//     try {
+//         const attributes = await donation.donation.getAttributes();
+//         res.status(200).send(attributes);
+//     } catch (err) {
+//         res.status(500).send({ message: err.message });
+//     }
+// };
+
+// exports.getDonationsData = async (req, res) => {
+//     const { attributes, search } = req.query;
+//     try {
+//         const data = await donation.donation.getData(attributes, search);
+//         res.status(200).send(data);
+//     } catch (err) {
+//         res.status(500).send({ message: err.message });
+//     }
+// };
