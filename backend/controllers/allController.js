@@ -11,7 +11,7 @@ exports.getAllTableNames = async (req, res) => {
 };
 
 exports.getAllAttributesOfTable = async (req, res) => {
-    const table_name = req.params.table_name;
+    const table_name = req.query.name;
 
     if (!table_name) return res.status(400).send({ message: "The table name is missing in your request." });
 
@@ -21,5 +21,20 @@ exports.getAllAttributesOfTable = async (req, res) => {
         else return res.status(400).send({ message: "Unable to find the attributes for the table." });
     } catch (err) {
         res.status(500).send({ message: err.message })
+    }
+}
+
+exports.getTable = async (req, res) => {
+    const tname = req.params.table_name;
+    const attrs = req.query.attrs;
+
+    if (!tname || !attrs) return res.status(400).send({message: "Need to have table name and attrs specified!"});
+
+    try {
+        const table = await all.getTable(tname, attrs.split(","));
+        if (table) return res.status(200).send(table);
+        else return res.status(400).send({message: "Unable to find the specified table."});
+    } catch (err) {
+        res.status(500).send({ message: err.message });
     }
 }

@@ -72,7 +72,7 @@ router.delete('/gardeners', gardenerController.deleteGardeners);
 router.put('/gardeners', gardenerController.updateGardener);
 
 router.get('/tables', allController.getAllTableNames);
-router.get('/table/:table_name', allController.getAllAttributesOfTable);
-
+router.get('/table/attrs', allController.getAllAttributesOfTable);
+router.get('/table/:table_name', allController.getTable);
 
 module.exports = router;
