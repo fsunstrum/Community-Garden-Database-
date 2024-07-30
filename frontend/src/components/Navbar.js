@@ -22,6 +22,9 @@ const Navbar = () => {
         <li>
           <Link href="/donations">Donations</Link>
         </li>
+        <li>
+          <Link href="/admin">Admin</Link>
+        </li>
       </ul>
     </nav>
   );

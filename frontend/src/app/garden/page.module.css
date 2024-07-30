@@ -43,7 +43,6 @@
 
 .headerTitle {
   font-size: 4rem;
-  margin-bottom: 1rem;
 }
 
 .headerButton {
@@ -79,3 +78,21 @@
   line-height: 1.6;
   margin-bottom: 1rem;
 }
+
+.gardenInfo {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
+
+.plantedInfo {
+  margin-bottom: 4rem;
+}
+
+.plotInfo {
+  margin-bottom: 4rem;
+}
+
+.toolInfo {
+  margin-bottom: 4rem;
+}
+

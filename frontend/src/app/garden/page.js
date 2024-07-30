@@ -153,6 +153,34 @@ export default function Garden() {
             </header>
             <main className={styles.main}>
                 <section className={styles.infoSection}>
+                    <section className={styles.gardenInfo}>
+                        <GardenInfo data={garden} hasError={hasError} errorMsg={errorMsg}></GardenInfo>
+                    </section>
+                    <section className={styles.plantedInfo}>
+                        <Typography variant="h3" align="center">Currently Planted</Typography>
+                        <PlantedPlotsTable plots={plantedPlots}></PlantedPlotsTable>
+                    </section>
+                    <section className={styles.plotInfo}>
+                        <Typography variant="h3" align="center">Plot Assignment Table</Typography>
+                        <GardenPlotsTable
+                            garden={garden}
+                            gardeners={gardeners}
+                            plots={plots}
+                            numPlots={garden[2]}
+                            callback={fetchPlots}>
+                        </GardenPlotsTable>
+                    </section>
+                    <section className={styles.toolInfo}>
+                        <Typography variant="h3" align="center">Stored Tools</Typography>
+
+                        <ToolTable tools={tools} onToggleAvailability={toggleToolAvailability}>
+                        </ToolTable>
+                    </section>
+                </section>
+
+
+
+                {/* <section className={styles.infoSection}>
                     <GardenInfo data={garden} hasError={hasError} errorMsg={errorMsg}></GardenInfo>
                     <br></br>
                     <Divider></Divider>
@@ -176,7 +204,7 @@ export default function Garden() {
                     </ToolTable>
 
 
-                </section>
+                </section> */}
             </main>
         </div>
     );
