@@ -12,6 +12,7 @@ export default function GardenInfo({ data, hasError, errorMsg }) {
             <Typography>Garden Address: {data[0]}</Typography>
             <Typography>Number of Plots: {data[2]}</Typography>
             <Typography>Manager Email: {data[3]}</Typography>
+            <Typography>Compost: {data[4]}</Typography>
         </Stack>
     );
 };
