@@ -29,6 +29,11 @@ export default function AdminPage() {
     }
 
     const fetchAttributes = async (tname) => {
+        if (tname == "") {
+            setAttrs([]);
+            setAttrsSelected([]);
+            return;
+        }
         const url = `http://localhost:65535/api/table/attrs?name=${tname}`;
         const res = await fetch(url)
         .then((resp) => resp.json())
