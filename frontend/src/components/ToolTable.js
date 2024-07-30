@@ -7,7 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, IconButton, TextField, Switch } from '@mui/material'
 import React, { useState } from 'react';
-import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
+// import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 
 export default function ToolTable({ tools, onToggleAvailability }) {
     const handleToggle = (toolType, gardenAddress, currentAvailability) => {
