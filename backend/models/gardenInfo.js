@@ -195,12 +195,10 @@ async function getAllToolsForGarden(addr) {
     try {
         connection = await getConnection();
         const result = await connection.execute(
-            `SELECT Tool.tool_type, Stores.availability
-                FROM Tool
-                JOIN Stores ON Tool.tool_type = Stores.tool_type
-                JOIN GardenInfo ON Stores.garden_address = GardenInfo.address
-                WHERE GardenInfo.address = :address`
-            , [addr]);
+            `SELECT t.tool_type, s.availability, s.garden_address
+             FROM Tool t
+             JOIN Stores s ON t.tool_type = s.tool_type
+             WHERE s.garden_address = :addr`, [addr]);
         return result.rows;
     } catch (err) {
         console.error('Error executing query:', err.message);
@@ -215,6 +213,7 @@ async function getAllToolsForGarden(addr) {
         }
     }
 }
+
 
 async function updateToolAvailability(toolType, availability, gardenAddress) {
     let connection;
