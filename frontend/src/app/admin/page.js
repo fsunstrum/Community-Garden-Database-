@@ -100,7 +100,9 @@ export default function AdminPage() {
                     <AttributeCheckboxes attrs={attrs}></AttributeCheckboxes>
                     <button type="submit" className={styles.searchButton}>Search</button>
                 </form>
+                <section className={styles.table}>
                 <GenericTable rows={table} col_names={attrsSelected}></GenericTable>
+                </section>
             </main>
         </div>
     );
