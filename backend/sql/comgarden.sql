@@ -140,6 +140,7 @@ CREATE TABLE Grows(
    PRIMARY KEY (species, genus, variety, plot_num, garden_address),
    FOREIGN KEY (species, genus, variety) REFERENCES PlantInfo(species, genus, variety),
    FOREIGN KEY (plot_num, garden_address) REFERENCES GardenerPlot(plot_num, garden_address)
+      ON DELETE CASCADE
 );
 
 INSERT INTO Donation (donation_id, donor_name, don_date, item) VALUES (1, 'Alice', TO_DATE('2024-07-01', 'YYYY-MM-DD'), 'Orange Seeds');
