@@ -42,7 +42,8 @@ export default function AdminPage() {
     }
 
     const fetchTable = async(tname, attrs) => {
-        const url = `http://localhost:65535/api/table/${tname}?attrs=${attrsSelected.join(",")}`;
+        console.log(attrs);
+        const url = `http://localhost:65535/api/table/${tname}?attrs=${attrs.join(",")}`;
         const res = await fetch(url)
         .then((resp) => resp.json())
         .catch(err => {
@@ -59,6 +60,14 @@ export default function AdminPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const selected = []
+        for (var i = 0; i < attrs.length; i++) {
+            const check = e.target["check" + i];
+            if (check.checked) selected.push(check.value);
+        }
+        setAttrsSelected(selected);
+
+        fetchTable(tableSelected, selected);
     }
 
     const handleSelect = async (e) => {
@@ -87,7 +96,7 @@ export default function AdminPage() {
                     <AttributeCheckboxes attrs={attrs}></AttributeCheckboxes>
                     <button type="submit" className={styles.searchButton}>Search</button>
                 </form>
-                <GenericTable rows={[]} col_names={[]}></GenericTable>
+                <GenericTable rows={table} col_names={attrsSelected}></GenericTable>
             </main>
         </div>
     );

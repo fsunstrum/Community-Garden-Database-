@@ -3,8 +3,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
 export default function AttributeCheckboxes({ attrs }) {
-    console.log(attrs);
-    const checkboxes = attrs.map((attr) => <FormControlLabel key={attr} control={<Checkbox defaultChecked></Checkbox>} label={attr}></FormControlLabel>)
+    const checkboxes = attrs.map(
+        (attr, idx) => 
+        <FormControlLabel name={"check" + idx} key={idx} control={<Checkbox defaultChecked></Checkbox>} label={attr} value={attr}>
+        </FormControlLabel>)
     return (
         <FormGroup>
             {checkboxes}
