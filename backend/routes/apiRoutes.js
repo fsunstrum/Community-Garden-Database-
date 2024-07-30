@@ -5,6 +5,7 @@ const managersController = require('../controllers/managersController');
 const plantController = require('../controllers/plantController');
 const growsController = require('../controllers/growsController');
 const gardenerController = require('../controllers/gardenerController');
+const allController = require('../controllers/allController');
 
 const router = express.Router();
 
@@ -70,6 +71,8 @@ router.delete('/gardeners', gardenerController.deleteGardeners);
 // Update a gardener
 router.put('/gardeners', gardenerController.updateGardener);
 
+router.get('/tables', allController.getAllTableNames);
+router.get('/table/:table_name', allController.getAllAttributesOfTable);
 
 
 module.exports = router;
