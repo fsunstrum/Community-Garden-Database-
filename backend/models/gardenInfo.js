@@ -16,11 +16,7 @@ async function insertGarden(data) {
         VALUES (:address, :garden_name, :num_of_plots)`;
         const result = await connection.execute(gardenInfoSql,
             [data.address, data.garden_name, data.num_of_plots],
-            {autoCommit: false});
-
-        // if (gardenInfoResult.rowsAffected === 0) {
-        //     throw new Error('Failed to insert into GardenInfo table');
-        // }
+            { autoCommit: false });
 
         if (result.rowsAffected > 0) {
             // Insert into GardenNumPlots table
@@ -220,6 +216,29 @@ async function getAllToolsForGarden(addr) {
     }
 }
 
+async function updateToolAvailability(toolType, availability, gardenAddress) {
+    let connection;
+    try {
+        connection = await getConnection();
+        const sql = `UPDATE Stores SET availability = :availability WHERE tool_type = :toolType AND garden_address = :gardenAddress`;
+        const result = await connection.execute(sql, [availability, toolType, gardenAddress], { autoCommit: true });
+
+        return result;
+    } catch (err) {
+        console.error('Error executing query:', err.message);
+        throw err;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error closing connection:', err.message);
+            }
+        }
+    }
+}
+
+
 async function assignGardenerToPlot(addr, email, pnum) {
     let connection;
     const sun_exposures = ["full sun", "part sun", "full shade", "part shade"]
@@ -230,9 +249,9 @@ async function assignGardenerToPlot(addr, email, pnum) {
         connection = await getConnection();
         const sql = `INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) 
     VALUES (:addr, :email, :pnum, :sun_exposure, :plot_size)`;
-        const result = await connection.execute(sql, 
-            [addr, email, pnum, sun_exposures[randIdx], randPlotSize], 
-            {autoCommit: true});
+        const result = await connection.execute(sql,
+            [addr, email, pnum, sun_exposures[randIdx], randPlotSize],
+            { autoCommit: true });
 
         return result.rowsAffected && result.rowsAffected > 0;
     } catch (err) {
@@ -328,4 +347,15 @@ async function getAllGardenAddresses() {
     }
 }
 
-module.exports = { insertGarden, getGarden, getGardenPlotsPlanted, assignGardenerToPlot, getGardenPlots, unassignGardenerFromPlot, getAllGardens, getAllGardenAddresses, getAllToolsForGarden };
+module.exports = {
+    insertGarden,
+    getGarden,
+    getGardenPlotsPlanted,
+    assignGardenerToPlot,
+    getGardenPlots,
+    unassignGardenerFromPlot,
+    getAllGardens,
+    getAllGardenAddresses,
+    getAllToolsForGarden,
+    updateToolAvailability
+};

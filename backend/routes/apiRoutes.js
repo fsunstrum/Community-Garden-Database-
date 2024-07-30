@@ -46,6 +46,9 @@ router.delete('/garden/plots', gardensController.unassignGardenerFromPlot);
 
 router.get('/garden/tools', gardensController.getAllToolsForGarden);
 
+// Update tool availability
+router.put('/tool/availability', gardensController.updateToolAvailability);
+
 router.get('/gardens/underachievers', growsController.getUnderachievingGardens);
 
 router.get('/managers', managersController.getAllManagers);

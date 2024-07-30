@@ -105,6 +105,25 @@ exports.getAllToolsForGarden = async (req, res) => {
     }
 };
 
+exports.updateToolAvailability = async (req, res) => {
+    const { toolType, availability, gardenAddress } = req.body;
+
+    if (!toolType || availability === undefined || !gardenAddress) {
+        return res.status(400).send({ message: 'Tool type, availability, and garden address are required!' });
+    }
+
+    try {
+        const result = await gi.updateToolAvailability(toolType, availability, gardenAddress);
+        if (result.rowsAffected > 0) {
+            res.status(200).send({ message: 'Tool availability updated successfully!' });
+        } else {
+            res.status(404).send({ message: 'Tool not found!' });
+        }
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+};
+
 exports.getGardenPlotsPlanted = async (req, res) => {
     const garden_name = req.query.name;
 
