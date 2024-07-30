@@ -77,6 +77,7 @@ export default function AdminPage() {
     const handleSelect = async (e) => {
         await fetchAttributes(e.target.value);
         setTableSelected(e.target.value);
+        setTable([]);
     }
 
     return (
