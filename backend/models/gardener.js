@@ -16,8 +16,14 @@ async function insertGardener(data) {
 
         return result.rowsAffected && result.rowsAffected > 0;
     } catch (err) {
-        console.error("Error executing query:", err.message);
-        return false;
+        if (err.errorNum === 1) { // Unique constraint violation error code
+            throw new Error('A gardener with the same name and phone number already exists.');
+        } else {
+            console.error("Error executing query:", err.message);
+            throw err;
+        }
+        // console.error("Error executing query:", err.message);
+        // return false;
     } finally {
         if (connection) {
             try {
@@ -116,8 +122,14 @@ async function updateGardener(data) {
 
         return result.rowsAffected && result.rowsAffected > 0;
     } catch (err) {
-        console.error("Error executing query:", err.message);
-        return false;
+        if (err.errorNum === 1) { // Unique constraint violation error code
+            throw new Error('A gardener with the same name and phone number already exists.');
+        } else {
+            console.error("Error executing query:", err.message);
+            throw err;
+        }
+        // console.error("Error executing query:", err.message);
+        // return false;
     } finally {
         if (connection) {
             try {

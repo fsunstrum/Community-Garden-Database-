@@ -35,7 +35,7 @@ export default function GardenerForm({callback}) {
             }).then(resp => {
                 if (resp.ok) {
                     setHasError(false);
-                    setAlertMsg("Gardener was added sucessfully!");
+                    setAlertMsg("Gardener was added successfully!");
                     callback();
                 } else return resp.json();
             });
@@ -46,6 +46,8 @@ export default function GardenerForm({callback}) {
             }
         } catch (error) {
             console.error('Error:', error);
+            setHasError(true);
+            setAlertMsg('Failed to add gardener. Please try again.');
         }
     };
 
