@@ -121,9 +121,11 @@ async function getGarden(name) {
     try {
         connection = await getConnection();
         const result = await connection.execute(
-            `SELECT gi.address, gi.garden_name, gi.num_of_plots, gm.manager_email  
+            `SELECT gi.address, gi.garden_name, gi.num_of_plots, gm.manager_email, c.capacity  
                 FROM GardenInfo gi 
                 LEFT JOIN GardenManages gm ON gi.garden_name = gm.garden_name
+                LEFT JOIN HasCompost hc ON gi.address = hc.garden_address
+                LEFT JOIN Compost c ON hc.bin_id = c.bin_id
                 WHERE gi.garden_name = :name`
             , [name]);
         return result.rows;
