@@ -42,7 +42,6 @@ export default function AdminPage() {
     }
 
     const fetchTable = async(tname, attrs) => {
-        console.log(attrs);
         const url = `http://localhost:65535/api/table/${tname}?attrs=${attrs.join(",")}`;
         const res = await fetch(url)
         .then((resp) => resp.json())

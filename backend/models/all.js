@@ -51,13 +51,14 @@ async function constructSelectQuery(tname, attrs) {
     const validAttrs = await getAllAttributesOfTable(tname);
 
     for (var i = 0; i < attrs.length; i++) {
-        if (validAttrs.includes(attrs[i])) return `SELECT * FROM ${tname}`;
+        if (!validAttrs.includes(attrs[i])) return `SELECT * FROM ${tname}`;
     }
 
     return `SELECT ${attrs.join(', ')} FROM ${tname}`;
 }
 
 async function getTable(tname, attrs) {
+    console.log(attrs);
     tname = tname.toLowerCase();
     const validTables = await getAllTableNames();
 
