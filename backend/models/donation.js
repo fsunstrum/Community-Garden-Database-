@@ -81,76 +81,8 @@ async function insertDonation(data) {
     }
 }
 
-// async function getAttributes() {
-//     let connection;
-//     try {
-//         connection = await getConnection();
-//         const sql = `SELECT column_name FROM user_tab_columns WHERE table_name = 'DONATION'`;
-//         const result = await connection.execute(sql);
-//         return result.rows.map(row => row[0]);
-//     } catch (err) {
-//         console.error('Error executing query:', err.message);
-//         throw err;
-//     } finally {
-//         if (connection) {
-//             try {
-//                 await connection.close();
-//             } catch (err) {
-//                 console.error('Error closing connection:', err.message);
-//             }
-//         }
-//     }
-// }
-
-// async function getData(attributes, search = '') {
-//     let connection;
-//     try {
-//         connection = await getConnection();
-
-//         // Fully qualify column names with table alias
-//         const columns = attributes.split(',').map(attr => {
-//             if (attr.trim().toUpperCase() === 'DONATION_ID') return 'd.donation_id AS donation_id';
-//             if (attr.trim().toUpperCase() === 'DONOR_NAME') return 'd.donor_name AS donor_name';
-//             if (attr.trim().toUpperCase() === 'DON_DATE') return 'TO_CHAR(d.don_date, \'YYYY-MM-DD\') AS don_date';
-//             if (attr.trim().toUpperCase() === 'ITEM') return 'd.item AS item';
-//             if (attr.trim().toUpperCase() === 'GARDEN_ADDRESS') return 'r.garden_address AS garden_address';
-//             if (attr.trim().toUpperCase() === 'GARDEN_NAME') return 'g.garden_name AS garden_name';
-//             return attr.trim();
-//         }).join(', ');
-
-//         let sql = `
-//             SELECT ${columns} 
-//             FROM Donation d
-//             LEFT JOIN Receives r ON d.donation_id = r.donation_id
-//             LEFT JOIN GardenInfo g ON r.garden_address = g.address
-//         `;
-
-//         const params = [];
-//         if (search) {
-//             sql += ` WHERE d.donor_name LIKE :search OR r.garden_address LIKE :search`;
-//             params.push(`%${search}%`);
-//         }
-
-//         const result = await connection.execute(sql, params);
-//         return result.rows.map(row => {
-//             return attributes.split(',').map((_, index) => row[index]);
-//         });
-//     } catch (err) {
-//         console.error('Error executing query:', err.message);
-//         throw err;
-//     } finally {
-//         if (connection) {
-//             try {
-//                 await connection.close();
-//             } catch (err) {
-//                 console.error('Error closing connection:', err.message);
-//             }
-//         }
-//     }
-// }
-
 const donation = {
-    getAll: async (search = '') => {
+    getAll: async (search = '', donorName = '', gardenAddress = '', date = '', dateCondition = '') => {
         let connection;
         try {
             connection = await getConnection();
@@ -159,12 +91,35 @@ const donation = {
                 FROM Donation d
                 LEFT JOIN Receives r ON d.donation_id = r.donation_id
                 LEFT JOIN GardenInfo g ON r.garden_address = g.address
+                WHERE 1=1
             `;
             const params = [];
             if (search) {
-                sql += ` WHERE d.donor_name LIKE :search OR r.garden_address LIKE :search`;
-                params.push(`%${search}%`, `%${search}%`);
+                sql += ` AND (d.donor_name LIKE :search OR r.garden_address LIKE :search)`;
+                params.push(`%${search}%`);
             }
+
+            if (donorName) {
+                sql += ` AND d.donor_name LIKE :donorName`;
+                params.push(`%${donorName}%`);
+            }
+
+            if (gardenAddress) {
+                sql += ` AND r.garden_address LIKE :gardenAddress`;
+                params.push(`%${gardenAddress}%`);
+            }
+
+            if (date) {
+                if (dateCondition === 'before') {
+                    sql += ` AND d.don_date < TO_DATE(:date, 'YYYY-MM-DD')`;
+                } else if (dateCondition === 'after') {
+                    sql += ` AND d.don_date > TO_DATE(:date, 'YYYY-MM-DD')`;
+                } else {
+                    sql += ` AND d.don_date = TO_DATE(:date, 'YYYY-MM-DD')`;
+                }
+                params.push(date);
+            }
+
             const result = await connection.execute(sql, params);
 
             // Format the dates before returning
