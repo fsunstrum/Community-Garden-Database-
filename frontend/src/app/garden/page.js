@@ -161,7 +161,7 @@ export default function Garden() {
                         <PlantedPlotsTable plots={plantedPlots}></PlantedPlotsTable>
                     </section>
                     <section className={styles.plotInfo}>
-                        <Typography variant="h3" align="center">Plot Assignment Table</Typography>
+                        <Typography variant="h3" align="center">Plot Assignments</Typography>
                         <GardenPlotsTable
                             garden={garden}
                             gardeners={gardeners}

@@ -1,5 +1,14 @@
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import IconButton from '@mui/material/IconButton';
+import { styled } from '@mui/system';
+
+const CustomIconButton = styled(IconButton)(({ theme }) => ({
+    color: '#505050', 
+    '&:hover': {
+      color: 'red', 
+      background: 'transparent',
+    },
+  }));
 
 export default function UnassignPlotButton({gardener, garden, plotNum, callback}) {
     const handleClick = async () => {
@@ -29,8 +38,8 @@ export default function UnassignPlotButton({gardener, garden, plotNum, callback}
     }
 
     return (
-        <IconButton aria-label="unassign" onClick={handleClick}>
-            <RemoveCircleOutlineIcon color="red" />
-        </IconButton>
+        <CustomIconButton aria-label="unassign" onClick={handleClick}>
+            <RemoveCircleOutlineIcon />
+        </CustomIconButton>
     )
 }
