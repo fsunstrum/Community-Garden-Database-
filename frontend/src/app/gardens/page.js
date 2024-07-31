@@ -1,6 +1,7 @@
 'use client'
 
 import styles from './page.module.css';
+import Image from 'next/legacy/image';
 import GardenTable from '@/components/GardenTable';
 import GardenForm from '@/components/GardenForm';
 import { useState, useEffect } from 'react'
@@ -48,10 +49,17 @@ export default function Gardens() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <div className={styles.headerContent}>
-          <h1 className={styles.headerTitle}>Current Gardens</h1>
-        </div>
-      </header>
+                <Image
+                    src="/donation.jpg"
+                    alt="Gardens"
+                    layout="fill"
+                    objectFit="cover"
+                    className={styles.headerImage}
+                />
+                <div className={styles.headerContent}>
+                    <h1 className={styles.headerTitle}>CURRENT GARDENS</h1>
+                </div>
+            </header>
       <main className={styles.main}>
         <form onSubmit={handleFilter} className={styles.searchForm}>
           <Stack direction={"row"} alignItems={"center"}>

@@ -1,6 +1,7 @@
 'use client'
 
 import styles from './page.module.css';
+import Image from 'next/legacy/image';
 import GardenerTable from '@/components/GardenerTable';
 import GardenerForm from '@/components/GardenerForm';
 import UpdateGardenerForm from '@/components/UpdateGardenerForm';
@@ -41,10 +42,17 @@ export default function Gardeners() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <div className={styles.headerContent}>
-          <h1 className={styles.headerTitle}>Registered Gardeners</h1>
-        </div>
-      </header>
+                <Image
+                    src="/gardener.jpg"
+                    alt="Gardener"
+                    layout="fill"
+                    objectFit="cover"
+                    className={styles.headerImage}
+                />
+                <div className={styles.headerContent}>
+                    <h1 className={styles.headerTitle}>REGISTERED GARDENERS</h1>
+                </div>
+            </header>
       <main className={styles.main}>
         <section className={styles.infoSection}>
           <GardenerTable gardeners={gardeners} callback={fetchGardeners} onEdit={handleEditClick} />

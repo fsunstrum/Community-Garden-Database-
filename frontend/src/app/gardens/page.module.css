@@ -6,7 +6,7 @@
 .header {
   position: relative;
   width: 100%;
-  height: 15vh;
+  height: 30vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,7 +43,6 @@
 
 .headerTitle {
   font-size: 4rem;
-  margin-bottom: 1rem;
 }
 
 .headerButton {

@@ -92,8 +92,8 @@ export default function AdminPage() {
         <div className={styles.container}>
             <header className={styles.header}>
                 <Image
-                    src="/donation.jpg"
-                    alt="Donation"
+                    src="/admin.jpg"
+                    alt="Admin"
                     layout="fill"
                     objectFit="cover"
                     className={styles.headerImage}

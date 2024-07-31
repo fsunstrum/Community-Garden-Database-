@@ -45,7 +45,7 @@ export default function Donations() {
         <div className={styles.container}>
             <header className={styles.header}>
                 <Image
-                    src="/donation.jpg"
+                    src="/gardens.jpg"
                     alt="Donation"
                     layout="fill"
                     objectFit="cover"

@@ -6,7 +6,7 @@ const Navbar = () => {
     <nav className={styles.navbar}>
       <div className={styles.logo}>
       <Link href="/" legacyBehavior>
-          <a className={styles.logoLink}><h1>Community Gardens</h1></a>
+          <a className={styles.logoLink}><h1>COMMUNITY GARDENS</h1></a>
         </Link>
       </div>
       <ul className={styles.navLinks}>
