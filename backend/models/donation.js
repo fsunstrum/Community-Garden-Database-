@@ -111,12 +111,13 @@ const donation = {
 
             if (date) {
                 if (dateCondition === 'before') {
-                    sql += ` AND d.don_date < TO_DATE(:date, 'YYYY-MM-DD')`;
+                    sql += ` AND d.don_date < TO_DATE(:filterDate, 'YYYY-MM-DD')`;
                 } else if (dateCondition === 'after') {
-                    sql += ` AND d.don_date > TO_DATE(:date, 'YYYY-MM-DD')`;
+                    sql += ` AND d.don_date > TO_DATE(:filterDate, 'YYYY-MM-DD')`;
                 } else {
-                    sql += ` AND d.don_date = TO_DATE(:date, 'YYYY-MM-DD')`;
+                    sql += ` AND d.don_date = TO_DATE(:filterDate, 'YYYY-MM-DD')`;
                 }
+                params.filterDate = date;
                 params.push(date);
             }
 
