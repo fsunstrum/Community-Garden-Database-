@@ -5,9 +5,10 @@ import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
 import { useState } from 'react';
 
-export default function TableSelect( { tables, callback } ) {
+export default function TableSelect( { tables, callback, numAttrs } ) {
     const [tblSelected, setTblSelected] = useState("");
 
     const selectItems = tables.map((tbl) => <MenuItem key={tbl} value={tbl}>
@@ -20,7 +21,7 @@ export default function TableSelect( { tables, callback } ) {
     }
 
     return (<Box width={200}>
-        <FormControl fullWidth>
+        <FormControl fullWidth error={numAttrs == 0 ? true : null}>
             <InputLabel id="table-select-label">
                 Table
             </InputLabel>
@@ -32,6 +33,7 @@ export default function TableSelect( { tables, callback } ) {
                 <MenuItem value="">None</MenuItem>
                 {selectItems}
             </Select>
+            {numAttrs == 0 ? <FormHelperText>You need to select at least one attribute!</FormHelperText> : null}
         </FormControl>
     </Box>)
 }

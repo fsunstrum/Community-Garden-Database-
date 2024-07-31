@@ -4,6 +4,7 @@ import styles from './page.module.css';
 import Image from 'next/legacy/image';
 import DonationsTable from '@/components/DonationsTable';
 import DonationForm from '@/components/DonationForm';
+import Alert from '@mui/material/Alert';
 import { useState, useEffect } from 'react'
 import GenericTable from '@/components/GenericTable';
 import TableSelect from '@/components/TableSelect';
@@ -64,14 +65,21 @@ export default function AdminPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const selected = []
         for (var i = 0; i < attrs.length; i++) {
             const check = e.target["check" + i];
             if (check.checked) selected.push(check.value);
         }
+
         setAttrsSelected(selected);
 
-        fetchTable(tableSelected, selected);
+        if (selected.length == 0) {
+            setTable([]);
+            return;
+        }
+
+        await fetchTable(tableSelected, selected);
     }
 
     const handleSelect = async (e) => {
@@ -95,9 +103,11 @@ export default function AdminPage() {
                 </div>
             </header>
             <main className={styles.main}>
-                <h2 className={styles.mainHeader}>View a Table</h2>
+                <h2 className={styles.mainHeader}>
+                    View a Table
+                </h2>
                 <form onSubmit={handleSubmit} className={styles.searchForm}>
-                    <TableSelect tables={tables} callback={handleSelect}></TableSelect>
+                    <TableSelect tables={tables} callback={handleSelect} numAttrs={attrsSelected.length}></TableSelect>
                     <AttributeCheckboxes attrs={attrs}></AttributeCheckboxes>
                     <button type="submit" className={styles.searchButton}>Search</button>
                 </form>
