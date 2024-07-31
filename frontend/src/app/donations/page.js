@@ -87,7 +87,7 @@ export default function Donations() {
                         <option value="before">Before</option>
                         <option value="after">After</option>
                     </select>
-                    <button type="submit" className={styles.searchButton}>Search</button>
+                    <button type="submit" className={styles.searchButton}>Filter</button>
                 </form>
                 <section className={styles.table}>
                     <DonationsTable donations={donations}></DonationsTable>

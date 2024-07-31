@@ -3,12 +3,11 @@ const receives = require('./receives');
 
 function formatDate(dateString) {
     const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(date.getUTCDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
 }
-
 
 async function insertDonation(data) {
     console.log("Received Data:", data);
@@ -94,10 +93,6 @@ const donation = {
                 WHERE 1=1
             `;
             const params = [];
-            if (search) {
-                sql += ` AND (d.donor_name LIKE :search OR r.garden_address LIKE :search)`;
-                params.push(`%${search}%`);
-            }
 
             if (donorName) {
                 sql += ` AND d.donor_name LIKE :donorName`;
@@ -110,6 +105,8 @@ const donation = {
             }
 
             if (date) {
+                const formattedDate = formatDate(date);
+                // console.log("Formatted filterDate:", formattedDate); 
                 if (dateCondition === 'before') {
                     sql += ` AND d.don_date < TO_DATE(:filterDate, 'YYYY-MM-DD')`;
                 } else if (dateCondition === 'after') {
@@ -117,9 +114,11 @@ const donation = {
                 } else {
                     sql += ` AND d.don_date = TO_DATE(:filterDate, 'YYYY-MM-DD')`;
                 }
-                params.filterDate = date;
-                params.push(date);
+                params.push(formattedDate); // Use the formatted date in the query
             }
+
+            // console.log("Executing SQL:", sql); 
+            // console.log("With params:", params); 
 
             const result = await connection.execute(sql, params);
 
