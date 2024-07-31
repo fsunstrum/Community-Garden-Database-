@@ -55,9 +55,10 @@ export default function Donations() {
                     <h1 className={styles.headerTitle}>DONATIONS</h1>
                 </div>
             </header>
+            <h2 className={styles.mainHeader}>Donations History</h2>
             <main className={styles.main}>
-                <h2 className={styles.mainHeader}>Donation History</h2>
                 <form onSubmit={handleSearch} className={styles.searchForm}>
+                    <p>Filter Donations By:</p>
                     <input
                         type="text"
                         value={donorName}
@@ -72,30 +73,33 @@ export default function Donations() {
                         placeholder="Garden Address"
                         className={styles.searchInput}
                     />
-                    <input
-                        type="date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                        className={styles.searchInput}
-                    />
-                    <select
-                        value={dateCondition}
-                        onChange={(e) => setDateCondition(e.target.value)}
-                        className={styles.searchInput}
-                    >
-                        <option value="equals">Equals</option>
-                        <option value="before">Before</option>
-                        <option value="after">After</option>
-                    </select>
+                    <div className={styles.inlineContainer}>
+                        <select
+                            value={dateCondition}
+                            onChange={(e) => setDateCondition(e.target.value)}
+                            className={`${styles.searchInput} ${styles.selectInput}`}
+                        >
+                            <option value="equals">Equals</option>
+                            <option value="before">Before</option>
+                            <option value="after">After</option>
+                        </select>
+                        <input
+                            type="date"
+                            value={date}
+                            onChange={(e) => setDate(e.target.value)}
+                            className={styles.searchDateInput}
+                        />
+                    </div>
                     <button type="submit" className={styles.searchButton}>Filter</button>
                 </form>
                 <section className={styles.table}>
                     <DonationsTable donations={donations}></DonationsTable>
                 </section>
-                <section className={styles.form}>
-                    <DonationForm callback={() => fetchDonations()}></DonationForm>
-                </section>
+
             </main>
+            <section className={styles.form}>
+                <DonationForm callback={() => fetchDonations()}></DonationForm>
+            </section>
         </div>
     );
 }
