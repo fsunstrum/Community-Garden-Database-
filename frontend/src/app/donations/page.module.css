@@ -87,7 +87,7 @@
   text-align: left;
   margin-bottom: 4rem;
   margin-top: 2rem;
-  flex: 1; /* Allow the table to take up remaining space */
+  flex: 1; 
 }
 
 .searchForm {
@@ -134,6 +134,6 @@
 }
 
 .sidebar {
-  width: 250px; /* Set a fixed width for the sidebar */
+  width: 250px;
   margin-right: 2rem;
 }

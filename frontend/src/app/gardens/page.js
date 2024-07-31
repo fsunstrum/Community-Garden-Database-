@@ -73,7 +73,7 @@ export default function Gardens() {
       </header>
       <main className={styles.main}>
         <form onSubmit={handleFilter} className={styles.searchForm}>
-          <Stack direction={"row"} alignItems={"center"}>
+          <Stack direction={"column"} alignItems={"left"}>
             <label className={styles.formLabel}>
               Minimum Plots
               <input
@@ -116,23 +116,21 @@ export default function Gardens() {
           <Divider></Divider>
           <br></br>
           <GardenForm callback={fetchGardens}></GardenForm> */}
-          <br></br>
-          <Divider></Divider>
-          <br></br>
-          <div className={styles.lowQualTable}>
-          <div className={styles.lowQualityTitle}>
-            <Typography align="center" variant="h2" className={styles.lowQualHeader}>Low Quantity Gardens</Typography>
-            <Tooltip title="* Gardens that have total plants planted less than the average total for all gardens" className={styles.toolTip}>
-              <IconButton className={styles.infoIcon}>
-                <InfoIcon />
-              </IconButton>
-            </Tooltip>
-          </div>
-          <GardenTable gardens={underachievers} columns={["Address", "Garden Name", "# of Plots", "Total Plants Planted"]}></GardenTable>
-          {/* <Typography variant="subtitle2">* Gardens that have total plants planted less than the average total for all gardens</Typography> */}
-          </div>
         </section>
       </main>
+      <div className={styles.lowQualTable}>
+      <Divider></Divider>
+        <div className={styles.lowQualityTitle}>
+          <Typography align="center" variant="h2" className={styles.lowQualHeader}>Low Quantity Gardens</Typography>
+          <Tooltip title="* Gardens that have total plants planted less than the average total for all gardens" className={styles.toolTip}>
+            <IconButton className={styles.infoIcon}>
+              <InfoIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
+        <GardenTable gardens={underachievers} columns={["Address", "Garden Name", "# of Plots", "Total Plants Planted"]}></GardenTable>
+        {/* <Typography variant="subtitle2">* Gardens that have total plants planted less than the average total for all gardens</Typography> */}
+      </div>
     </div>
   );
 }

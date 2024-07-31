@@ -59,48 +59,51 @@
 }
 
 .main {
-  padding: 2rem;
+  padding: 2rem 10rem;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-top: 4rem;
 }
 
 .infoSection {
-  max-width: 1000px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-.infoSection h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-.infoSection p {
-  font-size: 1.2rem;
-  line-height: 1.6;
-  margin-bottom: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
 }
 
 .searchForm {
   font-size: 1.2rem;
   margin-top: 3rem;
-  margin-left: 10rem;
+  margin-bottom: 3rem;
+  margin-right: 2rem;
+}
+
+.searchForm,
+.tableContainer {
+  flex: 1;
 }
 
 .searchInput {
   padding: 0.5rem;
   margin-right: 0.5rem;
-  width: 300px;
+  width: 200px;
 }
 
 .searchButton {
   padding: 0.5rem;
   max-height: 36px;
+  width: 100px;
 }
-  
+
 .formLabel {
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
-  font-size: 16px;
+  font-size: 1rem;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: #505050;
 }
 
 .modal {
@@ -118,6 +121,7 @@
   margin-bottom: 4rem;
   background-color: #505050;
   color: white;
+  width: 170px;
 }
 
 .addButton:hover {
@@ -152,9 +156,11 @@
   font-weight: bold;
   font-size: 2rem; 
   margin-bottom: 1rem; 
+  margin-top: 3rem;
 }
 
 .lowQualTable {
-  margin-top: 3rem;
   margin-bottom: 6rem; 
+  margin-left: 10rem;
+  margin-right: 10rem;
 }
