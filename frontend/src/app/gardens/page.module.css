@@ -115,11 +115,46 @@
 
 .addButton {
   margin-top: 1rem;
-  margin-bottom: 6rem;
+  margin-bottom: 4rem;
   background-color: #505050;
   color: white;
 }
 
 .addButton:hover {
   background-color: #548060;
+}
+
+.lowQualityTitle {
+  text-align: left;
+  color: #505050; 
+  font-family: 'Georgia'; 
+  font-weight: bold; 
+  font-size: 1.5rem; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.infoIcon {
+  margin-left: 8px;
+  color: #505050; 
+}
+
+.infoIcon:hover {
+  color: #898989; 
+}
+
+.lowQualHeader {
+  text-align: left;
+  color: #505050;
+  font-family: 'Georgia';
+  font-weight: bold;
+  font-size: 2rem; 
+  margin-bottom: 1rem; 
+}
+
+.lowQualTable {
+  margin-top: 3rem;
+  margin-bottom: 6rem; 
 }

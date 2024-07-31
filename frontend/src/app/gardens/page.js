@@ -10,6 +10,9 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import InfoIcon from '@mui/icons-material/Info';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function Gardens() {
   const [gardens, setGardens] = useState([]);
@@ -116,9 +119,18 @@ export default function Gardens() {
           <br></br>
           <Divider></Divider>
           <br></br>
-          <Typography align="center" variant="h2">Low Quantity Gardens</Typography>
+          <div className={styles.lowQualTable}>
+          <div className={styles.lowQualityTitle}>
+            <Typography align="center" variant="h2" className={styles.lowQualHeader}>Low Quantity Gardens</Typography>
+            <Tooltip title="* Gardens that have total plants planted less than the average total for all gardens" className={styles.toolTip}>
+              <IconButton className={styles.infoIcon}>
+                <InfoIcon />
+              </IconButton>
+            </Tooltip>
+          </div>
           <GardenTable gardens={underachievers} columns={["Address", "Garden Name", "# of Plots", "Total Plants Planted"]}></GardenTable>
-          <Typography variant="subtitle2">* Gardens that have total plants planted less than the average total for all gardens</Typography>
+          {/* <Typography variant="subtitle2">* Gardens that have total plants planted less than the average total for all gardens</Typography> */}
+          </div>
         </section>
       </main>
     </div>
