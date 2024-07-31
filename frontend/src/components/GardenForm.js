@@ -4,7 +4,7 @@ import styles from '@/styles/DonationForm.module.css';
 import { useState } from 'react';
 import Alert from '@mui/material/Alert';
 
-export default function GardenForm({callback}) {
+export default function GardenForm({ callback }) {
     const [alertMsg, setAlertMsg] = useState("");
     const [hasError, setHasError] = useState(false);
     const [submitted, setSubmitted] = useState(false);
@@ -22,7 +22,6 @@ export default function GardenForm({callback}) {
             "address": et.address.value,
             "garden_name": et.gardenName.value,
             "num_of_plots": et.num_plots.value,
-            // "manager_email": et.email.value
         }
 
         try {
@@ -52,9 +51,11 @@ export default function GardenForm({callback}) {
     return (
         <div>
             <form className={styles.form} onSubmit={handleSubmit}>
-                {hasError? <Alert severity={hasError? "error": "success"}>
+                {hasError && <Alert severity="error">{alertMsg}</Alert>}
+                {!hasError && alertMsg && <Alert severity="success">{alertMsg}</Alert>}
+                {/* {hasError? <Alert severity={hasError? "error": "success"}>
                     {alertMsg}
-                </Alert> : null}
+                </Alert> : null} */}
                 <h2 className={styles.formTitle}>Add a New Garden</h2>
                 <label className={styles.formLabel}>
                     Address
@@ -63,7 +64,6 @@ export default function GardenForm({callback}) {
                         type="text"
                         name="address"
                         defaultValue=""
-                        // onChange={handleChange}
                     />
                 </label>
                 <label className={styles.formLabel}>
@@ -73,7 +73,6 @@ export default function GardenForm({callback}) {
                         type="text"
                         name="gardenName"
                         defaultValue=""
-                        // onChange={handleChange}
                     />
                 </label>
                 <label className={styles.formLabel}>
@@ -86,16 +85,6 @@ export default function GardenForm({callback}) {
                         min="0"
                     />
                 </label>
-                {/* <label className={styles.formLabel}>
-                    Manager Email
-                    <input
-                        className={styles.formInput}
-                        type="email"
-                        name="email"
-                        defaultValue=""
-                        // onChange={handleChange}
-                    />
-                </label> */}
                 <button className={styles.formButton} type="submit">ADD</button>
             </form>
         </div>
