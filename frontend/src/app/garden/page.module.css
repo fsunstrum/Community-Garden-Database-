@@ -79,20 +79,49 @@
   margin-bottom: 1rem;
 }
 
+.flexContainer {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.flexContainer > section {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.flexContainer > section:last-child {
+  margin-right: 0;
+}
+
+.heading {
+  text-align: left;
+  color: #505050;
+  font-family: 'Georgia';
+  font-weight: bold;
+  font-size: 2rem; 
+  margin-bottom: 1rem; 
+}
+
 .gardenInfo {
   margin-top: 2rem;
   margin-bottom: 3rem;
 }
 
 .plantedInfo {
-  margin-bottom: 4rem;
+  margin-bottom: 5rem;
+  margin-top: 4rem;
 }
 
 .plotInfo {
-  margin-bottom: 4rem;
+  margin-top: 4rem;
+  margin-bottom: 5rem;
 }
 
 .toolInfo {
   margin-bottom: 4rem;
+  margin-left: 6rem;
+  /* margin-top: 4rem; */
 }
 

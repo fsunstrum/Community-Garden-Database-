@@ -153,15 +153,25 @@ export default function Garden() {
             </header>
             <main className={styles.main}>
                 <section className={styles.infoSection}>
-                    <section className={styles.gardenInfo}>
-                        <GardenInfo data={garden} hasError={hasError} errorMsg={errorMsg}></GardenInfo>
-                    </section>
+                    <div className={styles.flexContainer}>
+                        <section className={styles.gardenInfo}>
+                            <GardenInfo data={garden} hasError={hasError} errorMsg={errorMsg}></GardenInfo>
+                        </section>
+                        <section className={styles.toolInfo}>
+                            <Typography variant="h3" align="center" className={styles.heading}>Stored Tools</Typography>
+
+                            <ToolTable tools={tools} onToggleAvailability={toggleToolAvailability}>
+                            </ToolTable>
+                        </section>
+                    </div>
+                    <Divider></Divider>
                     <section className={styles.plantedInfo}>
-                        <Typography variant="h3" align="center">Currently Planted</Typography>
+                        <Typography variant="h3" align="center" className={styles.heading}>Currently Planted</Typography>
                         <PlantedPlotsTable plots={plantedPlots}></PlantedPlotsTable>
                     </section>
+                    <Divider></Divider>
                     <section className={styles.plotInfo}>
-                        <Typography variant="h3" align="center">Plot Assignments</Typography>
+                        <Typography variant="h3" align="center" className={styles.heading}>Plot Assignments</Typography>
                         <GardenPlotsTable
                             garden={garden}
                             gardeners={gardeners}
@@ -169,12 +179,6 @@ export default function Garden() {
                             numPlots={garden[2]}
                             callback={fetchPlots}>
                         </GardenPlotsTable>
-                    </section>
-                    <section className={styles.toolInfo}>
-                        <Typography variant="h3" align="center">Stored Tools</Typography>
-
-                        <ToolTable tools={tools} onToggleAvailability={toggleToolAvailability}>
-                        </ToolTable>
                     </section>
                 </section>
 

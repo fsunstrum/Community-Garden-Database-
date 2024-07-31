@@ -4,6 +4,7 @@ import styles from './page.module.css';
 import Image from 'next/legacy/image';
 import DonationsTable from '@/components/DonationsTable';
 import DonationForm from '@/components/DonationForm';
+import Divider from '@mui/material/Divider';
 import { useState, useEffect } from 'react'
 
 export default function Donations() {
@@ -94,8 +95,8 @@ export default function Donations() {
                 <section className={styles.table}>
                     <DonationsTable donations={donations}></DonationsTable>
                 </section>
-
             </main>
+            <Divider></Divider>
             <section className={styles.form}>
                 <DonationForm callback={() => fetchDonations()}></DonationForm>
             </section>

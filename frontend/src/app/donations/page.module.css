@@ -64,6 +64,7 @@
 .form {
   max-width: 800px;
   margin: 0 auto;
+  margin-top: 4rem;
   text-align: left;
 }
 
@@ -84,7 +85,7 @@
   margin-left: 2rem;
   margin-right: 10rem;
   text-align: left;
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
   margin-top: 2rem;
   flex: 1; /* Allow the table to take up remaining space */
 }
