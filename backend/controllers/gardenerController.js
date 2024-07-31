@@ -37,7 +37,7 @@ exports.deleteGardeners = async (req, res) => {
         const result = await g.deleteGardenersByEmail({ emails });
 
         if (result) res.status(201).send({ message: 'Gardeners removed successfully' });
-        else res(400).send({message: 'Something went wrong'});   //??
+        else res.status(400).send({message: 'Something went wrong'});   //??
 
 
     } catch (err) {

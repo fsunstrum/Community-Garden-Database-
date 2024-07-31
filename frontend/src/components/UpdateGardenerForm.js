@@ -40,8 +40,8 @@ export default function UpdateGardenerForm({ gardener, callback, onClose }) {
                     onClose();
                 }
             });
-            if (response) {
-                setAlertMsg(response.message);
+            if (res) {
+                setAlertMsg(res.message);
             }
         } catch (err) {
             console.error(err);
