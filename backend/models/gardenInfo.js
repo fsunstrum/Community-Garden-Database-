@@ -300,15 +300,27 @@ async function unassignGardenerFromPlot(addr, pnum) {
     }
 }
 
-async function getAllGardens(minPlots = 0) {
+async function getAllGardens(minPlots = 0, minAvailPlots = 0) {
     let connection;
     try {
         connection = await getConnection();
         const result = await connection.execute(
-            `SELECT gi.address, gi.garden_name, gi.num_of_plots, gm.manager_email  
-             FROM GardenInfo gi 
-             LEFT JOIN GardenManages gm ON gi.garden_name = gm.garden_name
-             WHERE gi.num_of_plots >= :minPlots`, [minPlots]
+            `SELECT 
+                gi.address, gi.garden_name, gi.num_of_plots, gm.manager_email  
+             FROM 
+                GardenInfo gi 
+             LEFT JOIN 
+                GardenManages gm ON gi.garden_name = gm.garden_name
+             LEFT JOIN
+                GardenerPlot gp ON gi.address = gp.garden_address
+             WHERE 
+                gi.num_of_plots >= :minPlots
+             GROUP BY
+                gi.address, gi.garden_name, gi.num_of_plots, gm.manager_email             
+             HAVING
+                (gi.num_of_plots - COUNT(gp.plot_num)) >= :minAvailPlots
+        
+             `, [minPlots, minAvailPlots]
         );
         return result.rows;
     } catch (err) {

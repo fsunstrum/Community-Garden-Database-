@@ -15,10 +15,12 @@ export default function Gardens() {
   const [gardens, setGardens] = useState([]);
   const [underachievers, setUnderachievers] = useState([]);
   const [minPlots, setMinPlots] = useState(0);
+  const [minAvailPlots, setMinAvailPlots] = useState(0);
+
   const [open, setOpen] = useState(false);
 
   const fetchGardens = async () => {
-    const res = await fetch(`http://localhost:65535/api/gardens?minPlots=${minPlots}`)
+    const res = await fetch(`http://localhost:65535/api/gardens?minPlots=${minPlots}&minAvailPlots=${minAvailPlots}`)
       .then(resp => resp.json())
       .catch(err => {
         console.error(err);
@@ -76,6 +78,16 @@ export default function Gardens() {
                 min={0}
                 value={minPlots}
                 onChange={(e) => setMinPlots(e.target.value)}
+                className={styles.searchInput}
+              />
+            </label>
+            <label className={styles.formLabel}>
+              Minimum Available Plots
+              <input
+                type="number"
+                min={0}
+                value={minAvailPlots}
+                onChange={(e) => setMinAvailPlots(e.target.value)}
                 className={styles.searchInput}
               />
             </label>
