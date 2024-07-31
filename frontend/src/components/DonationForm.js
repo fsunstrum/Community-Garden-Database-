@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import styles from '../styles/DonationForm.module.css';
 import Alert from '@mui/material/Alert';
 
-// const DonationForm = () => {
 export default function DonationForm({ callback }) {
     const [alertMsg, setAlertMsg] = useState("");
     const [hasError, setHasError] = useState(false);
@@ -79,8 +78,6 @@ export default function DonationForm({ callback }) {
                     type="text"
                     name="donation_id"
                     defaultValue=""
-                // value={formData.donation_id}
-                // onChange={handleChange}
                 />
             </label>
             <label className={styles.formLabel}>
@@ -90,8 +87,6 @@ export default function DonationForm({ callback }) {
                     type="text"
                     name="donor_name"
                     defaultValue=""
-                // value={formData.donor_name}
-                // onChange={handleChange}
                 />
             </label>
             <label className={styles.formLabel}>
@@ -101,8 +96,6 @@ export default function DonationForm({ callback }) {
                     type="date"
                     name="don_date"
                     defaultValue=""
-                // value={formData.don_date}
-                // onChange={handleChange}
                 />
             </label>
             <label className={styles.formLabel}>
@@ -112,8 +105,6 @@ export default function DonationForm({ callback }) {
                     type="text"
                     name="item"
                     defaultValue=""
-                // value={formData.item}
-                // onChange={handleChange}
                 />
             </label>
             <label className={styles.formLabel}>
@@ -135,4 +126,3 @@ export default function DonationForm({ callback }) {
     );
 };
 
-// export default DonationForm;

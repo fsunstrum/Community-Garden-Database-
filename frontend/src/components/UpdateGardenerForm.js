@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, Alert } from '@mui/material';
+import { styled } from '@mui/system';
+
+const CustomAddButton = styled(Button)(({ theme }) => ({
+    backgroundColor: '#505050', 
+    color: 'white',
+    '&:hover': {
+      backgroundColor: '#548060',
+    },
+  }));
 
 export default function UpdateGardenerForm({ gardener, callback, onClose }) {
     const [email, setEmail] = useState('');
@@ -49,14 +58,6 @@ export default function UpdateGardenerForm({ gardener, callback, onClose }) {
             setAlertMsg('Failed to update gardener. Name and phone number already exist.');
         }
     };
-    //         return res.json();
-    //     }).catch(err => {
-    //         console.error(err);
-    //         setHasError(true);
-    //     });
-
-    //     console.log(res);
-    // };
 
     return (
         <Box component="form" onSubmit={handleSubmit}>
@@ -82,9 +83,9 @@ export default function UpdateGardenerForm({ gardener, callback, onClose }) {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
             />
-            <Button variant="contained" color="primary" type="submit">
+            <CustomAddButton variant="contained" color="primary" type="submit">
                 Update Gardener
-            </Button>
+            </CustomAddButton>
         </Box>
     );
 }

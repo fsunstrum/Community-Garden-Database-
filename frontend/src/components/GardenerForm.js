@@ -65,7 +65,6 @@ export default function GardenerForm({callback}) {
                         type="text"
                         name="name"
                         defaultValue=""
-                        // onChange={handleChange}
                     />
                 </label>
                 <label className={styles.formLabel}>
@@ -75,7 +74,6 @@ export default function GardenerForm({callback}) {
                         type="email"
                         name="email"
                         defaultValue=""
-                        // onChange={handleChange}
                     />
                 </label>
                 <label className={styles.formLabel}>
@@ -84,20 +82,8 @@ export default function GardenerForm({callback}) {
                         className={styles.formInput}
                         type="tel"
                         name="phone"
-                        // defaultValue={0}
-                        // onChange={handleChange}
                     />
                 </label>
-                {/* <label className={styles.formLabel}>
-                    Manager Email
-                    <input
-                        className={styles.formInput}
-                        type="email"
-                        name="email"
-                        defaultValue=""
-                        // onChange={handleChange}
-                    />
-                </label> */}
                 <button className={styles.formButton} type="submit">ADD</button>
             </form>
         </div>

@@ -2,6 +2,15 @@ import React, { useRef, useState } from 'react';
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Checkbox, Button, Grid, Alert } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { styled } from '@mui/system';
+
+const CustomEditButton = styled(Button)(({ theme }) => ({
+    backgroundColor: '#505050', 
+    color: 'white',
+    '&:hover': {
+      backgroundColor: '#548060',
+    },
+  }));
 
 export default function GardenTable({ gardeners, onEdit, callback }) {
 
@@ -68,19 +77,17 @@ export default function GardenTable({ gardeners, onEdit, callback }) {
             {row.map((v, i) => <TableCell key={i}>{v}</TableCell>)}
             <TableCell>
                 <Checkbox
-                    // ref={el => checkboxesRef.current[idx] = el}
                     inputRef={el => checkboxesRef.current[idx] = el}
-                // checked = {selectedRows.includes(idx)}
                 />
             </TableCell>
             <TableCell>
-                <Button
+                <CustomEditButton
                     variant="contained"
                     color="primary"
                     startIcon={<EditIcon />}
                     onClick={() => onEdit(gardeners[idx])}>
                     Edit
-                </Button>
+                </CustomEditButton>
             </TableCell>
         </TableRow>
     ))
@@ -94,7 +101,6 @@ export default function GardenTable({ gardeners, onEdit, callback }) {
                         <TableCell>Name</TableCell>
                         <TableCell>E-mail address</TableCell>
                         <TableCell>Phone number</TableCell>
-                        {/* <TableCell>Manager Email</TableCell> */}
                     </TableRow>
                 </TableHead>
                 <TableBody>
