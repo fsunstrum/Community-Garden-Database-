@@ -7,7 +7,20 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, IconButton, TextField, Switch } from '@mui/material'
 import React, { useState } from 'react';
+import { styled } from '@mui/system';
 // import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
+
+const GreenSwitch = styled(Switch)(({ theme }) => ({
+    '& .MuiSwitch-switchBase.Mui-checked': {
+      color: '#548060',
+      '&:hover': {
+        backgroundColor: 'rgba(76, 175, 80, 0.08)',
+      },
+    },
+    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+      backgroundColor: '#4caf50',
+    },
+  }));
 
 export default function ToolTable({ tools, onToggleAvailability }) {
     const handleToggle = (toolType, gardenAddress, currentAvailability) => {
@@ -29,7 +42,7 @@ export default function ToolTable({ tools, onToggleAvailability }) {
                         <TableRow key={idx}>
                             <TableCell>{tool[0]}</TableCell>
                             <TableCell>
-                                <Switch
+                                <GreenSwitch
                                     checked={tool[1] === 'Y'}
                                     onChange={() => handleToggle(tool[0], tool[2], tool[1])}
                                 />

@@ -15,7 +15,6 @@ export default function Donations() {
     const [dateCondition, setDateCondition] = useState('equals');
 
     const fetchDonations = async (query = '') => {
-        // const url = query ? `http://localhost:65535/api/donations?search=${encodeURIComponent(query)}` : 'http://localhost:65535/api/donations';
         const url = new URL('http://localhost:65535/api/donations');
         if (donorName) url.searchParams.append('donorName', donorName);
         if (gardenAddress) url.searchParams.append('gardenAddress', gardenAddress);
@@ -55,7 +54,7 @@ export default function Donations() {
                     <h1 className={styles.headerTitle}>DONATIONS</h1>
                 </div>
             </header>
-            <h2 className={styles.mainHeader}>Donations History</h2>
+            {/* <h2 className={styles.mainHeader}>Donations History</h2> */}
             <main className={styles.main}>
                 <form onSubmit={handleSearch} className={styles.searchForm}>
                     <p>Filter Donations By:</p>
