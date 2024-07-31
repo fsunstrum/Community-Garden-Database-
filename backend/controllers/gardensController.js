@@ -42,17 +42,27 @@ exports.createGarden = async (req, res) => {
 
 exports.getAllGardens = async (req, res) => {
     const minPlots = parseInt(req.query.minPlots);
-    
+    const minAvailPlots = parseInt(req.query.minAvailPlots);
+
     try {
         let gardens;
-        if (!minPlots || isNaN(minPlots)) gardens = await gi.getAllGardens();
-        else gardens = await gi.getAllGardens(minPlots);
-        
+
+        if (!isNaN(minPlots) && !isNaN(minAvailPlots)) {
+            gardens = await gi.getAllGardens(minPlots, minAvailPlots);
+        } else if (!isNaN(minPlots)) {
+            gardens = await gi.getAllGardens(minPlots);
+        } else if (!isNaN(minAvailPlots)) {
+            gardens = await gi.getAllGardens(undefined, minAvailPlots);
+        } else {
+            gardens = await gi.getAllGardens();
+        }
+
         res.status(200).send(gardens);
     } catch (err) {
         res.status(500).send({ message: err.message });
     }
 };
+
 
 exports.getAllGardenAddresses = async (req, res) => {
     try {
