@@ -8,6 +8,7 @@ import Divider from '@mui/material/Divider';
 import { useState, useEffect } from 'react'
 
 export default function Donations() {
+    // State variables to manage the donations data and filter inputs
     const [donations, setDonations] = useState([]);
     const [search, setSearch] = useState('');
     const [donorName, setDonorName] = useState('');
@@ -15,6 +16,7 @@ export default function Donations() {
     const [date, setDate] = useState('');
     const [dateCondition, setDateCondition] = useState('equals');
 
+    // Fetch donations from API with optional query parameters
     const fetchDonations = async (query = '') => {
         const url = new URL('http://localhost:65535/api/donations');
         if (donorName) url.searchParams.append('donorName', donorName);
@@ -32,10 +34,12 @@ export default function Donations() {
         setDonations(res);
     }
 
+    // useEffect hook to fetch donations when the component mounts
     useEffect(() => {
         fetchDonations();
     }, []);
 
+    // Handler function for search/filter form submission
     const handleSearch = (e) => {
         e.preventDefault();
         fetchDonations(search);

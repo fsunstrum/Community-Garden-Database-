@@ -9,7 +9,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+// DonationsTable component definition
 export default function DonationsTable({ donations }) {
+    // Map donations data to table rows
     const tableRows = donations.map((row, idx) => (
         <TableRow key={idx}>
             {row.map((v, i) => <TableCell key={i}>{v}</TableCell>)}

@@ -5,11 +5,13 @@ import styles from '../styles/DonationForm.module.css';
 import Alert from '@mui/material/Alert';
 
 export default function DonationForm({ callback }) {
+    // State variables to manage form submission status, error messages, and garden addresses
     const [alertMsg, setAlertMsg] = useState("");
     const [hasError, setHasError] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [gardenAddresses, setGardenAddresses] = useState([]);
 
+    // Fetch garden addresses when the component mounts
     useEffect(() => {
         const fetchGardenAddresses = async () => {
             try {
@@ -24,6 +26,7 @@ export default function DonationForm({ callback }) {
         fetchGardenAddresses();
     }, []);
 
+    // Handle form submission
     const handleSubmit = async (e) => {
         setSubmitted(true);
 
@@ -31,6 +34,7 @@ export default function DonationForm({ callback }) {
 
         const et = e.target;
 
+        // Gather form data
         const formData = {
             "donation_id": et.donation_id.value,
             "donor_name": et.donor_name.value,
@@ -42,6 +46,7 @@ export default function DonationForm({ callback }) {
         console.log("Form Data:", formData);
 
         try {
+            // Send POST request to the API to create a new donation
             const response = await fetch('http://localhost:65535/api/donations', {
                 method: 'POST',
                 headers: {
@@ -52,10 +57,11 @@ export default function DonationForm({ callback }) {
                 if (resp.ok) {
                     setHasError(false);
                     setAlertMsg("Donation was added successfully!");
-                    callback();
+                    callback(); // callback to refresh the donations list
                 } else return resp.json();
             });
 
+            // Handle error messages
             if (response) {
                 setHasError(true);
                 setAlertMsg(response.message);
