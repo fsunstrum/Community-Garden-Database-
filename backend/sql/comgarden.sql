@@ -89,9 +89,7 @@ CREATE TABLE GardenerPlot(
    plot_size INTEGER,
    PRIMARY KEY (garden_address, plot_num),
    FOREIGN KEY (garden_address) REFERENCES GardenNumPlots(address),
-      -- ON DELETE CASCADE,
    FOREIGN KEY (gardener_email) REFERENCES Gardener(email)
-      -- ON DELETE SET NULL
       ON DELETE CASCADE
 );
 

@@ -59,6 +59,10 @@ async function insertDonation(data) {
     } catch (err) {
         console.error("Error executing query:", err.message);
 
+        if (err.message.includes("ORA-00001")) {
+            throw new Error('A donation with the same id already exists!');
+        }
+
         if (connection) {
             try {
                 await connection.rollback();
