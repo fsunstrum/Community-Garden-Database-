@@ -17,12 +17,6 @@ router.get('/donations', donationController.getAllDonations);
 
 router.get('/receives', donationController.getAllReceives);
 
-// // Get donation attributes
-// router.get('/donations/attributes', donationController.getDonationsAttributes);
-
-// // Get donation data based on selected attributes
-// router.get('/donations/data', donationController.getDonationsData);
-
 // Create a new garden
 router.post('/gardens', gardensController.createGarden);
 
@@ -34,9 +28,6 @@ router.get('/gardens/addresses', gardensController.getAllGardenAddresses);
 
 // Get a single garden
 router.get('/garden', gardensController.getGarden);
-
-// Delete a garden
-// router.delete('/gardens', gardensController.deleteGarden);
 
 // Get all the planted plots in a garden
 router.get('/garden/plots/planted', gardensController.getGardenPlotsPlanted);
