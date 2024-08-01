@@ -122,7 +122,7 @@ async function updateGardener(data) {
 
         return result.rowsAffected && result.rowsAffected > 0;
     } catch (err) {
-        if (err.errorNum === 1) { // Unique constraint violation error code
+        if (err.message.includes("ORA-00001")) { 
             throw new Error('A gardener with the same name and phone number already exists.');
         } else {
             console.error("Error executing query:", err.message);
@@ -131,6 +131,7 @@ async function updateGardener(data) {
         // console.error("Error executing query:", err.message);
         // return false;
     } finally {
+
         if (connection) {
             try {
                 await connection.close();
@@ -140,13 +141,5 @@ async function updateGardener(data) {
         }
     }
 }
-
-
-// const Gardener = {
-//     insert: (data, callback) => {
-//         const sql = 'INSERT INTO Gardener SET ?';
-//         connection.query(sql, data, callback);
-//     }
-// };
 
 module.exports = { insertGardener, getAll, deleteGardenersByEmail, updateGardener };

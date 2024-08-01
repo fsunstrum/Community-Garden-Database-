@@ -44,18 +44,22 @@ export default function UpdateGardenerForm({ gardener, callback, onClose }) {
             }).then(res => {
                 if (!res.ok) {
                     setHasError(true);
+                    setAlertMsg(response.message);
                 } else {
+                    setHasError(false);
+                    setAlertMsg('Gardener updated successfully!');
                     callback();
                     onClose();
                 }
             });
             if (res) {
                 setAlertMsg(res.message);
+                setAlertMsg(response.message);
             }
         } catch (err) {
             console.error(err);
             setHasError(true);
-            setAlertMsg('Failed to update gardener. Name and phone number already exist.');
+            setAlertMsg('A gardener with the same name and phone number already exists. Please try again.');
         }
     };
 
