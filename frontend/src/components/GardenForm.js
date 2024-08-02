@@ -4,6 +4,12 @@ import styles from '@/styles/DonationForm.module.css';
 import { useState } from 'react';
 import Alert from '@mui/material/Alert';
 
+// Function to validate alphanumeric input
+const isValidInput = (input) => {
+    const regex = /^[a-zA-Z0-9\s]*$/;
+    return regex.test(input);
+};
+
 export default function GardenForm({ callback }) {
     const [alertMsg, setAlertMsg] = useState("");
     const [hasError, setHasError] = useState(false);
@@ -24,6 +30,13 @@ export default function GardenForm({ callback }) {
             "num_of_plots": et.num_plots.value,
         }
 
+        // Validate input
+        if (!isValidInput(formData.address) || !isValidInput(formData.garden_name)) {
+            setHasError(true);
+            setAlertMsg("Address and Garden Name can only include alphanumeric characters and spaces.");
+            return;
+        }
+
         try {
             const response = await fetch('http://localhost:65535/api/gardens', {
                 method: 'POST',
@@ -34,7 +47,7 @@ export default function GardenForm({ callback }) {
             }).then(resp => {
                 if (resp.ok) {
                     setHasError(false);
-                    setAlertMsg("Garden was added sucessfully!");
+                    setAlertMsg("Garden was added successfully!");
                     callback();
                 } else return resp.json();
             });
