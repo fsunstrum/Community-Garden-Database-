@@ -3,12 +3,24 @@ import { TextField, Button, Box, Alert } from '@mui/material';
 import { styled } from '@mui/system';
 
 const CustomAddButton = styled(Button)(({ theme }) => ({
-    backgroundColor: '#505050', 
+    backgroundColor: '#505050',
     color: 'white',
     '&:hover': {
-      backgroundColor: '#548060',
+        backgroundColor: '#548060',
     },
-  }));
+}));
+
+// Function to validate alphabetic name input
+const isValidName = (name) => {
+    const regex = /^[a-zA-Z\s]+$/;
+    return regex.test(name);
+};
+
+// Function to validate phone number input (numbers and dashes only)
+const isValidPhoneNumber = (phone) => {
+    const regex = /^[0-9-]+$/;
+    return regex.test(phone);
+};
 
 export default function UpdateGardenerForm({ gardener, callback, onClose }) {
     const [email, setEmail] = useState('');
@@ -35,6 +47,18 @@ export default function UpdateGardenerForm({ gardener, callback, onClose }) {
             phone: phone,
             name: name,
         };
+
+        // Validate input
+        if (!isValidName(data.name)) {
+            setHasError(true);
+            setAlertMsg("Name can only include alphabetic characters and spaces.");
+            return;
+        }
+        if (!isValidPhoneNumber(data.phone)) {
+            setHasError(true);
+            setAlertMsg("Phone number can only include numbers and dashes.");
+            return;
+        }
 
         try {
             const res = await fetch('http://localhost:65535/api/gardeners', {

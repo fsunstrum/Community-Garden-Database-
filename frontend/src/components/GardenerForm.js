@@ -4,6 +4,18 @@ import styles from '@/styles/DonationForm.module.css';
 import { useState } from 'react';
 import Alert from '@mui/material/Alert';
 
+// Function to validate alphabetic name input
+const isValidName = (name) => {
+    const regex = /^[a-zA-Z\s]+$/;
+    return regex.test(name);
+};
+
+// Function to validate phone number input (numbers and dashes only)
+const isValidPhoneNumber = (phone) => {
+    const regex = /^[0-9-]+$/;
+    return regex.test(phone);
+};
+
 export default function GardenerForm({callback}) {
     const [alertMsg, setAlertMsg] = useState("");
     const [hasError, setHasError] = useState(false);
@@ -20,10 +32,20 @@ export default function GardenerForm({callback}) {
             "name": et.name.value,
             "email": et.email.value,
             "phone": et.phone.value,
-            // "manager_email": et.email.value
         }
 
-        console.log(formData);
+
+        // Validate input
+        if (!isValidName(formData.name)) {
+            setHasError(true);
+            setAlertMsg("Name can only include alphabetic characters and spaces.");
+            return;
+        }
+        if (!isValidPhoneNumber(formData.phone)) {
+            setHasError(true);
+            setAlertMsg("Phone number can only include numbers and dashes.");
+            return;
+        }
 
         try {
             const response = await fetch('http://localhost:65535/api/gardeners', {
