@@ -9,11 +9,18 @@ import GardenerEditModal from '@/components/GardenerEditModal';
 import { useState, useEffect } from 'react'
 import Divider from '@mui/material/Divider';
 
+/**
+ * Gardeners page component for displaying and managing gardeners.
+ * @returns {JSX.Element} The Gardeners component.
+ */
 export default function Gardeners() {
   const [gardeners, setGardeners] = useState([]);
   const [editingGardener, setEditingGardener] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
+  /**
+   * Fetch all registered gardeners.
+   */
   const fetchGardeners = async () => {
     const res = await fetch('http://localhost:65535/api/gardeners')
       .then(resp => resp.json())
@@ -29,11 +36,18 @@ export default function Gardeners() {
     fetchGardeners();
   }, []);
 
+  /**
+   * Handle the edit button click for a gardener.
+   * @param {Object} gardener - The gardener object to be edited.
+   */
   const handleEditClick = (gardener) => {
     setEditingGardener(gardener);
     setIsEditModalOpen(true);
   };
 
+  /**
+   * Close the edit modal and clear the editing gardener state.
+   */
   const handleCloseModal = () => {
     setIsEditModalOpen(false);
     setEditingGardener(null);

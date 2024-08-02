@@ -10,6 +10,10 @@ import GenericTable from '@/components/GenericTable';
 import TableSelect from '@/components/TableSelect';
 import AttributeCheckboxes from '@/components/AttributeCheckboxes';
 
+/**
+ * Admin page component for viewing and managing tables.
+ * @returns {JSX.Element} The AdminPage component.
+ */
 export default function AdminPage() {
     const [tables, setTables] = useState([]);
     const [tableSelected, setTableSelected] = useState("");
@@ -17,6 +21,9 @@ export default function AdminPage() {
     const [attrs, setAttrs] = useState([]);
     const [attrsSelected, setAttrsSelected] = useState([]);
 
+    /**
+     * Fetches the list of available tables.
+     */
     const fetchTables = async () => {
         const url = `http://localhost:65535/api/tables`;
         const res = await fetch(url)
@@ -29,6 +36,10 @@ export default function AdminPage() {
         setTables(res);
     }
 
+    /**
+     * Fetches the attributes of a selected table.
+     * @param {string} tname - The name of the table.
+     */
     const fetchAttributes = async (tname) => {
         if (tname == "") {
             setAttrs([]);
@@ -47,6 +58,11 @@ export default function AdminPage() {
         setAttrsSelected(res);
     }
 
+    /**
+     * Fetches the data of a selected table with selected attributes.
+     * @param {string} tname - The name of the table.
+     * @param {string[]} attrs - The selected attributes.
+     */
     const fetchTable = async(tname, attrs) => {
         const url = `http://localhost:65535/api/table/${tname}?attrs=${attrs.join(",")}`;
         const res = await fetch(url)
@@ -59,10 +75,15 @@ export default function AdminPage() {
         setTable(res);
     }
 
+    // Fetch the list of tables when the component mounts
     useEffect(() => {
         fetchTables();
     }, []);
 
+    /**
+     * Handles the form submission to fetch and display table data.
+     * @param {Event} e - The form submission event.
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -82,6 +103,10 @@ export default function AdminPage() {
         await fetchTable(tableSelected, selected);
     }
 
+    /**
+     * Handles the table selection change to fetch and display attributes.
+     * @param {Event} e - The select change event.
+     */
     const handleSelect = async (e) => {
         await fetchAttributes(e.target.value);
         setTableSelected(e.target.value);

@@ -10,10 +10,17 @@ import GardenerEditModal from '@/components/GardenerEditModal';
 import { useState, useEffect } from 'react'
 import Divider from '@mui/material/Divider';
 
+/**
+ * Plants page component for displaying a list of plants.
+ * @returns {JSX.Element} The Plants component.
+ */
 export default function Plants() {
 
   const [plants, setPlants] = useState([]);
 
+  /**
+   * Fetch the list of plants from the API.
+   */
   const fetchPlants = async () => {
     const res = await fetch(`http://localhost:65535/api/plants`)
     .then(resp => resp.json())
@@ -24,6 +31,7 @@ export default function Plants() {
       setPlants(res);
   }
 
+  // useEffect hook to fetch plants when the component mounts
   useEffect(() => {
     fetchPlants();
   }, []);

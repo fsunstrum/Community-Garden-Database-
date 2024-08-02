@@ -14,6 +14,10 @@ import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import Tooltip from '@mui/material/Tooltip';
 
+/**
+ * Gardens page component for displaying and managing gardens.
+ * @returns {JSX.Element} The Gardens component.
+ */
 export default function Gardens() {
   const [gardens, setGardens] = useState([]);
   const [underachievers, setUnderachievers] = useState([]);
@@ -22,6 +26,9 @@ export default function Gardens() {
 
   const [open, setOpen] = useState(false);
 
+  /**
+  * Fetch all gardens with filters.
+  */
   const fetchGardens = async () => {
     const res = await fetch(`http://localhost:65535/api/gardens?minPlots=${minPlots}&minAvailPlots=${minAvailPlots}`)
       .then(resp => resp.json())
@@ -33,6 +40,9 @@ export default function Gardens() {
     setGardens(res);
   };
 
+  /**
+   * Fetch underachieving gardens.
+   */
   const fetchUnderachievers = async () => {
     const res = await fetch('http://localhost:65535/api/gardens/underachievers')
       .then(resp => resp.json())
@@ -49,12 +59,23 @@ export default function Gardens() {
     fetchUnderachievers();
   }, []);
 
+  /**
+   * Handle filter form submission.
+   * @param {Event} e - The form submission event.
+   */
   const handleFilter = (e) => {
     e.preventDefault();
     fetchGardens();
   }
 
+  /**
+   * Open the modal for adding a new garden.
+   */
   const handleOpen = () => setOpen(true);
+
+  /**
+   * Close the modal for adding a new garden.
+   */
   const handleClose = () => setOpen(false);
 
   return (
@@ -119,7 +140,7 @@ export default function Gardens() {
         </section>
       </main>
       <div className={styles.lowQualTable}>
-      <Divider></Divider>
+        <Divider></Divider>
         <div className={styles.lowQualityTitle}>
           <Typography align="center" variant="h2" className={styles.lowQualHeader}>Low Quantity Gardens</Typography>
           <Tooltip title="* Gardens that have total plants planted less than the average total for all gardens" className={styles.toolTip}>

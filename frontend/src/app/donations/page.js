@@ -7,6 +7,10 @@ import DonationForm from '@/components/DonationForm';
 import Divider from '@mui/material/Divider';
 import { useState, useEffect } from 'react'
 
+/**
+ * Donations page component for displaying and filtering donations.
+ * @returns {JSX.Element} The Donations component.
+ */
 export default function Donations() {
     // State variables to manage the donations data and filter inputs
     const [donations, setDonations] = useState([]);
@@ -16,7 +20,10 @@ export default function Donations() {
     const [date, setDate] = useState('');
     const [dateCondition, setDateCondition] = useState('equals');
 
-    // Fetch donations from API with optional query parameters
+    /**
+     * Fetch donations from the API with optional query parameters.
+     * @param {string} [query=''] - Optional query string for filtering donations.
+     */
     const fetchDonations = async (query = '') => {
         const url = new URL('http://localhost:65535/api/donations');
         if (donorName) url.searchParams.append('donorName', donorName);
@@ -39,7 +46,10 @@ export default function Donations() {
         fetchDonations();
     }, []);
 
-    // Handler function for search/filter form submission
+    /**
+     * Handler function for search/filter form submission.
+     * @param {Event} e - The form submission event.
+     */
     const handleSearch = (e) => {
         e.preventDefault();
         fetchDonations(search);

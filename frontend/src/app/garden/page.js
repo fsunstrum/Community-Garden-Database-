@@ -12,6 +12,10 @@ import Typography from '@mui/material/Typography';
 import GardenPlotsTable from '@/components/GardenPlotsTable';
 import ToolTable from '@/components/ToolTable';
 
+/**
+ * Garden page component for displaying garden information, planted plots, plot assignments, and tools.
+ * @returns {JSX.Element} The Garden component.
+ */
 export default function Garden() {
     const searchParams = useSearchParams();
     const gardenName = searchParams.get('name');
@@ -29,6 +33,9 @@ export default function Garden() {
 
     if (!gardenName || !garden) return (<div>Garden was not found, please check the spelling.</div>);
 
+    /**
+     * Fetch all gardeners.
+     */
     const fetchGardeners = async () => {
         const res = await fetch('http://localhost:65535/api/gardeners')
             .then(resp => resp.json())
@@ -40,6 +47,9 @@ export default function Garden() {
         setGardeners(res);
     }
 
+    /**
+     * Fetch garden information by garden name.
+     */
     const fetchGarden = async () => {
         const res = await fetch(`http://localhost:65535/api/garden?name=${gardenName.replace(" ", "%20")}`)
             .then(resp => {
@@ -56,6 +66,10 @@ export default function Garden() {
         setGarden(res);
     };
 
+    /**
+     * Fetch planted plots for a specific garden.
+     * @param {Object} garden - The garden object.
+     */
     const fetchPlantedPlots = async (garden) => {
         const res = await fetch(`http://localhost:65535/api/garden/plots/planted?name=${gardenName.replace(" ", "%20")}`)
             .then(resp => {
@@ -72,6 +86,10 @@ export default function Garden() {
         setPlantedPlots(res);
     };
 
+    /**
+     * Fetch all plots for a specific garden by garden address.
+     * @param {Object} garden - The garden object.
+     */
     const fetchPlots = async (garden) => {
         const res = await fetch(`http://localhost:65535/api/garden/plots?address=${garden[0]}`)
             .then(resp => {
@@ -88,6 +106,10 @@ export default function Garden() {
         setPlots(res);
     };
 
+    /**
+     * Fetch all tools for a specific garden by garden address.
+     * @param {Object} garden - The garden object.
+     */
     const fetchTools = async (garden) => {
         const res = await fetch(`http://localhost:65535/api/garden/tools?address=${garden[0]}`)
             .then(resp => {
@@ -104,6 +126,12 @@ export default function Garden() {
 
     }
 
+    /**
+     * Toggle the availability of a tool in a specific garden.
+     * @param {String} toolType - The type of the tool.
+     * @param {String} gardenAddress - The address of the garden.
+     * @param {Number} newAvailability - The new availability status of the tool.
+     */
     const toggleToolAvailability = async (toolType, gardenAddress, newAvailability) => {
         try {
             const response = await fetch('http://localhost:65535/api/tool/availability', {
