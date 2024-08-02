@@ -1,5 +1,5 @@
 const gi = require('../models/gardenInfo');
-const GardenManages = require('../models/gardenManages');
+// const GardenManages = require('../models/gardenManages');
 // const { assignGardenerToPlot, unassignGardenerFromPlot } = require('../models/gardenerPlot');
 
 

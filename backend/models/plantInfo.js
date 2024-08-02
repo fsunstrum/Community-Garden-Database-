@@ -85,7 +85,7 @@ const plantInfo = {
         try {
             connection = await getConnection();
             const result = await connection.execute(
-                `SELECT pi.species, pi.genus, pi.variety, pi.common_name, pc.colour, ph.harvest_time
+                `SELECT pi.species, pi.variety, pi.common_name, pc.colour, ph.harvest_time
                  FROM PlantInfo pi
                  LEFT JOIN PlantColour pc ON pi.common_name = pc.common_name
                  LEFT JOIN PlantHarvest ph ON pi.common_name = ph.common_name`

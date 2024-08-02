@@ -15,7 +15,7 @@ export default function Gardeners() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const fetchGardeners = async () => {
-    const res = await fetch('http://localhost:65535/api/gardeners', { cache: "no-store" })
+    const res = await fetch('http://localhost:65535/api/gardeners')
       .then(resp => resp.json())
       .catch(err => {
         console.error(err);

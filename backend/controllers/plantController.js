@@ -24,7 +24,7 @@ exports.createPlant = async (req, res) => {
 
 exports.getAllPlants = async (req, res) => {
     try {
-        const plants = await plantInfo.getAll();
+        const plants = await plantInfo.plantInfo.getAll();
         res.status(200).send(plants);
     } catch (err) {
         res.status(500).send({ message: err.message });
