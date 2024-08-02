@@ -1,15 +1,21 @@
 const { getConnection } = require('../config/db');
 const { getAll } = require('./receives');
-// const { assignGardenerToPlot, unassignGardenerFromPlot } = require('./gardenerPlot');
-// const { insertGardenNumPlots } = require('./gardenNumPlots');
 const gnp = require('./gardenNumPlots');
 
+/**
+ * Insert a new garden into GardenInfo and GardenNumPlots tables.
+ * @param {Object} data - The garden data.
+ * @param {String} data.address - The address of the garden.
+ * @param {String} data.garden_name - The name of the garden.
+ * @param {Number} data.num_of_plots - The number of plots in the garden.
+ * @returns {Promise<Boolean>} True if the garden was inserted successfully, otherwise false.
+ * @throws {Error} If there is an error during the insertion process.
+ */
 async function insertGarden(data) {
     let connection;
 
     try {
         connection = await getConnection();
-        // await connection.beginTransaction();
 
         // Insert into GardenInfo table
         const gardenInfoSql = `INSERT INTO GardenInfo (address, garden_name, num_of_plots) 
@@ -37,35 +43,6 @@ async function insertGarden(data) {
             return false;
         }
 
-        // // Insert into GardenNumPlots table
-        // const gardenNumPlotsSql = `INSERT INTO GardenNumPlots (address, num_of_plots) 
-        //                            VALUES (:address, :num_of_plots)`;
-        // const gardenNumPlotsResult = await connection.execute(gardenNumPlotsSql, 
-        //     [data.address, data.num_of_plots]);
-
-        // if (gardenNumPlotsResult.rowsAffected === 0) {
-        //     throw new Error('Failed to insert into GardenNumPlots table');
-        // }
-
-        // // Optionally insert into GardenerPlot table if gardener plot data is provided
-        // if (data.gardener_email && data.plot_num && data.sun_exposure && data.plot_size) {
-        //     const gardenerPlotData = {
-        //         garden_address: data.address,
-        //         gardener_email: data.gardener_email,
-        //         plot_num: data.plot_num,
-        //         sun_exposure: data.sun_exposure,
-        //         plot_size: data.plot_size
-        //     };
-        //     const gardenerPlotResult = await insertGardenerPlot(gardenerPlotData, connection);
-        //     if (gardenerPlotResult.rowsAffected === 0) {
-        //         throw new Error('Failed to insert into GardenerPlot table');
-        //     }
-        // }
-
-        // await connection.commit();
-        // return true;
-
-        // return result.rowsAffected && result.rowsAffected > 0;
     } catch (err) {
         console.error("Error executing query:", err.message);
 
@@ -79,8 +56,7 @@ async function insertGarden(data) {
         }
 
         throw err;
-        // console.error("Error executing query:", err.message);
-        // return false;
+
     } finally {
         if (connection) {
             try {
@@ -92,30 +68,12 @@ async function insertGarden(data) {
     }
 }
 
-// async function deleteGarden(address) {
-//     let connection;
-
-//     try {
-//         connection = await getConnection();
-//         // const sql = `DELETE FROM GardenInfo WHERE address = :address`;
-//         const sql = `DELETE FROM GardenNumPlots WHERE address = :address`;
-//         const result = await connection.execute(sql, [address], { autoCommit: true });
-
-//         return result.rowsAffected > 0;
-//     } catch (err) {
-//         console.error("Error executing query:", err.message);
-//         throw err;
-//     } finally {
-//         if (connection) {
-//             try {
-//                 await connection.close();
-//             } catch (err) {
-//                 console.error('Error closing connection:', err.message);
-//             }
-//         }
-//     }
-// }
-
+/**
+ * Get details of a specific garden by its name.
+ * @param {String} name - The name of the garden.
+ * @returns {Promise<Object[]>} An array of garden details.
+ * @throws {Error} If there is an error during the retrieval process.
+ */
 async function getGarden(name) {
     let connection;
     try {
@@ -143,6 +101,12 @@ async function getGarden(name) {
     }
 }
 
+/**
+ * Get all plots that are planted in a specific garden by garden name.
+ * @param {String} name - The name of the garden.
+ * @returns {Promise<Object[]>} An array of planted plots details.
+ * @throws {Error} If there is an error during the retrieval process.
+ */
 async function getGardenPlotsPlanted(name) {
     let connection;
     try {
@@ -168,6 +132,12 @@ async function getGardenPlotsPlanted(name) {
     }
 }
 
+/**
+ * Get all plots in a specific garden by garden address.
+ * @param {String} addr - The address of the garden.
+ * @returns {Promise<Object[]>} An array of plot details.
+ * @throws {Error} If there is an error during the retrieval process.
+ */
 async function getGardenPlots(addr) {
     let connection;
     try {
@@ -192,6 +162,12 @@ async function getGardenPlots(addr) {
     }
 }
 
+/**
+ * Get all tools for a specific garden by garden address.
+ * @param {String} addr - The address of the garden.
+ * @returns {Promise<Object[]>} An array of tool details.
+ * @throws {Error} If there is an error during the retrieval process.
+ */
 async function getAllToolsForGarden(addr) {
     let connection;
     try {
@@ -216,7 +192,14 @@ async function getAllToolsForGarden(addr) {
     }
 }
 
-
+/**
+ * Update the availability of a tool in a specific garden.
+ * @param {String} toolType - The type of the tool.
+ * @param {Number} availability - The availability status of the tool.
+ * @param {String} gardenAddress - The address of the garden.
+ * @returns {Promise<Object>} The result of the update operation.
+ * @throws {Error} If there is an error during the update process.
+ */
 async function updateToolAvailability(toolType, availability, gardenAddress) {
     let connection;
     try {
@@ -239,7 +222,14 @@ async function updateToolAvailability(toolType, availability, gardenAddress) {
     }
 }
 
-
+/**
+ * Assign a gardener to a plot with random sun exposure and plot size.
+ * @param {String} addr - The address of the garden.
+ * @param {String} email - The email of the gardener.
+ * @param {Number} pnum - The plot number.
+ * @returns {Promise<Boolean>} True if the gardener was assigned to the plot successfully, otherwise false.
+ * @throws {Error} If there is an error during the assignment process.
+ */
 async function assignGardenerToPlot(addr, email, pnum) {
     let connection;
     const sun_exposures = ["full sun", "part sun", "full shade", "part shade"]
@@ -269,6 +259,13 @@ async function assignGardenerToPlot(addr, email, pnum) {
     }
 }
 
+/**
+ * Unassign a gardener from a plot.
+ * @param {String} addr - The address of the garden.
+ * @param {Number} pnum - The plot number.
+ * @returns {Promise<Boolean>} True if the gardener was unassigned from the plot successfully, otherwise false.
+ * @throws {Error} If there is an error during the unassignment process.
+ */
 async function unassignGardenerFromPlot(addr, pnum) {
     let connection;
 
@@ -300,6 +297,13 @@ async function unassignGardenerFromPlot(addr, pnum) {
     }
 }
 
+/**
+ * Get all gardens with optional minimum number of plots and minimum available plots.
+ * @param {Number} [minPlots=0] - The minimum number of plots in the garden.
+ * @param {Number} [minAvailPlots=0] - The minimum number of available plots in the garden.
+ * @returns {Promise<Object[]>} An array of garden details.
+ * @throws {Error} If there is an error during the retrieval process.
+ */
 async function getAllGardens(minPlots = 0, minAvailPlots = 0) {
     let connection;
     try {
@@ -337,6 +341,11 @@ async function getAllGardens(minPlots = 0, minAvailPlots = 0) {
     }
 }
 
+/**
+ * Get all garden addresses.
+ * @returns {Promise<Object[]>} An array of garden addresses.
+ * @throws {Error} If there is an error during the retrieval process.
+ */
 async function getAllGardenAddresses() {
     let connection;
     try {

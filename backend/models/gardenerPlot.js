@@ -1,5 +1,17 @@
 const { getConnection } = require('../config/db');
 
+/**
+ * Insert a new gardener plot into the GardenerPlot table.
+ * @param {Object} data - The gardener plot data.
+ * @param {String} data.garden_address - The address of the garden.
+ * @param {String} data.gardener_email - The email of the gardener.
+ * @param {Number} data.plot_num - The plot number.
+ * @param {String} data.sun_exposure - The sun exposure of the plot.
+ * @param {Number} data.plot_size - The size of the plot.
+ * @param {Object} connection - The database connection.
+ * @returns {Promise<Object>} The result of the insert operation.
+ * @throws {Error} If there is an error during the insertion process.
+ */
 async function insertGardenerPlot(data, connection) {
     try {
         const sql = `INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size)
@@ -16,6 +28,11 @@ async function insertGardenerPlot(data, connection) {
     }
 }
 
+/**
+ * Get all gardener plots from the GardenerPlot table.
+ * @returns {Promise<Object[]>} An array of all gardener plots.
+ * @throws {Error} If there is an error during the retrieval process.
+ */
 async function getAll() {
     let connection;
 
@@ -40,6 +57,14 @@ async function getAll() {
     }
 }
 
+/**
+ * Assign a gardener to a plot with random sun exposure and plot size.
+ * @param {String} addr - The address of the garden.
+ * @param {String} email - The email of the gardener.
+ * @param {Number} pnum - The plot number.
+ * @returns {Promise<Boolean>} True if the gardener was assigned to the plot successfully, otherwise false.
+ * @throws {Error} If there is an error during the assignment process.
+ */
 async function assignGardenerToPlot(addr, email, pnum) {
     let connection;
     const sun_exposures = ["full sun", "part sun", "full shade", "part shade"]
@@ -69,6 +94,13 @@ async function assignGardenerToPlot(addr, email, pnum) {
     }
 }
 
+/**
+ * Unassign a gardener from a plot.
+ * @param {String} addr - The address of the garden.
+ * @param {Number} pnum - The plot number.
+ * @returns {Promise<Boolean>} True if the gardener was unassigned from the plot successfully, otherwise false.
+ * @throws {Error} If there is an error during the unassignment process.
+ */
 async function unassignGardenerFromPlot(addr, pnum) {
     let connection;
 
@@ -100,6 +132,12 @@ async function unassignGardenerFromPlot(addr, pnum) {
     }
 }
 
+/**
+ * Delete gardener plots by their emails.
+ * @param {String[]} emails - Array of email addresses.
+ * @returns {Promise<Object>} The result of the delete operation.
+ * @throws {Error} If there is an error during the deletion process.
+ */
 async function deleteGardenerPlotsByEmail(emails) {
     let connection;
     try {

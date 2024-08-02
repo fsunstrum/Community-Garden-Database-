@@ -1,5 +1,10 @@
 const { getConnection } = require('../config/db');
 
+/**
+ * Retrieve all garden managers.
+ * @returns {Promise<Object[]>} An array of garden managers.
+ * @throws {Error} If there is an error during the retrieval process.
+ */
 async function getManagers() {
     let connection;
     try {

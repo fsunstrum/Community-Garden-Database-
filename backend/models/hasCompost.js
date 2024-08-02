@@ -1,5 +1,10 @@
 const { getConnection } = require('../config/db');
 
+/**
+ * Retrieves all records from the HasCompost table.
+ * @returns {Promise<Array>} The result of the query, including all columns from the HasCompost table.
+ * @throws {Error} If there is an error during the query.
+ */
 async function getHasCompost() {
     let connection;
     try {

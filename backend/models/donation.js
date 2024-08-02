@@ -1,7 +1,11 @@
 const { getConnection } = require('../config/db');
 const receives = require('./receives');
 
-// Formats a date string to 'YYYY-MM-DD'
+/**
+ * Formats a date string to 'YYYY-MM-DD'.
+ * @param {String} dateString - The date string to format.
+ * @returns {String} The formatted date string.
+ */
 function formatDate(dateString) {
     const date = new Date(dateString);
     const year = date.getUTCFullYear();
@@ -10,7 +14,17 @@ function formatDate(dateString) {
     return `${year}-${month}-${day}`;
 }
 
-// Inserts donation into the database
+/**
+ * Inserts a donation into the database.
+ * @param {Object} data - The donation data.
+ * @param {String} data.donation_id - The donation ID.
+ * @param {String} data.donor_name - The donor name.
+ * @param {String} data.don_date - The donation date.
+ * @param {String} data.item - The item donated.
+ * @param {String} data.garden_address - The garden address.
+ * @returns {Promise<Boolean>} True if the donation was inserted successfully, otherwise false.
+ * @throws {Error} If there is an error during the insertion process.
+ */
 async function insertDonation(data) {
     console.log("Received Data:", data);
 
@@ -46,7 +60,7 @@ async function insertDonation(data) {
 
             // Commit transaction if insert into Receives table was successful
             if (receivesResult.rowsAffected > 0) {
-                await connection.commit(); 
+                await connection.commit();
                 console.log("Transaction committed successfully");
                 return true;
             } else {
@@ -91,7 +105,16 @@ async function insertDonation(data) {
 }
 
 const donation = {
-    // Retrieve all donations with optional filters
+    /**
+     * Retrieves all donations with optional filters.
+     * @param {String} [search=''] - The search string.
+     * @param {String} [donorName=''] - The donor name to filter by.
+     * @param {String} [gardenAddress=''] - The garden address to filter by.
+     * @param {String} [date=''] - The date to filter by.
+     * @param {String} [dateCondition=''] - The date condition ('equals', 'before', 'after').
+     * @returns {Promise<Object[]>} An array of donations.
+     * @throws {Error} If there is an error during the retrieval process.
+     */
     getAll: async (search = '', donorName = '', gardenAddress = '', date = '', dateCondition = '') => {
         let connection;
         try {

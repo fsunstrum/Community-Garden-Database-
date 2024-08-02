@@ -2,6 +2,18 @@ const { getConnection } = require('../config/db');
 const plantColour = require('./plantColour');
 const plantHarvest = require('./plantHarvest');
 
+/**
+ * Inserts plant information into the database.
+ * @param {Object} data - The data to insert.
+ * @param {string} data.common_name - The common name of the plant.
+ * @param {string} [data.colour] - The colour of the plant.
+ * @param {string} [data.harvest_time] - The harvest time of the plant.
+ * @param {string} data.species - The species of the plant.
+ * @param {string} data.genus - The genus of the plant.
+ * @param {string} data.variety - The variety of the plant.
+ * @returns {Promise<boolean>} True if the insertion was successful, otherwise false.
+ * @throws {Error} If there is an error during the query execution.
+ */
 async function insertPlantInfo(data) {
     let connection;
 
@@ -63,6 +75,11 @@ async function insertPlantInfo(data) {
 }
 
 const plantInfo = {
+    /**
+     * Retrieves all plant information from the database.
+     * @returns {Promise<Array>} An array of rows containing plant information.
+     * @throws {Error} If there is an error during the query execution.
+     */
     getAll: async () => {
         let connection;
         try {
