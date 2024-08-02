@@ -4,6 +4,24 @@ import { useState, useEffect } from 'react';
 import styles from '../styles/DonationForm.module.css';
 import Alert from '@mui/material/Alert';
 
+// Function to validate numeric input
+const isValidDonationId = (id) => {
+    const regex = /^[0-9]+$/;
+    return regex.test(id);
+};
+
+// Function to validate alphabetic name input
+const isValidName = (name) => {
+    const regex = /^[a-zA-Z\s]+$/;
+    return regex.test(name);
+};
+
+// Function to validate alphanumeric input for item
+const isValidItem = (item) => {
+    const regex = /^[a-zA-Z0-9\s]+$/;
+    return regex.test(item);
+};
+
 export default function DonationForm({ callback }) {
     // State variables to manage form submission status, error messages, and garden addresses
     const [alertMsg, setAlertMsg] = useState("");
@@ -43,8 +61,23 @@ export default function DonationForm({ callback }) {
             "garden_address": et.garden_address.value
         }
 
-        console.log("Form Data:", formData);
-
+        // Validate input
+        if (!isValidDonationId(formData.donation_id)) {
+            setHasError(true);
+            setAlertMsg("Donation ID can only include numbers.");
+            return;
+        }
+        if (!isValidName(formData.donor_name)) {
+            setHasError(true);
+            setAlertMsg("Name can only include alphabetic characters and spaces.");
+            return;
+        }
+        if (!isValidItem(formData.item)) {
+            setHasError(true);
+            setAlertMsg("Item can only include alphanumeric characters and spaces.");
+            return;
+        }
+        
         try {
             // Send POST request to the API to create a new donation
             const response = await fetch('http://localhost:65535/api/donations', {
