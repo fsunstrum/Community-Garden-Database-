@@ -9,6 +9,11 @@ import UpdateGardenerForm from '@/components/UpdateGardenerForm';
 import GardenerEditModal from '@/components/GardenerEditModal';
 import { useState, useEffect } from 'react'
 import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import InfoIcon from '@mui/icons-material/Info';
+
 
 /**
  * Plants page component for displaying a list of plants.
@@ -17,6 +22,8 @@ import Divider from '@mui/material/Divider';
 export default function Plants() {
 
   const [plants, setPlants] = useState([]);
+  const [popPlants, setPopPlants] = useState([]);
+
 
   /**
    * Fetch the list of plants from the API.
@@ -33,6 +40,12 @@ export default function Plants() {
 
   const fetchPopularPlants = async () => {
     const res = await fetch(`http://localhost:65535/api/plants/popular`)
+    .then(resp => resp.json())
+      .catch(err => {
+        console.error(err);
+        return [];
+      });
+      setPopPlants(res);
   }
 
   // useEffect hook to fetch plants when the component mounts
@@ -57,7 +70,20 @@ export default function Plants() {
             </header>
       <main className={styles.main}>
         <section className={styles.infoSection}>
+        <Typography align="center" variant="h2" className={styles.lowQualHeader}>All plants:</Typography>
+
           <PlantTable plants = {plants} callback = {fetchPlants}>
+
+          </PlantTable>
+          <div className={styles.lowQualityTitle}>
+          <Typography align="center" variant="h2" className={styles.lowQualHeader}>Our most popular plants:</Typography>
+          <Tooltip title="* These plants are grown in every garden" className={styles.toolTip}>
+            <IconButton className={styles.infoIcon}>
+              <InfoIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
+          <PlantTable plants = {popPlants} callback = {fetchPopularPlants}>
 
           </PlantTable>
           
