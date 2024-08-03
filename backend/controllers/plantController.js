@@ -22,6 +22,17 @@ exports.createPlant = async (req, res) => {
     }
 };
 
+exports.getPopularPlants = async (req, res) => {
+    console.log('getPopularPlants called');
+    try {
+        const popPlants = await plantInfo.getPopularPlants();
+        res.status(200).send(popPlants);
+
+    } catch (err) {
+        res.status(500).send({ message: err.message });
+    }
+}
+
 exports.getAllPlants = async (req, res) => {
     try {
         const plants = await plantInfo.plantInfo.getAll();
@@ -30,6 +41,8 @@ exports.getAllPlants = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 };
+
+
 
 exports.getAllGrows = async (req, res) => {
     try {

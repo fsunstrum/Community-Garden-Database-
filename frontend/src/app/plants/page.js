@@ -31,9 +31,14 @@ export default function Plants() {
       setPlants(res);
   }
 
+  const fetchPopularPlants = async () => {
+    const res = await fetch(`http://localhost:65535/api/plants/popular`)
+  }
+
   // useEffect hook to fetch plants when the component mounts
   useEffect(() => {
     fetchPlants();
+    fetchPopularPlants();
   }, []);
 
   return (

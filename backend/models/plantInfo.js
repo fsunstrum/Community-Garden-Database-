@@ -74,6 +74,43 @@ async function insertPlantInfo(data) {
     }
 }
 
+async function getPopularPlants() {
+    let connection;
+    try {
+        connection = await getConnection();
+        const result = await connection.execute(
+            `
+            SELECT pi.common_name
+            FROM PlantInfo pi
+            WHERE NOT EXISTS   
+                (
+                SELECT gi.address
+                FROM GardenInfo gi
+                MINUS
+                    (
+                    SELECT g.garden_address
+                    FROM Grows g
+                    WHERE   g.species = pi.species AND
+                            g.genus = pi.genus AND
+                            g.variety = pi.variety
+                )
+        )`
+        );
+        return result.rows;
+    } catch (err) {
+        console.error('Error executing query:', err.message);
+        throw err;
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (err) {
+                console.error('Error closing connection:', err.message);
+            }
+        }
+    }
+}
+
 const plantInfo = {
     /**
      * Retrieves all plant information from the database.
@@ -107,4 +144,4 @@ const plantInfo = {
     }
 };
 
-module.exports = { insertPlantInfo, plantInfo };
+module.exports = { insertPlantInfo, plantInfo, getPopularPlants };

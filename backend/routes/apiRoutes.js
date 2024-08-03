@@ -49,7 +49,9 @@ router.get('/managers', managersController.getAllManagers);
 router.post('/plants', plantController.createPlant); 
 
 // Get all plants
-router.get('/plants', plantController.getAllPlants); 
+router.get('/plants', plantController.getAllPlants);
+
+router.get('/plants/popular', plantController.getPopularPlants);
 
 router.get('./grows', plantController.getAllGrows);
 
