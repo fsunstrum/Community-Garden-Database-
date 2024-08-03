@@ -1,6 +1,10 @@
 import Link from 'next/link';
 import styles from '../styles/Navbar.module.css';
 
+/**
+ * Navbar component to display the navigation bar with links to different pages.
+ * @returns {JSX.Element} The Navbar component.
+ */
 const Navbar = () => {
   return (
     <nav className={styles.navbar}>

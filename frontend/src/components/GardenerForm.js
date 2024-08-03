@@ -4,23 +4,41 @@ import styles from '@/styles/DonationForm.module.css';
 import { useState } from 'react';
 import Alert from '@mui/material/Alert';
 
-// Function to validate alphabetic name input
+/**
+ * Function to validate alphabetic name input.
+ * @param {string} name - The name to be validated.
+ * @returns {boolean} - Returns true if the name is valid, otherwise false.
+ */
 const isValidName = (name) => {
     const regex = /^[a-zA-Z\s]+$/;
     return regex.test(name);
 };
 
-// Function to validate phone number input (numbers and dashes only)
+/**
+ * Function to validate phone number input (numbers and dashes only).
+ * @param {string} phone - The phone number to be validated.
+ * @returns {boolean} - Returns true if the phone number is valid, otherwise false.
+ */
 const isValidPhoneNumber = (phone) => {
     const regex = /^[0-9-]+$/;
     return regex.test(phone);
 };
 
+/**
+ * GardenerForm component for adding a new gardener.
+ * @param {Object} props - The component props.
+ * @param {Function} props.callback - Callback function to refresh the gardener list.
+ * @returns {JSX.Element} The GardenerForm component.
+ */
 export default function GardenerForm({callback}) {
     const [alertMsg, setAlertMsg] = useState("");
     const [hasError, setHasError] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
+    /**
+     * Handle form submission.
+     * @param {Object} e - The event object.
+     */
     const handleSubmit = async (e) => {
         setSubmitted(true);
 

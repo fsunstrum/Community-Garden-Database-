@@ -9,7 +9,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-// DonationsTable component definition
+/**
+ * DonationsTable component renders a table displaying donations data.
+ * @param {Object} props - The component props.
+ * @param {Array} props.donations - An array of donations data.
+ * @returns {JSX.Element} The DonationsTable component.
+ */
 export default function DonationsTable({ donations }) {
     // Map donations data to table rows
     const tableRows = donations.map((row, idx) => (

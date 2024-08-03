@@ -5,13 +5,27 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { useState } from 'react'
 
+/**
+ * GardenerSelect component for selecting a gardener to assign to a plot.
+ * @param {Object} props - The component props.
+ * @param {Array} props.gardeners - List of gardeners.
+ * @param {Array} props.garden - Garden details.
+ * @param {Number} props.plotNum - Plot number.
+ * @param {Function} props.callback - Callback function to refresh the garden plots.
+ * @returns {JSX.Element} The GardenerSelect component.
+ */
 export default function GardenerSelect({ gardeners, garden, plotNum, callback }) {
     const [email, setEmail] = useState("");
     const [hasError, setHasError] = useState(false);
 
+    // Map gardeners data to menu items
     const menuItems = gardeners.map((gar) => 
     <MenuItem key={gar[0]} value={gar[1]}>{gar[0]}</MenuItem>)
 
+    /**
+     * Handle gardener selection change.
+     * @param {Object} e - The event object.
+     */
     const handleChange = async (e) => {
         setEmail(e.target.value);
         setHasError(false);

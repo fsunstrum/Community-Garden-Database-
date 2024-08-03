@@ -4,17 +4,31 @@ import styles from '@/styles/DonationForm.module.css';
 import { useState } from 'react';
 import Alert from '@mui/material/Alert';
 
-// Function to validate alphanumeric input
+/**
+ * Function to validate alphanumeric input.
+ * @param {string} input - The input string to validate.
+ * @returns {boolean} True if the input is valid, otherwise false.
+ */
 const isValidInput = (input) => {
     const regex = /^[a-zA-Z0-9\s]*$/;
     return regex.test(input);
 };
 
+/**
+ * GardenForm component for adding a new garden.
+ * @param {Object} props - The component props.
+ * @param {Function} props.callback - Callback function to refresh the gardens list.
+ * @returns {JSX.Element} The GardenForm component.
+ */
 export default function GardenForm({ callback }) {
     const [alertMsg, setAlertMsg] = useState("");
     const [hasError, setHasError] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
+    /**
+     * Handle form submission.
+     * @param {Object} e - The event object.
+     */
     const handleSubmit = async (e) => {
         setSubmitted(true);
         setHasError(false);

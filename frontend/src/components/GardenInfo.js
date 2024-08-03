@@ -5,7 +5,14 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import styles from '@/styles/GardenInfo.module.css';
 
-
+/**
+ * GardenInfo component to display garden details.
+ * @param {Object} props - The component props.
+ * @param {Array} props.data - The garden data.
+ * @param {boolean} props.hasError - Flag indicating if there is an error.
+ * @param {string} props.errorMsg - The error message to display if there is an error.
+ * @returns {JSX.Element} The GardenInfo component.
+ */
 export default function GardenInfo({ data, hasError, errorMsg }) {
     return (
         <Stack>

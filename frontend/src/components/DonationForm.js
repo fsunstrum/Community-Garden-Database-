@@ -4,26 +4,43 @@ import { useState, useEffect } from 'react';
 import styles from '../styles/DonationForm.module.css';
 import Alert from '@mui/material/Alert';
 
-// Function to validate numeric input
+/**
+ * Validate numeric input for Donation ID.
+ * @param {string} id - The donation ID to validate.
+ * @returns {boolean} True if the ID is valid, false otherwise.
+ */
 const isValidDonationId = (id) => {
     const regex = /^[0-9]+$/;
     return regex.test(id);
 };
 
-// Function to validate alphabetic name input
+/**
+ * Validate alphabetic name input.
+ * @param {string} name - The name to validate.
+ * @returns {boolean} True if the name is valid, false otherwise.
+ */
 const isValidName = (name) => {
     const regex = /^[a-zA-Z\s]+$/;
     return regex.test(name);
 };
 
-// Function to validate alphanumeric input for item
+/**
+ * Validate alphanumeric input for item.
+ * @param {string} item - The item to validate.
+ * @returns {boolean} True if the item is valid, false otherwise.
+ */
 const isValidItem = (item) => {
     const regex = /^[a-zA-Z0-9\s]+$/;
     return regex.test(item);
 };
 
+/**
+ * DonationForm component handles the donation form functionality.
+ * @param {Object} props - The component props.
+ * @param {Function} props.callback - The callback function to refresh donations list.
+ * @returns {JSX.Element} The DonationForm component.
+ */
 export default function DonationForm({ callback }) {
-    // State variables to manage form submission status, error messages, and garden addresses
     const [alertMsg, setAlertMsg] = useState("");
     const [hasError, setHasError] = useState(false);
     const [submitted, setSubmitted] = useState(false);
@@ -44,7 +61,10 @@ export default function DonationForm({ callback }) {
         fetchGardenAddresses();
     }, []);
 
-    // Handle form submission
+    /**
+     * Handle form submission.
+     * @param {Object} e - The event object.
+     */
     const handleSubmit = async (e) => {
         setSubmitted(true);
 

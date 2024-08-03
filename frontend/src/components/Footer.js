@@ -1,5 +1,9 @@
 import styles from '../styles/Footer.module.css';
 
+/**
+ * Footer component renders the footer section of the page.
+ * @returns {JSX.Element} The Footer component.
+ */
 const Footer = () => {
   return (
     <footer className={styles.footer}>

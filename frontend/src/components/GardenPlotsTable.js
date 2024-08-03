@@ -6,6 +6,16 @@ import Stack from "@mui/material/Stack";
 import GardenerSelect from './GardenerSelect';
 import UnassignPlotButton from './UnassignPlotButton';
 
+/**
+ * GardenPlotsTable component to display plots and their assigned gardeners.
+ * @param {Object} props - The component props.
+ * @param {Array} props.plots - The array of plots data.
+ * @param {Array} props.gardeners - The array of gardeners data.
+ * @param {Object} props.garden - The garden data.
+ * @param {Number} props.numPlots - The number of plots in the garden.
+ * @param {Function} props.callback - The callback function to refresh data.
+ * @returns {JSX.Element} The GardenPlotsTable component.
+ */
 export default function GardenPlotsTable({ plots, gardeners, garden, numPlots, callback }) {
     const length = numPlots;
     let plotOwners = Array.from({ length }).map(() => "");

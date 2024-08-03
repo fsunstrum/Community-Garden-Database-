@@ -10,19 +10,33 @@ import React, { useState } from 'react';
 import { styled } from '@mui/system';
 // import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 
+// Custom styled switch component
 const GreenSwitch = styled(Switch)(({ theme }) => ({
     '& .MuiSwitch-switchBase.Mui-checked': {
-      color: '#548060',
-      '&:hover': {
-        backgroundColor: 'rgba(76, 175, 80, 0.08)',
-      },
+        color: '#548060',
+        '&:hover': {
+            backgroundColor: 'rgba(76, 175, 80, 0.08)',
+        },
     },
     '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-      backgroundColor: '#4caf50',
+        backgroundColor: '#4caf50',
     },
-  }));
+}));
 
+/**
+* Component to display a table of tools with availability toggle switches.
+* @param {Object} props - The component props.
+* @param {Array} props.tools - The array of tools.
+* @param {Function} props.onToggleAvailability - The callback function to handle availability toggling.
+* @returns {JSX.Element} The ToolTable component.
+*/
 export default function ToolTable({ tools, onToggleAvailability }) {
+    /**
+     * Handle the toggle switch change for tool availability.
+     * @param {string} toolType - The type of the tool.
+     * @param {string} gardenAddress - The address of the garden.
+     * @param {string} currentAvailability - The current availability status of the tool.
+     */
     const handleToggle = (toolType, gardenAddress, currentAvailability) => {
         const newAvailability = currentAvailability === 'Y' ? 'N' : 'Y';
         onToggleAvailability(toolType, gardenAddress, newAvailability);
@@ -54,65 +68,3 @@ export default function ToolTable({ tools, onToggleAvailability }) {
         </TableContainer>
     );
 }
-
-// export default function ToolTable({ tools }) { 
-
-//     const [newToolType, setNewToolType] = useState('');
-
-//     const handleAddRow = () => {
-
-//     };
-
-
-//     const tableRows = tools.map((row, idx) => (
-//         <TableRow key={idx}>
-//             {row.map((v, i) => <TableCell key={i}>{v}</TableCell>)}
-//             <TableCell>
-//                 <IconButton>
-//                     <DeleteForeverRoundedIcon />
-//                 </IconButton>
-//             </TableCell>
-//         </TableRow>  
-//     ))
-
-//     return (
-//         <TableContainer component={Paper}>
-//             <Table>
-//                 <TableHead>
-//                 <TableRow>
-//                         <TableCell>Tool Type</TableCell>
-//                         <TableCell>Availability</TableCell>
-//                 </TableRow>
-
-//                 </TableHead>
-//                 <TableBody>
-//                 {tableRows}
-//                 <TableRow>
-//                         <TableCell>
-//                             <TextField 
-//                                 value={newToolType} 
-//                                 onChange={(e) => setNewToolType(e.target.value)} 
-//                                 placeholder="Tool Type" 
-//                             />
-//                         </TableCell>
-//                         <TableCell>
-//                             <TextField 
-//                                 value={'Y'} 
-//                                 disabled
-//                             />
-//                         </TableCell>
-//                         <TableCell>
-//                             <Button 
-//                                 variant="contained" 
-//                                 color="primary" 
-//                                 onClick={handleAddRow}
-//                             >
-//                                 Add
-//                             </Button>
-//                         </TableCell>
-//                     </TableRow>                
-//                 </TableBody>
-//             </Table>
-//         </TableContainer>
-//     )
-// }

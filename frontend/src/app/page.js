@@ -34,12 +34,6 @@ export default function Home() {
           and they will record the plants that are seeded in each plot and the gardeners who are assigned to each plot. There will also be 
           donations of tools and plants which are recorded so that the garden members will know what is available for use.
           </p>
-          {/* <p>
-            Nullam elementum lectus id ultricies placerat. Vestibulum et ornare ante, id pharetra justo. Duis ornare erat a malesuada 
-            vulputate. Pellentesque sollicitudin sodales nulla, a volutpat neque bibendum at. Donec at risus blandit, sagittis mauris 
-            et, venenatis tellus. Mauris at suscipit lacus. Etiam eleifend est ligula. Suspendisse imperdiet luctus elit, id faucibus 
-            lectus faucibus eu. Aliquam semper condimentum egestas.
-          </p> */}
         </section>
       </main>
     </div>

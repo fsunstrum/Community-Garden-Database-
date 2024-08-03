@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, Alert } from '@mui/material';
 import { styled } from '@mui/system';
 
+// Custom styled Button component
 const CustomAddButton = styled(Button)(({ theme }) => ({
     backgroundColor: '#505050',
     color: 'white',
@@ -10,18 +11,34 @@ const CustomAddButton = styled(Button)(({ theme }) => ({
     },
 }));
 
-// Function to validate alphabetic name input
+/**
+ * Function to validate alphabetic name input.
+ * @param {string} name - The name to validate.
+ * @returns {boolean} - True if the name is valid, false otherwise.
+ */
 const isValidName = (name) => {
     const regex = /^[a-zA-Z\s]+$/;
     return regex.test(name);
 };
 
-// Function to validate phone number input (numbers and dashes only)
+/**
+ * Function to validate phone number input (numbers and dashes only).
+ * @param {string} phone - The phone number to validate.
+ * @returns {boolean} - True if the phone number is valid, false otherwise.
+ */
 const isValidPhoneNumber = (phone) => {
     const regex = /^[0-9-]+$/;
     return regex.test(phone);
 };
 
+/**
+ * Component for updating gardener information.
+ * @param {Object} props - The component props.
+ * @param {Array} props.gardener - The gardener data.
+ * @param {Function} props.callback - The callback function to refresh the gardener list.
+ * @param {Function} props.onClose - The function to close the edit modal.
+ * @returns {JSX.Element} The UpdateGardenerForm component.
+ */
 export default function UpdateGardenerForm({ gardener, callback, onClose }) {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -29,6 +46,7 @@ export default function UpdateGardenerForm({ gardener, callback, onClose }) {
     const [hasError, setHasError] = useState(false);
     const [alertMsg, setAlertMsg] = useState('');
 
+    // Effect hook to set initial gardener data when the component mounts.
     useEffect(() => {
         if (gardener) {
             setEmail(gardener[1]);
@@ -37,6 +55,10 @@ export default function UpdateGardenerForm({ gardener, callback, onClose }) {
         }
     }, [gardener]);
 
+    /**
+     * Handle form submission to update gardener information.
+     * @param {React.FormEvent} e - The form submission event.
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         setHasError(false);

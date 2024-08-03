@@ -10,7 +10,14 @@ import {
     Paper 
 } from '@mui/material';
 
+/**
+ * Component to display a table of planted plots.
+ * @param {Object} props - The component props.
+ * @param {Array} props.plots - The array of planted plots data.
+ * @returns {JSX.Element} The PlantedPlotsTable component.
+ */
 export default function PlantedPlotsTable({ plots }) {
+    // Map plots data to table rows
     const tableRows = plots.map((row, idx) => (
         <TableRow key={idx}>
             {row.map((v, i) => 

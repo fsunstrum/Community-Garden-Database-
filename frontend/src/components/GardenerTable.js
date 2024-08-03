@@ -4,22 +4,33 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { styled } from '@mui/system';
 
+// Custom button styling
 const CustomEditButton = styled(Button)(({ theme }) => ({
-    backgroundColor: '#505050', 
+    backgroundColor: '#505050',
     color: 'white',
     '&:hover': {
-      backgroundColor: '#548060',
+        backgroundColor: '#548060',
     },
-  }));
+}));
 
+/**
+* GardenTable component for displaying and managing a list of gardeners.
+* @param {Object} props - The component props.
+* @param {Array} props.gardeners - List of gardeners.
+* @param {Function} props.onEdit - Function to handle editing a gardener.
+* @param {Function} props.callback - Callback function to refresh the gardeners list.
+* @returns {JSX.Element} The GardenTable component.
+*/
 export default function GardenTable({ gardeners, onEdit, callback }) {
-
     const checkboxesRef = useRef([]);
-
     const [alertMsg, setAlertMsg] = useState("");
     const [hasError, setHasError] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
+    /**
+     * Handle removing selected gardeners.
+     * @param {Object} e - The event object.
+     */
     const handleRemoveSelected = async (e) => {
         // console.log('Checkboxes Ref:', checkboxesRef.current);
 
@@ -70,8 +81,7 @@ export default function GardenTable({ gardeners, onEdit, callback }) {
 
     }
 
-
-
+    // Map gardeners data to table rows
     const tableRows = gardeners.map((row, idx) => (
         <TableRow key={idx}>
             {row.map((v, i) => <TableCell key={i}>{v}</TableCell>)}
