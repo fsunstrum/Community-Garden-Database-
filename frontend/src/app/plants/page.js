@@ -3,10 +3,7 @@
 import styles from './page.module.css';
 import Image from 'next/legacy/image';
 import PlantTable from '@/components/PlantTable';
-// import GardenerTable from '@/components/GardenerTable';
 import PlantForm from '@/components/PlantForm';
-// import UpdateGardenerForm from '@/components/UpdateGardenerForm';
-// import GardenerEditModal from '@/components/GardenerEditModal';
 import { useState, useEffect } from 'react'
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
