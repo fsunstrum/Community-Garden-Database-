@@ -233,9 +233,16 @@ INSERT INTO Grows (species, genus, variety, plot_num, garden_address, qty, plant
 INSERT INTO Grows (species, genus, variety, plot_num, garden_address, qty, plant_date) VALUES ('Capsicum annuum', 'Capsicum', 'bell', 3, '456 Oak St', 7, TO_DATE('2024-05-31', 'YYYY-MM-DD'));
 INSERT INTO Grows (species, genus, variety, plot_num, garden_address, qty, plant_date) VALUES ('Rosa chinensis', 'Rosa', 'chinese', 4, '123 Elm St', 11, TO_DATE('2024-08-13', 'YYYY-MM-DD'));
 INSERT INTO Grows (species, genus, variety, plot_num, garden_address, qty, plant_date) VALUES ('Lycopersicon esculentum', 'Lycopersicon', 'roma', 5, '789 Pine St', 20, TO_DATE('2024-04-23', 'YYYY-MM-DD'));
+INSERT INTO Grows (species, genus, variety, plot_num, garden_address, qty, plant_date) VALUES ('Lycopersicon esculentum', 'Lycopersicon', 'roma', 5, '123 Elm St', 5, TO_DATE('2024-05-24', 'YYYY-MM-DD'));
+INSERT INTO Grows (species, genus, variety, plot_num, garden_address, qty, plant_date) VALUES ('Lycopersicon esculentum', 'Lycopersicon', 'roma', 3, '456 Oak St', 4, TO_DATE('2024-05-24', 'YYYY-MM-DD'));
+INSERT INTO Grows (species, genus, variety, plot_num, garden_address, qty, plant_date) VALUES ('Lycopersicon esculentum', 'Lycopersicon', 'roma', 5, '789 Pine St', 5, TO_DATE('2024-05-24', 'YYYY-MM-DD'));
+INSERT INTO Grows (species, genus, variety, plot_num, garden_address, qty, plant_date) VALUES ('Lycopersicon esculentum', 'Lycopersicon', 'roma', 5, '101 Maple St', 4, TO_DATE('2024-05-24', 'YYYY-MM-DD'));
+INSERT INTO Grows (species, genus, variety, plot_num, garden_address, qty, plant_date) VALUES ('Lycopersicon esculentum', 'Lycopersicon', 'roma', 5, '202 Birch St', 4, TO_DATE('2024-05-24', 'YYYY-MM-DD'));
 
 INSERT INTO Receives (donation_id, garden_address) VALUES (1, '123 Elm St');
 INSERT INTO Receives (donation_id, garden_address) VALUES (2, '456 Oak St');
 INSERT INTO Receives (donation_id, garden_address) VALUES (3, '789 Pine St');
 INSERT INTO Receives (donation_id, garden_address) VALUES (4, '101 Maple St');
 INSERT INTO Receives (donation_id, garden_address) VALUES (5, '202 Birch St');
+
+COMMIT;
