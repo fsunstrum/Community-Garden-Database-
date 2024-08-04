@@ -31,6 +31,7 @@ router.get('/garden', gardensController.getGarden);
 
 // Get all the planted plots in a garden
 router.get('/garden/plots/planted', gardensController.getGardenPlotsPlanted);
+
 // Assign a gardener to a new plot
 router.get('/garden/plots', gardensController.getGardenPlots);
 router.post('/garden/plots', gardensController.assignGardenerToPlot);
@@ -47,20 +48,15 @@ router.get('/managers', managersController.getAllManagers);
 
 // Create a new plant
 router.post('/plants', plantController.createPlant); 
-
 // Get all plants
 router.get('/plants', plantController.getAllPlants);
-
 router.get('/plants/popular', plantController.getPopularPlants);
 
 router.get('./grows', plantController.getAllGrows);
 
 router.post('/gardeners', gardenerController.createGardener);
-
 router.get('/gardeners', gardenerController.getAllGardeners);
-
 router.delete('/gardeners', gardenerController.deleteGardeners);
-
 // Update a gardener
 router.put('/gardeners', gardenerController.updateGardener);
 
