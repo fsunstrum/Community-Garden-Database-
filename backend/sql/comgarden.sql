@@ -194,6 +194,12 @@ INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure
 INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) VALUES ('456 Oak St', 'marysmith@outlook.com', 3, 'part shade', 3);
 INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) VALUES ('456 Oak St', 'marysmith@outlook.com', 2, 'part sun', 3);
 INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) VALUES ('789 Pine St', 'jamesj@gmail.com', 5, 'full shade', 4);
+INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) VALUES ('789 Pine St', 'jamesj@gmail.com', 6, 'full shade', 4);
+INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) VALUES ('123 Elm St', 'johndoe@gmail.com', 6, 'full shade', 4);
+INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) VALUES ('123 Elm St', 'johndoe@gmail.com', 5, 'full shade', 4);
+INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) VALUES ('202 Birch St', 'maria_rodriguez@yahoo.com', 5, 'full shade', 4);
+INSERT INTO GardenerPlot (garden_address, gardener_email, plot_num, sun_exposure, plot_size) VALUES ('101 Maple St', 'maria_rodriguez@yahoo.com', 5, 'full shade', 4);
+
 
 INSERT INTO Compost (bin_id, capacity) VALUES (123, 7);
 INSERT INTO Compost (bin_id, capacity) VALUES (001, NULL);
@@ -235,7 +241,7 @@ INSERT INTO Grows (species, genus, variety, plot_num, garden_address, qty, plant
 INSERT INTO Grows (species, genus, variety, plot_num, garden_address, qty, plant_date) VALUES ('Lycopersicon esculentum', 'Lycopersicon', 'roma', 5, '789 Pine St', 20, TO_DATE('2024-04-23', 'YYYY-MM-DD'));
 INSERT INTO Grows (species, genus, variety, plot_num, garden_address, qty, plant_date) VALUES ('Lycopersicon esculentum', 'Lycopersicon', 'roma', 5, '123 Elm St', 5, TO_DATE('2024-05-24', 'YYYY-MM-DD'));
 INSERT INTO Grows (species, genus, variety, plot_num, garden_address, qty, plant_date) VALUES ('Lycopersicon esculentum', 'Lycopersicon', 'roma', 3, '456 Oak St', 4, TO_DATE('2024-05-24', 'YYYY-MM-DD'));
-INSERT INTO Grows (species, genus, variety, plot_num, garden_address, qty, plant_date) VALUES ('Lycopersicon esculentum', 'Lycopersicon', 'roma', 5, '789 Pine St', 5, TO_DATE('2024-05-24', 'YYYY-MM-DD'));
+INSERT INTO Grows (species, genus, variety, plot_num, garden_address, qty, plant_date) VALUES ('Lycopersicon esculentum', 'Lycopersicon', 'roma', 6, '789 Pine St', 5, TO_DATE('2024-05-24', 'YYYY-MM-DD'));
 INSERT INTO Grows (species, genus, variety, plot_num, garden_address, qty, plant_date) VALUES ('Lycopersicon esculentum', 'Lycopersicon', 'roma', 5, '101 Maple St', 4, TO_DATE('2024-05-24', 'YYYY-MM-DD'));
 INSERT INTO Grows (species, genus, variety, plot_num, garden_address, qty, plant_date) VALUES ('Lycopersicon esculentum', 'Lycopersicon', 'roma', 5, '202 Birch St', 4, TO_DATE('2024-05-24', 'YYYY-MM-DD'));
 
