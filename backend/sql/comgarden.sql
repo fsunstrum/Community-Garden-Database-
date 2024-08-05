@@ -146,6 +146,11 @@ INSERT INTO Donation (donation_id, donor_name, don_date, item) VALUES (2, 'Bob',
 INSERT INTO Donation (donation_id, donor_name, don_date, item) VALUES (3, 'Charlie', TO_DATE('2024-07-10', 'YYYY-MM-DD'), 'Carrot Seeds');
 INSERT INTO Donation (donation_id, donor_name, don_date, item) VALUES (4, 'Diana', TO_DATE('2024-07-15', 'YYYY-MM-DD'), 'Grape Tomato Seeds');
 INSERT INTO Donation (donation_id, donor_name, don_date, item) VALUES (5, 'Eve', TO_DATE('2024-07-20', 'YYYY-MM-DD'), 'Lawn Chair');
+INSERT INTO Donation (donation_id, donor_name, don_date, item) VALUES (6, 'Alice', TO_DATE('2024-07-25', 'YYYY-MM-DD'), 'Gardening Gloves');
+INSERT INTO Donation (donation_id, donor_name, don_date, item) VALUES (7, 'Alice', TO_DATE('2024-07-27', 'YYYY-MM-DD'), 'Rake');
+INSERT INTO Donation (donation_id, donor_name, don_date, item) VALUES (8, 'Frank', TO_DATE('2024-08-01', 'YYYY-MM-DD'), 'Watering Can');
+INSERT INTO Donation (donation_id, donor_name, don_date, item) VALUES (9, 'George', TO_DATE('2024-08-01', 'YYYY-MM-DD'), 'Trowel');
+INSERT INTO Donation (donation_id, donor_name, don_date, item) VALUES (10, 'Bob', TO_DATE('2024-08-02', 'YYYY-MM-DD'), 'Shovel');
 
 INSERT INTO GardenInfo (address, garden_name, num_of_plots) VALUES ('123 Elm St', 'Elm Garden', 10);
 INSERT INTO GardenInfo (address, garden_name, num_of_plots) VALUES ('456 Oak St', 'Oak Garden', 15);
@@ -250,5 +255,10 @@ INSERT INTO Receives (donation_id, garden_address) VALUES (2, '456 Oak St');
 INSERT INTO Receives (donation_id, garden_address) VALUES (3, '789 Pine St');
 INSERT INTO Receives (donation_id, garden_address) VALUES (4, '101 Maple St');
 INSERT INTO Receives (donation_id, garden_address) VALUES (5, '202 Birch St');
+INSERT INTO Receives (donation_id, garden_address) VALUES (6, '202 Birch St');
+INSERT INTO Receives (donation_id, garden_address) VALUES (7, '123 Elm St');
+INSERT INTO Receives (donation_id, garden_address) VALUES (8, '202 Birch St');
+INSERT INTO Receives (donation_id, garden_address) VALUES (9, '789 Pine St');
+INSERT INTO Receives (donation_id, garden_address) VALUES (10, '101 Maple St');
 
 COMMIT;
